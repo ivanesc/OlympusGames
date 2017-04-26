@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_inicio"
+            android:icon="@drawable/inicio"
+            android:title="@string/item_inicio" />
+
+    </group>
+
+    <item android:title="@string/item_catálogo">
+
+        <menu>
+
+            <item
+                android:id="@+id/item_plataformas"
+                android:icon="@drawable/plataformas"
+                android:title="@string/item_plataformas" />
+            <item
+                android:id="@+id/item_genero"
+                android:icon="@drawable/genero"
+                android:title="@string/item_genero" />
+            <item
+                android:id="@+id/item_seminuevo"
+                android:icon="@drawable/seminuevo"
+                android:title="@string/item_seminuevo" />
+
+            </menu>
+
+    </item>
+
+
+    <item android:title="@string/item_perfil">
+
+        <menu>
+
+            <item
+                android:id="@+id/item_login"
+                android:icon="@drawable/login"
+                android:title="@string/item_login" />
+            <item
+                android:id="@+id/item_registrar"
+                android:icon="@drawable/registro"
+                android:title="@string/item_registrar" />
+            <item
+                android:id="@+id/item_modificar"
+                android:icon="@drawable/editar"
+                android:title="@string/item_modificar" />
+            <item
+                android:id="@+id/item_listadeseos"
+                android:icon="@drawable/favoritos"
+                android:title="@string/item_listadeseos" />
+            <item
+                android:id="@+id/item_reservas"
+                android:icon="@drawable/reservas"
+                android:title="@string/item_reservas" />
+            <item
+                android:id="@+id/item_cerrar_sesión"
+                android:icon="@drawable/off"
+                android:title="@string/item_cerrar_sesión" />
+
+        </menu>
+
+    </item>
+
+    <item android:title="@string/item_contacto">
+
+        <menu>
+
+            <item
+                android:id="@+id/acercade"
+                android:icon="@drawable/acercade"
+                android:title="@string/item_acercade" />
+            <item
+                android:id="@+id/escribir"
+                android:icon="@drawable/escribenos"
+                android:title="@string/item_escribir" />
+            <item
+                android:id="@+id/ayuda"
+                android:icon="@drawable/help"
+                android:title="@string/item_ayuda" />
+
+
+        </menu>
+
+    </item>
+
+</menu>

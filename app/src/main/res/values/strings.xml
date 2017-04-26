@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Olympus Games</string>
+    <string name="slogan">Tu mejor cadena de tiendas para reserva de juegos</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_search">Buscar</string>
+    <string name="action_carrito">Añadir al carrito</string>
+    <string name="item_inicio">Inicio</string>
+    <string name="item_catálogo">Catálogo</string>
+    <string name="item_plataformas">Plataformas</string>
+    <string name="item_genero">Géneros</string>
+    <string name="item_seminuevo">Seminuevos</string>
+    <string name="item_perfil">Perfil</string>
+    <string name="item_login">Iniciar sesión</string>
+    <string name="item_registrar">Registrarse</string>
+    <string name="item_modificar">Editar cuenta</string>
+    <string name="item_listadeseos">Lista deseos</string>
+    <string name="item_reservas">Tus reservas</string>
+    <string name="item_cerrar_sesión">Cerrar sesión</string>
+    <string name="item_contacto">Contacto</string>
+    <string name="item_acercade">Acerca de</string>
+    <string name="item_escribir">Escríbenos</string>
+    <string name="item_ayuda">Ayuda</string>
+
+    <string name="titulo_tab_novedades">Novedades</string>
+    <string name="titulo_tab_ofertas">Ofertas</string>
+    <string name="titulo_tab_búsquedas">Búsquedas</string>
+
+
+</resources>
