@@ -5,5 +5,5 @@ package com.example.ivan.olympusgames;
  */
 
 public class SQLite {
-
+    public static String table_name = "Cache";
 }
