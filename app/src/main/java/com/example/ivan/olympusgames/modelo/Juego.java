@@ -21,7 +21,7 @@ public class Juego {
 
     public static final List<com.example.ivan.olympusgames.modelo.Juego> OFERTAS = new ArrayList<>();
     public static final List<com.example.ivan.olympusgames.modelo.Juego> BUSQUEDAS = new ArrayList<>();
-    public static final List<com.example.ivan.olympusgames.modelo.Juego> NOVEDADES = new ArrayList<>();
+    public static final List<com.example.ivan.olympusgames.modelo.Juego> NOVEDADES = new ArrayList<>();;
 
     static {
 
