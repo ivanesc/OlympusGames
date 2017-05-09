@@ -1,7 +1,9 @@
 package com.example.ivan.olympusgames;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,15 +18,55 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.example.ivan.olympusgames.R.id.appbar;
+
 public class MainActivity extends AppCompatActivity {
     DrawerLayout drawer;
+
+    MaterialSearchView searchView;
+
+    ListView lstView;
+
+    RelativeLayout contenido;
+
+    AppBarLayout barra;
+
+    Toolbar barra1;
+
+    String[] lstSource = {
+
+            "Harry",
+            "Ron",
+            "Hermione",
+            "Snape",
+            "Malfoy",
+            "One",
+            "Two",
+            "Three",
+            "Four",
+            "Five",
+            "Six",
+            "Seven",
+            "Eight",
+            "Nine",
+            "Ten"
+    };
 
     private ImageSwitcher imageSwitcher;
 
@@ -76,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("Material Search");
 
         //agregarToolbar();
 
@@ -98,6 +141,68 @@ public class MainActivity extends AppCompatActivity {
         nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
         nav_Menu.findItem(R.id.item_reservas).setVisible(false);
         nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
+
+        contenido = (RelativeLayout) findViewById(R.id.content_main);
+
+        barra = (AppBarLayout) findViewById(R.id.appbar);
+
+        barra1 = (Toolbar) findViewById(R.id.toolbar);
+
+        lstView = (ListView)findViewById(R.id.lstView);
+
+        searchView = (MaterialSearchView)findViewById(R.id.search_view);
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+
+            @Override
+            public void onSearchViewShown() {
+                lstView.setVisibility(View.VISIBLE);
+                contenido.setVisibility(View.INVISIBLE);
+                barra.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+
+                //If closed Search View , lstView will return default
+
+                lstView.setVisibility(View.INVISIBLE);
+                //lstView.getLayoutParams().height = 0;
+                //lstView.getLayoutParams().width = 0;
+                contenido.setVisibility(View.VISIBLE);
+                barra.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText != null && !newText.isEmpty()){
+                    List<String> lstFound = new ArrayList<String>();
+                    for(String item:lstSource){
+                        if(item.contains(newText))
+                            lstFound.add(item);
+                    }
+
+                    ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,lstFound);
+                    lstView.setAdapter(adapter);
+                }
+                else{
+                    //if search text is null
+                    //return default
+                    ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,lstSource);
+                    lstView.setAdapter(adapter);
+                }
+                return true;
+            }
+
+        });
     }
 
 
@@ -148,6 +253,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_actividad, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
         return true;
     }
 
