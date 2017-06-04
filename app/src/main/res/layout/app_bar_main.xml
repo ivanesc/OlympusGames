@@ -28,6 +28,7 @@
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:searchBackIcon="@drawable/ic_action_navigation_arrow_back_inverted"

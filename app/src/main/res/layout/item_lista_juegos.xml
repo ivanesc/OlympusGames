@@ -27,6 +27,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/miniatura_juego"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Nombre juego"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold" />

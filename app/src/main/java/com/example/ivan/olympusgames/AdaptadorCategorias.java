@@ -58,7 +58,7 @@ public class AdaptadorCategorias
         com.example.ivan.olympusgames.modelo.Juego item = items.get(i);
 
         Glide.with(viewHolder.itemView.getContext())
-                .load(item.getIdDrawable())
+                .load(item.getDrawable())
                 .centerCrop()
                 .into(viewHolder.imagen);
         viewHolder.nombre.setText(item.getNombre());

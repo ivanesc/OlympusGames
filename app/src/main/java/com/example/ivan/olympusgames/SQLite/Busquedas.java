@@ -143,4 +143,34 @@ public class Busquedas {
 
         return res;
     }
+
+    //Get id en la posición pos
+    public static int getId(Context contexto, int pos) {
+        int cont = 0;
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Busquedas.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Busquedas.Id, SQLite_DB.Tabla_Busquedas.Id_Juego} // Columnas
+                , null // Cláusula where
+                , null // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , ""+pos // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            cont = cursor.getInt(1);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return cont;
+    }
 }

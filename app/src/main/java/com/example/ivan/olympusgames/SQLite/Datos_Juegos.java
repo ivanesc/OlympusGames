@@ -2,9 +2,22 @@ package com.example.ivan.olympusgames.SQLite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.util.Log;
+
+import com.example.ivan.olympusgames.Internet;
+import com.example.ivan.olympusgames.prmja.http.prmja_com;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Fernando on 16/05/2017.
@@ -31,7 +44,7 @@ public class Datos_Juegos {
     public Datos_Juegos(int Id_Juego, String Nombre_Juego, String Descripcion_Juego, String Generos,
                           String Plataformas, String Precios, String Valoraciones, String URL_Icon,
                           String URL_Imagen1, String URL_Imagen2, String URL_Imagen3, String URL_Imagen4,
-                          String URL_Imagen5, Context contexto) {
+                          String URL_Imagen5, Context contexto) throws InterruptedException, ExecutionException, UnsupportedEncodingException {
         this.Id_Juego = Id_Juego;
         this.Nombre_Juego = Nombre_Juego;
         this.Descripcion_Juego = Descripcion_Juego;
@@ -52,7 +65,27 @@ public class Datos_Juegos {
     }
 
     //Agrega un dato a la tabla Datos_Juegos
-    private void add(Context contexto) {
+    private void add(Context contexto) throws InterruptedException, ExecutionException, UnsupportedEncodingException {
+        /* Descargar imagenes */
+        //Caratula
+        Bitmap imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "caratula.jpg");
+        this.URL_Icon = guardarImagen(contexto, this.Nombre_Juego, "caratula.jpg", imagen);
+        //imagen1
+        /*imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "Imagen0.jpg");
+        this.URL_Imagen1 = guardarImagen(contexto, this.Nombre_Juego, "Imagen0.jpg", imagen);
+        //imagen2
+        imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "Imagen1.jpg");
+        this.URL_Imagen2 = guardarImagen(contexto, this.Nombre_Juego, "Imagen1.jpg", imagen);
+        //imagen3
+        imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "Imagen2.jpg");
+        this.URL_Imagen3 = guardarImagen(contexto, this.Nombre_Juego, "Imagen2.jpg", imagen);
+        //imagen4
+        imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "Imagen3.jpg");
+        this.URL_Imagen4 = guardarImagen(contexto, this.Nombre_Juego, "Imagen3.jpg", imagen);
+        //imagen5
+        imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "Imagen4.jpg");
+        this.URL_Imagen5 = guardarImagen(contexto, this.Nombre_Juego, "Imagen4.jpg", imagen);*/
+
         if (olympusgames_db == null) {
             this.olympusgames_db = new SQLite_DB(contexto);
         }
@@ -154,5 +187,71 @@ public class Datos_Juegos {
         cursor.close();
 
         return res;
+    }
+
+    //Get datos de un juego con el id especificado
+    public static String[] getGame(Context contexto, int id) {
+        String cont[] = new String[13];
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Datos_Juegos.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Datos_Juegos.Id_Juego, SQLite_DB.Tabla_Datos_Juegos.Nombre_Juego
+                        , SQLite_DB.Tabla_Datos_Juegos.Descripcion_Juego, SQLite_DB.Tabla_Datos_Juegos.Generos
+                        , SQLite_DB.Tabla_Datos_Juegos.Plataformas, SQLite_DB.Tabla_Datos_Juegos.Precios
+                        , SQLite_DB.Tabla_Datos_Juegos.Valoraciones, SQLite_DB.Tabla_Datos_Juegos.URL_Icon
+                        , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen1, SQLite_DB.Tabla_Datos_Juegos.URL_Imagen2
+                        , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen3, SQLite_DB.Tabla_Datos_Juegos.URL_Imagen4
+                        , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen5} // Columnas
+                , SQLite_DB.Tabla_Datos_Juegos.Id_Juego+"=?" // Cláusula where
+                , new String[]{""+id} // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            cont[0] = cursor.getString(0);
+            cont[1] = cursor.getString(1);
+            cont[2] = cursor.getString(2);
+            cont[3] = cursor.getString(3);
+            cont[4] = cursor.getString(4);
+            cont[5] = cursor.getString(5);
+            cont[6] = cursor.getString(6);
+            cont[7] = cursor.getString(7);
+            cont[8] = cursor.getString(8);
+            cont[9] = cursor.getString(9);
+            cont[10] = cursor.getString(10);
+            cont[11] = cursor.getString(11);
+            cont[12] = cursor.getString(12);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return cont;
+    }
+
+    private String guardarImagen (Context context, String nombre, String image, Bitmap imagen){
+        ContextWrapper cw = new ContextWrapper(context);
+        File dirImages = cw.getDir("Imagenes", Context.MODE_PRIVATE);
+        File myPath = new File(dirImages, nombre+"_"+image);
+
+        FileOutputStream fos = null;
+        try{
+            fos = new FileOutputStream(myPath);
+            imagen.compress(Bitmap.CompressFormat.JPEG, 10, fos);
+            fos.flush();
+        }catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        return myPath.getAbsolutePath();
     }
 }

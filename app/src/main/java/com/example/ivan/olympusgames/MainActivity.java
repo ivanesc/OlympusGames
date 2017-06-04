@@ -13,20 +13,24 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.example.ivan.olympusgames.SQLite.Cache_Busquedas;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -49,24 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
     Toolbar barra1;
 
-    String[] lstSource = {
-
-            "Harry",
-            "Ron",
-            "Hermione",
-            "Snape",
-            "Malfoy",
-            "One",
-            "Two",
-            "Three",
-            "Four",
-            "Five",
-            "Six",
-            "Seven",
-            "Eight",
-            "Nine",
-            "Ten"
-    };
+    List<String> lstFound;
+    String[] lstSource;
+    String palabra_busqueda = "";
+    String filtro_plataforma = "";
+    String filtro_genero = "";
 
     private ImageSwitcher imageSwitcher;
 
@@ -178,13 +169,19 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                palabra_busqueda = query;
+                new Cache_Busquedas(palabra_busqueda, MainActivity.this);
+                //Realizar búsqueda por palabra
+                FragmentoCategoria.Busqueda(palabra_busqueda, filtro_plataforma, filtro_genero, MainActivity.this);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                /* Actualizar cache de búsquedas */
+                lstSource = Cache_Busquedas.get(MainActivity.this);
                 if(newText != null && !newText.isEmpty()){
-                    List<String> lstFound = new ArrayList<String>();
+                    lstFound = new ArrayList<String>();
                     for(String item:lstSource){
                         if(item.contains(newText))
                             lstFound.add(item);
