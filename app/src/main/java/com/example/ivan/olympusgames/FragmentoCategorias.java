@@ -63,7 +63,7 @@ public class FragmentoCategorias extends Fragment {
         AdaptadorSecciones adapter = new AdaptadorSecciones(getFragmentManager());
         adapter.addFragment(FragmentoCategoria.nuevaInstancia(0), getString(R.string.titulo_tab_novedades));
         adapter.addFragment(FragmentoCategoria.nuevaInstancia(1), getString(R.string.titulo_tab_ofertas));
-        adapter.addFragment(FragmentoCategoria.nuevaInstancia(2), getString(R.string.titulo_tab_búsquedas));
+        adapter.addFragment(FragmentoCategoria.nuevaInstancia(2), getString(R.string.titulo_tab_populares));
         viewPager.setAdapter(adapter);
     }
 

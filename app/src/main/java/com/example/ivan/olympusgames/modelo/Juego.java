@@ -20,7 +20,7 @@ public class Juego {
     }
 
     public static final List<com.example.ivan.olympusgames.modelo.Juego> OFERTAS = new ArrayList<>();
-    public static final List<com.example.ivan.olympusgames.modelo.Juego> BUSQUEDAS = new ArrayList<>();
+    public static final List<com.example.ivan.olympusgames.modelo.Juego> POPULARES = new ArrayList<>();
     public static final List<com.example.ivan.olympusgames.modelo.Juego> NOVEDADES = new ArrayList<>();
 
     static {
@@ -35,8 +35,8 @@ public class Juego {
         OFERTAS.add(new com.example.ivan.olympusgames.modelo.Juego(5, "Prueba3", R.drawable.ares));
         OFERTAS.add(new com.example.ivan.olympusgames.modelo.Juego(3, "Prueba4", R.drawable.ares));
 
-        BUSQUEDAS.add(new com.example.ivan.olympusgames.modelo.Juego(5, "Prueba5", R.drawable.ares));
-        BUSQUEDAS.add(new com.example.ivan.olympusgames.modelo.Juego(3, "Prueba6", R.drawable.ares));
+        POPULARES.add(new com.example.ivan.olympusgames.modelo.Juego(5, "Prueba5", R.drawable.ares));
+        POPULARES.add(new com.example.ivan.olympusgames.modelo.Juego(3, "Prueba6", R.drawable.ares));
     }
 
     public float getPrecio() {

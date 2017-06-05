@@ -24,7 +24,7 @@
             <item
                 android:id="@+id/item_seminuevo"
                 android:icon="@drawable/seminuevo"
-                android:title="@string/item_seminuevo" />
+                android:title="@string/item_masreservados" />
 
             </menu>
 

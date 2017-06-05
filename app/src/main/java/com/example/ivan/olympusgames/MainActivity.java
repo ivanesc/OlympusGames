@@ -2,6 +2,7 @@ package com.example.ivan.olympusgames;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -228,6 +229,34 @@ public class MainActivity extends AppCompatActivity {
                 itemDrawer.setChecked(true);
                 fragmentoGenerico = new FragmentoCategorias();
                 break;
+            case R.id.item_plataformas:
+                itemDrawer.setChecked(true);
+                startActivity(new Intent(this, Plataformas.class));
+                break;
+            case R.id.acercade:
+                itemDrawer.setChecked(true);
+                startActivity(new Intent(this, AcercaDe.class));
+                break;
+            case R.id.escribir:
+                itemDrawer.setChecked(true);
+                try {
+                    String datosMail = "mailto:olympusgames@gmail.es"
+                            + "?cc=ivanEscobarSanchez@hotmail.com"
+                            + "&subject="
+                            + Uri.encode("Duda acerca producto tienda");
+                    Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse(datosMail));
+                    this.startActivity(email);
+                    break;
+                } catch (ActivityNotFoundException e) {
+                Toast.makeText(this
+                    , "ActivityNotFound "+e.getMessage()
+                    , Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.ayuda:
+                itemDrawer.setChecked(true);
+                startActivity(new Intent(this, Ayuda.class));
+                break;
         }
         if (fragmentoGenerico != null) {
             fragmentManager
@@ -264,6 +293,8 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                 drawer.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.action_carrito:
+                startActivity(new Intent(this, Carrito.class));
         }
         return super.onOptionsItemSelected(item);
     }

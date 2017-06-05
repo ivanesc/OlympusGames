@@ -47,7 +47,7 @@ public class FragmentoCategoria extends Fragment {
                 adaptador = new AdaptadorCategorias(com.example.ivan.olympusgames.modelo.Juego.OFERTAS);
                 break;
             case 2:
-                adaptador = new AdaptadorCategorias(com.example.ivan.olympusgames.modelo.Juego.BUSQUEDAS);
+                adaptador = new AdaptadorCategorias(com.example.ivan.olympusgames.modelo.Juego.POPULARES);
                 break;
         }
 

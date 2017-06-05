@@ -10,7 +10,7 @@
     <string name="item_catálogo">Catálogo</string>
     <string name="item_plataformas">Plataformas</string>
     <string name="item_genero">Géneros</string>
-    <string name="item_seminuevo">Seminuevos</string>
+    <string name="item_masreservados">Más reservados</string>
     <string name="item_perfil">Perfil</string>
     <string name="item_login">Iniciar sesión</string>
     <string name="item_registrar">Registrarse</string>
@@ -25,7 +25,17 @@
 
     <string name="titulo_tab_novedades">Novedades</string>
     <string name="titulo_tab_ofertas">Ofertas</string>
-    <string name="titulo_tab_búsquedas">Búsquedas</string>
+    <string name="titulo_tab_populares">Populares</string>
+
+    <string name="empresa">¿Quiénes somos?</string>
+    <string name="ubicacion">¿Dónde nos encontramos?</string>
+    <string name="ofrecemos">¿Qué ofrecemos a nuestros clientes?</string>
+    <string name="mejores">¿Por qué somos los mejores?</string>
+
+    <string name="title_activity_carrito">Carrito</string>
+    <string name="title_activity_plataformas">Plataformas</string>
+    <string name="title_activity_acercade">Acerca de</string>
+    <string name="title_activity_ayuda">Ayuda</string>
 
 
 </resources>
