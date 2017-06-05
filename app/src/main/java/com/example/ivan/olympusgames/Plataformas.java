@@ -173,7 +173,7 @@ public class Plataformas extends AppCompatActivity {
         switch (itemDrawer.getItemId()) {
             case R.id.item_inicio:
                 itemDrawer.setChecked(true);
-                fragmentoGenerico = new FragmentoCategorias();
+                //fragmentoGenerico = new FragmentoCategorias();
                 startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.acercade:

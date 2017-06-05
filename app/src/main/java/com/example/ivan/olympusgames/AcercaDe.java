@@ -173,7 +173,7 @@ public class AcercaDe extends AppCompatActivity {
         switch (itemDrawer.getItemId()) {
             case R.id.item_inicio:
                 itemDrawer.setChecked(true);
-                fragmentoGenerico = new FragmentoCategorias();
+                startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.item_plataformas:
                 itemDrawer.setChecked(true);
@@ -200,12 +200,12 @@ public class AcercaDe extends AppCompatActivity {
                 startActivity(new Intent(this, Ayuda.class));
                 break;
         }
-        if (fragmentoGenerico != null) {
+        /*if (fragmentoGenerico != null) {
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.content_main, fragmentoGenerico)
                     .commit();
-        }
+        }*/
 
         // Setear título actual
         setTitle(itemDrawer.getTitle());
