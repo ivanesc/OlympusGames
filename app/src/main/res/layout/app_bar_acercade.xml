@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.ivan.olympusgames.MainActivity">
+    tools:context="com.example.ivan.olympusgames.AcercaDe">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -29,7 +29,6 @@
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:searchBackIcon="@drawable/ic_action_navigation_arrow_back_inverted"
@@ -47,6 +46,6 @@
         android:divider="#806326"
         android:dividerHeight="2dp" />
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_acercade" />
 
 </android.support.design.widget.CoordinatorLayout>

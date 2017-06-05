@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_plataformas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:background="@color/background"
+    tools:context="com.example.ivan.olympusgames.Plataformas"
+    tools:showIn="@layout/app_bar_plataformas">
+
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="20dp"
+        android:stretchColumns="*">
+
+        <TableRow android:layout_marginTop="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/button00"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:srcCompat="@drawable/pc" />
+
+                <TextView
+                    android:id="@+id/pc"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/button00"
+                    android:background="@color/accentColor"
+                    android:text="PC"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                    android:textSize="30sp"
+                    android:textStyle="normal|bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="40dp">
+
+                <ImageButton
+                    android:id="@+id/button01"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:srcCompat="@drawable/n3ds" />
+
+                <TextView
+                    android:id="@+id/n3ds"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/button01"
+                    android:background="@color/accentColor"
+                    android:text="N3DS"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                    android:textSize="30sp"
+                    android:textStyle="normal|bold" />
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/button10"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:srcCompat="@drawable/pc" />
+
+                <TextView
+                    android:id="@+id/xbox"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/button10"
+                    android:background="@color/accentColor"
+                    android:text="XboxOne"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                    android:textSize="30sp"
+                    android:textStyle="normal|bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="40dp">
+
+                <ImageButton
+                    android:id="@+id/button11"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:srcCompat="@drawable/n3ds" />
+
+                <TextView
+                    android:id="@+id/wiiu"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/button11"
+                    android:background="@color/accentColor"
+                    android:text="WiiU"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                    android:textSize="30sp"
+                    android:textStyle="normal|bold" />
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/button30"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:srcCompat="@drawable/pc" />
+
+                <TextView
+                    android:id="@+id/PS4"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/button30"
+                    android:background="@color/accentColor"
+                    android:text="PS4"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                    android:textSize="30sp"
+                    android:textStyle="normal|bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="40dp">
+
+                <ImageButton
+                    android:id="@+id/button31"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:srcCompat="@drawable/n3ds" />
+
+                <TextView
+                    android:id="@+id/nswitch"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/button31"
+                    android:background="@color/accentColor"
+                    android:text="Switch"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                    android:textSize="30sp"
+                    android:textStyle="normal|bold" />
+
+            </RelativeLayout>
+
+        </TableRow>
+
+    </TableLayout>
+</RelativeLayout>

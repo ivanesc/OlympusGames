@@ -10,28 +10,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
-import com.example.ivan.olympusgames.SQLite.Cache_Busquedas;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -39,9 +31,28 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.example.ivan.olympusgames.R.id.appbar;
 
-public class MainActivity extends AppCompatActivity {
+public class Carrito extends AppCompatActivity {
+
+    EditText cantJuego1;
+    EditText cantJuego2;
+    EditText cantJuego3;
+    Button inc1;
+    Button desc1;
+    Button inc2;
+    Button desc2;
+    Button inc3;
+    Button desc3;
+    Button pedidos;
+    String texto;
+    int cant1=1;
+    int cant2=1;
+    int cant3=1;
+    String cant1_mod= "";
+    String cant2_mod= "";
+    String cant3_mod= "";
+    int valorTotal=0;
+
     DrawerLayout drawer;
 
     MaterialSearchView searchView;
@@ -54,65 +65,33 @@ public class MainActivity extends AppCompatActivity {
 
     Toolbar barra1;
 
-    List<String> lstFound;
-    String[] lstSource;
-    String palabra_busqueda = "";
-    String filtro_plataforma = "";
-    String filtro_genero = "";
+    String[] lstSource = {
 
-    private ImageSwitcher imageSwitcher;
+            "Harry",
+            "Ron",
+            "Hermione",
+            "Snape",
+            "Malfoy",
+            "One",
+            "Two",
+            "Three",
+            "Four",
+            "Five",
+            "Six",
+            "Seven",
+            "Eight",
+            "Nine",
+            "Ten"
+    };
 
-    private int[] gallery = { R.drawable.anuncio1, R.drawable.anuncio2, R.drawable.anuncio3, R.drawable.anuncio4};
 
-    private int position=0;
-
-    private static final Integer DURATION = 4500;
-
-    private Timer timer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        imageSwitcher = (ImageSwitcher) findViewById(R.id.imageSwitcher);
-        imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
-
-            public View makeView() {
-                return new ImageView(MainActivity.this);
-            }
-        });
-
-        // Set animations
-        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
-        imageSwitcher.setInAnimation(fadeIn);
-        imageSwitcher.setOutAnimation(fadeOut);
-
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-
-            public void run() {
-                // avoid exception:
-                // "Only the original thread that created a view hierarchy can touch its views"
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        imageSwitcher.setImageResource(gallery[position]);
-                        position++;
-                        if (position == gallery.length) {
-                            position = 0;
-                        }
-                    }
-                });
-            }
-
-        }, 0, DURATION);
-
+        setContentView(R.layout.activity_carrito);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("Material Search");
-
-        //agregarToolbar();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -125,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         if (navigationView != null) {
             prepararDrawer(navigationView);
             // Seleccionar item por defecto
-            seleccionarItem(navigationView.getMenu().getItem(0));
+            //seleccionarItem(navigationView.getMenu().getItem(0));
         }
 
         Menu nav_Menu = navigationView.getMenu();
@@ -134,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
         nav_Menu.findItem(R.id.item_reservas).setVisible(false);
         nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
 
-        contenido = (RelativeLayout) findViewById(R.id.content_main);
+
+        contenido = (RelativeLayout) findViewById(R.id.content_carrito);
 
         barra = (AppBarLayout) findViewById(R.id.appbar);
 
@@ -170,39 +150,161 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                palabra_busqueda = query;
-                new Cache_Busquedas(palabra_busqueda, MainActivity.this);
-                //Realizar búsqueda por palabra
-                FragmentoCategoria.Busqueda(palabra_busqueda, filtro_plataforma, filtro_genero, MainActivity.this);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                /* Actualizar cache de búsquedas */
-                lstSource = Cache_Busquedas.get(MainActivity.this);
                 if(newText != null && !newText.isEmpty()){
-                    lstFound = new ArrayList<String>();
+                    List<String> lstFound = new ArrayList<String>();
                     for(String item:lstSource){
                         if(item.contains(newText))
                             lstFound.add(item);
                     }
 
-                    ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,lstFound);
+                    ArrayAdapter adapter = new ArrayAdapter(Carrito.this,android.R.layout.simple_list_item_1,lstFound);
                     lstView.setAdapter(adapter);
                 }
                 else{
                     //if search text is null
                     //return default
-                    ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,lstSource);
+                    ArrayAdapter adapter = new ArrayAdapter(Carrito.this,android.R.layout.simple_list_item_1,lstSource);
                     lstView.setAdapter(adapter);
                 }
                 return true;
             }
 
         });
-    }
 
+        cantJuego1 = (EditText)findViewById(R.id.cantJuego1);
+        cantJuego2 = (EditText)findViewById(R.id.cantJuego2);
+        cantJuego3 = (EditText)findViewById(R.id.cantJuego3);
+
+        inc1 = (Button)findViewById(R.id.botonInc1);
+        desc1 = (Button)findViewById(R.id.botonDesc1);
+        inc2 = (Button)findViewById(R.id.botonInc2);
+        desc2 = (Button)findViewById(R.id.botonDesc2);
+        inc3 = (Button)findViewById(R.id.botonInc3);
+        desc3 = (Button)findViewById(R.id.botonDesc3);
+        pedidos = (Button)findViewById(R.id.botonPedidos);
+
+        inc1.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v){
+                cant1++;
+                cant1_mod = String.valueOf(cant1);
+                cantJuego1.setText(cant1_mod);
+            }
+        });
+
+        desc1.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v){
+                if(cant1 > 1) {
+                    cant1--;
+                    cant1_mod = String.valueOf(cant1);
+                    cantJuego1.setText(cant1_mod);
+                }
+            }
+        });
+
+        inc2.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v){
+                cant2++;
+                cant2_mod = String.valueOf(cant2);
+                cantJuego2.setText(cant2_mod);
+            }
+        });
+
+        desc2.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v){
+                if(cant2 > 1) {
+                    cant2--;
+                    cant2_mod = String.valueOf(cant2);
+                    cantJuego2.setText(cant2_mod);
+                }
+            }
+        });
+
+        inc3.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v){
+                cant3++;
+                cant3_mod = String.valueOf(cant3);
+                cantJuego3.setText(cant3_mod);
+            }
+        });
+
+        desc3.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v){
+                if(cant3 > 1) {
+                    cant3--;
+                    cant3_mod = String.valueOf(cant3);
+                    cantJuego3.setText(cant3_mod);
+                }
+            }
+        });
+
+        pedidos.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                valorTotal=0;
+                texto="";
+
+
+                    int cant = Integer.valueOf(cantJuego1.getText().toString());
+
+                    int valorproductos = 10;
+
+                    String nombreProductos = "Juego1";
+
+                    int total = cant*valorproductos;
+                    valorTotal = valorTotal+total;
+
+                    texto = texto+" "+nombreProductos+" Cant:"+cant+" total: "+total+" €"+"\n";
+
+
+                    int cant2 = Integer.valueOf(cantJuego2.getText().toString());
+
+                    int valorproductos2 = 20;
+
+                    String nombreProductos2 = "Juego2";
+
+                    int total2 = cant2*valorproductos2;
+                    valorTotal = valorTotal+total2;
+
+                    texto = texto+" "+nombreProductos2+" Cant:"+cant2+" total: "+total2+" €"+"\n";
+
+                    int cant3 = Integer.valueOf(cantJuego3.getText().toString());
+
+                    int valorproductos3 = 5;
+
+                    String nombreProductos3 = "Juego3";
+
+                    int total3 = cant3*valorproductos3;
+                    valorTotal = valorTotal+total3;
+
+                    texto = texto+" "+nombreProductos3+" Cant:"+cant3+" total: "+total3+" €"+"\n";
+
+
+                texto = texto + "===============================";
+                texto = texto+" Valor Totales a Pagar: "+valorTotal+" € \n";
+
+                String enviarPedidos = texto;
+
+
+                Toast.makeText(getApplicationContext(),texto, Toast.LENGTH_LONG).show();
+
+                Intent intentPedidos = new Intent(Carrito.this, Carrito2.class);
+
+                intentPedidos.putExtra("pedidos",enviarPedidos);
+
+
+
+                startActivity(intentPedidos);
+
+            }
+        });
+
+    }
 
     private void prepararDrawer(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
@@ -225,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_inicio:
                 itemDrawer.setChecked(true);
                 fragmentoGenerico = new FragmentoCategorias();
+                startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.item_plataformas:
                 itemDrawer.setChecked(true);
@@ -245,9 +348,9 @@ public class MainActivity extends AppCompatActivity {
                     this.startActivity(email);
                     break;
                 } catch (ActivityNotFoundException e) {
-                Toast.makeText(this
-                    , "ActivityNotFound "+e.getMessage()
-                    , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this
+                            , "ActivityNotFound "+e.getMessage()
+                            , Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.ayuda:
@@ -255,25 +358,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, Ayuda.class));
                 break;
         }
-        if (fragmentoGenerico != null) {
+        /*if (fragmentoGenerico != null) {
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.content_main, fragmentoGenerico)
+                    .replace(R.id.content_carrito2, fragmentoGenerico)
                     .commit();
-        }
+        }*/
 
         // Setear título actual
         setTitle(itemDrawer.getTitle());
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
@@ -295,40 +388,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    // Stops the slider when the Activity is going into the background
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (timer != null) {
-            timer.cancel();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (timer != null) {
-            timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
-
-                public void run() {
-                    // avoid exception:
-                    // "Only the original thread that created a view hierarchy can touch its views"
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            imageSwitcher.setImageResource(gallery[position]);
-                            position++;
-                            if (position == gallery.length) {
-                                position = 0;
-                            }
-                        }
-                    });
-                }
-
-            }, 0, DURATION);
-        }
-
-    }
 }
+
 

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/content_acercade"
+    android:background="@color/background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.ivan.olympusgames.AcercaDe"
+    tools:showIn="@layout/app_bar_acercade">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="3.0dip"
+        android:layout_marginEnd="3.0dip"
+        android:layout_marginStart="3.0dip"
+        android:layout_marginTop="100.0dip"
+        card_view:cardBackgroundColor="#7AA694"
+        card_view:cardCornerRadius="30.0dip"
+        card_view:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16.0dip">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.0dip"
+                android:layout_weight="20.0"
+                android:paddingBottom="13.0dip"
+                android:paddingStart="16.0dip"
+                android:paddingTop="13.0dip"
+                android:text="@string/empresa"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/color_white"
+                android:textSize="17.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="left"
+                android:paddingBottom="10.0dip"
+                android:paddingEnd="30.0dip"
+                android:paddingStart="15.0dip"
+                android:paddingTop="0.0dip"
+                android:text="Cadena de tiendas Olympus Games"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="3.0dip"
+        android:layout_marginEnd="3.0dip"
+        android:layout_marginStart="3.0dip"
+        android:layout_marginTop="6.0dip"
+        card_view:cardBackgroundColor="#7AA694"
+        card_view:cardCornerRadius="30.0dip">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16.0dip">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.0dip"
+                android:layout_weight="20.0"
+                android:paddingBottom="13.0dip"
+                android:paddingStart="16.0dip"
+                android:paddingTop="13.0dip"
+                android:text="@string/ubicacion"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/color_white"
+                android:textSize="17.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingBottom="10.0dip"
+                android:paddingEnd="30.0dip"
+                android:paddingStart="15.0dip"
+                android:paddingTop="0.0dip"
+                android:text="Tiendas repartidas por el territorio andaluz principalmente"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="3.0dip"
+        android:layout_marginEnd="3.0dip"
+        android:layout_marginStart="3.0dip"
+        android:layout_marginTop="6.0dip"
+        card_view:cardBackgroundColor="#7AA694"
+        card_view:cardCornerRadius="30.0dip">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16.0dip">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.0dip"
+                android:layout_weight="20.0"
+                android:paddingBottom="13.0dip"
+                android:paddingStart="16.0dip"
+                android:paddingTop="13.0dip"
+                android:text="@string/ofrecemos"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/color_white"
+                android:textSize="17.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingBottom="10.0dip"
+                android:paddingEnd="30.0dip"
+                android:paddingStart="15.0dip"
+                android:paddingTop="0.0dip"
+                android:text="Amplia gama de juegos, ofertas novedosas y especial atención a las reservas que recibimos"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="3.0dip"
+        android:layout_marginEnd="3.0dip"
+        android:layout_marginStart="3.0dip"
+        android:layout_marginTop="6.0dip"
+        card_view:cardBackgroundColor="#7AA694"
+        card_view:cardCornerRadius="30.0dip">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16.0dip">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.0dip"
+                android:layout_weight="20.0"
+                android:paddingBottom="13.0dip"
+                android:paddingStart="16.0dip"
+                android:paddingTop="13.0dip"
+                android:text="@string/mejores"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/color_white"
+                android:textSize="17.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="62dp"
+                android:gravity="start"
+                android:paddingBottom="10.0dip"
+                android:paddingEnd="30.0dip"
+                android:paddingStart="15.0dip"
+                android:paddingTop="0.0dip"
+                android:text="Nuestras ventas nos avalan frente a la competencia. Contamos con un equipo con gran experiencia en el mundo de los videojuegos. "
+                android:textSize="14dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

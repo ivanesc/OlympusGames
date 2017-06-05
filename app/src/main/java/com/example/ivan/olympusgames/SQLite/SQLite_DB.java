@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLite_DB extends SQLiteOpenHelper {
 
     private static final String NOMBRE_BASE_DATOS = "olympusgames.db";
-    private static final int VERSION_ACTUAL = 3;
+    private static final int VERSION_ACTUAL = 13;
     private final Context contexto;
 
     public static class Tabla_Datos_Juegos {
@@ -155,7 +155,7 @@ public class SQLite_DB extends SQLiteOpenHelper {
         * id_juego text
         * cantidad integer
         */
-        public static final String Nombre_Tabla = "preferencias_usuario";
+        public static final String Nombre_Tabla = "carrito";
         public static final String Id = "id";
         public static final String Id_Juego = "id_juego";
         public static final String Cantidad = "cantidad";
@@ -166,7 +166,7 @@ public class SQLite_DB extends SQLiteOpenHelper {
         * id integer primary key autoincrement
         * busqueda text
         */
-        public static final String Nombre_Tabla = "preferencias_usuario";
+        public static final String Nombre_Tabla = "cache_busquedas";
         public static final String Id = "id";
         public static final String Busqueda = "busqueda";
     }
@@ -193,7 +193,7 @@ public class SQLite_DB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Crear tabla Datos_Juegos
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY," + "%s TEXT," +
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY," + "%s TEXT," +
                         "%s TEXT,%s TEXT,%s TEXT,%s TEXT,%s TEXT,%s TEXT,%s TEXT,%s TEXT,"+
                         "%s TEXT,%s TEXT,%s TEXT);",
                 Tabla_Datos_Juegos.Nombre_Tabla, Tabla_Datos_Juegos.Id_Juego, Tabla_Datos_Juegos.Nombre_Juego,
@@ -202,50 +202,50 @@ public class SQLite_DB extends SQLiteOpenHelper {
                 Tabla_Datos_Juegos.URL_Imagen1, Tabla_Datos_Juegos.URL_Imagen2, Tabla_Datos_Juegos.URL_Imagen3,
                 Tabla_Datos_Juegos.URL_Imagen4, Tabla_Datos_Juegos.URL_Imagen5));
         //Crear tabla Novedades
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
                 Tabla_Novedades.Nombre_Tabla, Tabla_Novedades.Id,
                 Tabla_Novedades.Id_Juego));
         //Crear tabla Ofertas
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
                 Tabla_Ofertas.Nombre_Tabla, Tabla_Ofertas.Id,
                 Tabla_Ofertas.Id_Juego));
         //Crear tabla Busquedas
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
                 Tabla_Busquedas.Nombre_Tabla, Tabla_Busquedas.Id,
                 Tabla_Busquedas.Id_Juego));
         //Crear tabla Comentarios
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER," +
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER," +
                         "%s TEXT, %s TEXT);",
                 Tabla_Comentarios.Nombre_Tabla, Tabla_Comentarios.Id, Tabla_Comentarios.Id_Juego,
                 Tabla_Comentarios.Usuario, Tabla_Comentarios.Comentario));
         //Crear tabla Reservas
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER," +
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER," +
                         "%s TEXT, %s DATE, %s TEXT, %s TEXT);",
                 Tabla_Reservas.Nombre_Tabla, Tabla_Reservas.Id, Tabla_Reservas.Num_Juegos,
                 Tabla_Reservas.Precio_Total, Tabla_Reservas.Fecha, Tabla_Reservas.Tienda,
                 Tabla_Reservas.Lista_Juegos));
         //Crear tabla Lista_Deseados
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
                 Tabla_Lista_Deseados.Nombre_Tabla, Tabla_Lista_Deseados.Id,
                 Tabla_Lista_Deseados.Id_Juego));
         //Crear tabla Banner
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT," +
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT," +
                         "%s TEXT, %s TEXT, %s TEXT);",
                 Tabla_Banner.Nombre_Tabla, Tabla_Banner.Id, Tabla_Banner.Url_Imagen1,
                 Tabla_Banner.Url_Imagen2, Tabla_Banner.Url_Imagen3, Tabla_Banner.Url_Imagen4));
         //Crear tabla Preferencias_Usuario
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT," +
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT," +
                         "%s TEXT, %s TEXT, %s TEXT);",
                 Tabla_Preferencias_Usuario.Nombre_Tabla, Tabla_Preferencias_Usuario.Id,
                 Tabla_Preferencias_Usuario.Nombre, Tabla_Preferencias_Usuario.Url_Imagen,
                 Tabla_Preferencias_Usuario.Token, Tabla_Preferencias_Usuario.Tienda_Preferida));
         //Crear tabla Tabla_Carrito
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT," +
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT," +
                         "%s INTEGER);",
                 Tabla_Carrito.Nombre_Tabla, Tabla_Carrito.Id, Tabla_Carrito.Id_Juego,
                 Tabla_Carrito.Cantidad));
         //Crear tabla Tabla_Cache_Busquedas
-        db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT);",
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT);",
                 Tabla_Cache_Busquedas.Nombre_Tabla, Tabla_Cache_Busquedas.Id, Tabla_Cache_Busquedas.Busqueda));
     }
 
