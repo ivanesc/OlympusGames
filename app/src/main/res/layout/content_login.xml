@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content_login"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:tileMode="repeat"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.ivan.olympusgames.Login"
+    tools:showIn="@layout/app_bar_login" >
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:padding="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_label_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:gravity="center"
+                android:text="ACCEDE YA A NUESTROS SERVICIOS"
+                android:textColor="@color/color_black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_label_email"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:text="Nombre de usuario"
+                android:textColor="@color/color_black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edit_email"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@color/blue_grey"
+                android:hint=""
+                android:inputType="textEmailAddress"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/color_white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_label_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:text="Password"
+                android:textColor="@color/color_black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edit_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@color/blue_grey"
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/color_white"
+                android:textSize="20sp" />
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/but_save"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="2"
+                    android:background="#FF415842"
+                    android:text="ENTRAR"
+                    android:textColor="@color/color_white"
+                    android:textSize="17sp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_label_accountinfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="¿Aún no tienes cuenta en Olympus Games? Es requerida para hacer tus reservas."
+                android:textColor="@color/color_black"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/but_create"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="2"
+                    android:background="#FF415842"
+                    android:text="REGISTRARSE"
+                    android:textColor="@color/color_white"
+                    android:textSize="17sp" />
+
+                <Button
+                    android:id="@+id/but_forgot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="2"
+                    android:background="#FF415842"
+                    android:text="¿OLVIDASTE TU CONTRASEÑA?"
+                    android:textColor="@color/color_white"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

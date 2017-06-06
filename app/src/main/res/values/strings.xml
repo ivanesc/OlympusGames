@@ -33,6 +33,7 @@
     <string name="mejores">¿Por qué somos los mejores?</string>
 
     <string name="title_activity_carrito">Carrito</string>
+    <string name="title_activity_login">Login</string>
     <string name="title_activity_plataformas">Plataformas</string>
     <string name="title_activity_acercade">Acerca de</string>
     <string name="title_activity_ayuda">Ayuda</string>

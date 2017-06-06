@@ -175,6 +175,10 @@ public class AcercaDe extends AppCompatActivity {
                 itemDrawer.setChecked(true);
                 startActivity(new Intent(this, MainActivity.class));
                 break;
+            case R.id.item_login:
+                itemDrawer.setChecked(true);
+                startActivity(new Intent(this, Login.class));
+                break;
             case R.id.item_plataformas:
                 itemDrawer.setChecked(true);
                 startActivity(new Intent(this, Plataformas.class));
