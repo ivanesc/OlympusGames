@@ -12,9 +12,6 @@ import com.example.ivan.olympusgames.R;
 
 import java.util.List;
 
-/**
- * Adaptador para comidas usadas en la sección "Categorías"
- */
 public class AdaptadorCategorias
         extends RecyclerView.Adapter<AdaptadorCategorias.ViewHolder> {
 

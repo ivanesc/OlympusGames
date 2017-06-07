@@ -122,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
+        //int idinicio = navigationView.getMenu().findItem(R.id.item_listadeseos).getItemId();
+
         if (navigationView != null) {
             prepararDrawer(navigationView);
             // Seleccionar item por defecto
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.item_modificar).setVisible(false);
-        nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
+        //nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
         nav_Menu.findItem(R.id.item_reservas).setVisible(false);
         nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
 
@@ -218,21 +220,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void seleccionarItem(MenuItem itemDrawer) {
-        Fragment fragmentoGenerico = null;
+        Fragment fragmentoGenerico1 = null;
+        Fragment fragmentoGenerico2 = null;
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         switch (itemDrawer.getItemId()) {
             case R.id.item_inicio:
                 itemDrawer.setChecked(true);
-                fragmentoGenerico = new FragmentoCategorias();
+                fragmentoGenerico1 = new FragmentoCategorias();
                 break;
             case R.id.item_login:
                 itemDrawer.setChecked(true);
                 startActivity(new Intent(this, Login.class));
                 break;
+            case R.id.item_registrar:
+                itemDrawer.setChecked(true);
+                startActivity(new Intent(this, Registro.class));
+                break;
+            case R.id.item_modificar:
+                itemDrawer.setChecked(true);
+                startActivity(new Intent(this, ModificarPerfil.class));
+                break;
             case R.id.item_plataformas:
                 itemDrawer.setChecked(true);
                 startActivity(new Intent(this, Plataformas.class));
+                break;
+            case R.id.item_listadeseos:
+                itemDrawer.setChecked(true);
+                startActivity(new Intent(this, ListaDeseos1.class));
                 break;
             case R.id.acercade:
                 itemDrawer.setChecked(true);
@@ -259,10 +274,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, Ayuda.class));
                 break;
         }
-        if (fragmentoGenerico != null) {
+        if (fragmentoGenerico1 != null) {
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.content_main, fragmentoGenerico)
+                    .replace(R.id.content_main, fragmentoGenerico1)
                     .commit();
         }
 

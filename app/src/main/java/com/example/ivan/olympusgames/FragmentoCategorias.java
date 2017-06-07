@@ -19,11 +19,6 @@ import com.example.ivan.olympusgames.R;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * Fragmento que contiene otros fragmentos anidados para representar las categorías
- * de comidas
- */
 public class FragmentoCategorias extends Fragment {
     private AppBarLayout appBarLayout;
     private TabLayout tabLayout;

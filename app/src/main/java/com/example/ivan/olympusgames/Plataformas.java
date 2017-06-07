@@ -166,50 +166,10 @@ public class Plataformas extends AppCompatActivity {
 
     }
 
-    private void seleccionarItem(MenuItem itemDrawer) {
-        Fragment fragmentoGenerico = null;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        switch (itemDrawer.getItemId()) {
-            case R.id.item_inicio:
-                itemDrawer.setChecked(true);
-                //fragmentoGenerico = new FragmentoCategorias();
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-            case R.id.acercade:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, AcercaDe.class));
-                break;
-            case R.id.escribir:
-                itemDrawer.setChecked(true);
-                try {
-                    String datosMail = "mailto:olympusgames@gmail.es"
-                            + "?cc=ivanEscobarSanchez@hotmail.com"
-                            + "&subject="
-                            + Uri.encode("Duda acerca producto tienda");
-                    Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse(datosMail));
-                    this.startActivity(email);
-                    break;
-                } catch (ActivityNotFoundException e) {
-                    Toast.makeText(this
-                            , "ActivityNotFound "+e.getMessage()
-                            , Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.ayuda:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, Ayuda.class));
-                break;
-        }
-        /*if (fragmentoGenerico != null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.content_carrito2, fragmentoGenerico)
-                    .commit();
-        }*/
-
-        // Setear título actual
-        setTitle(itemDrawer.getTitle());
+    public boolean seleccionarItem(MenuItem itemDrawer) {
+            // Setear título actual
+            setTitle(itemDrawer.getTitle());
+            return (new DrawerManager()).onNavigationItemSelected(this, itemDrawer);
     }
 
     @Override

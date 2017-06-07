@@ -86,7 +86,7 @@ public class AcercaDe extends AppCompatActivity {
 
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.item_modificar).setVisible(false);
-        nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
+        //nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
         nav_Menu.findItem(R.id.item_reservas).setVisible(false);
         nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
 
@@ -166,53 +166,10 @@ public class AcercaDe extends AppCompatActivity {
 
     }
 
-    private void seleccionarItem(MenuItem itemDrawer) {
-        Fragment fragmentoGenerico = null;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        switch (itemDrawer.getItemId()) {
-            case R.id.item_inicio:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-            case R.id.item_login:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, Login.class));
-                break;
-            case R.id.item_plataformas:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, Plataformas.class));
-                break;
-            case R.id.escribir:
-                itemDrawer.setChecked(true);
-                try {
-                    String datosMail = "mailto:olympusgames@gmail.es"
-                            + "?cc=ivanEscobarSanchez@hotmail.com"
-                            + "&subject="
-                            + Uri.encode("Duda acerca producto tienda");
-                    Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse(datosMail));
-                    this.startActivity(email);
-                    break;
-                } catch (ActivityNotFoundException e) {
-                    Toast.makeText(this
-                            , "ActivityNotFound "+e.getMessage()
-                            , Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.ayuda:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, Ayuda.class));
-                break;
-        }
-        /*if (fragmentoGenerico != null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.content_main, fragmentoGenerico)
-                    .commit();
-        }*/
-
+    public boolean seleccionarItem(MenuItem itemDrawer) {
         // Setear título actual
         setTitle(itemDrawer.getTitle());
+        return (new DrawerManager()).onNavigationItemSelected(this, itemDrawer);
     }
 
     @Override

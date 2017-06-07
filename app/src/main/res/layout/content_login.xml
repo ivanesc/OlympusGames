@@ -41,7 +41,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tv_label_email"
+                android:id="@+id/label_loguser"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
@@ -52,13 +52,12 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/edit_email"
+                android:id="@+id/log_user"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
-                android:hint=""
-                android:inputType="textEmailAddress"
+                android:hint="Escribe tu nombre de usuario"
                 android:padding="5dp"
                 android:text=""
                 android:textColor="@color/color_white"
@@ -76,11 +75,12 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/edit_password"
+                android:id="@+id/log_password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
+                android:hint="Escribe tu contraseña"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:text=""
@@ -95,7 +95,7 @@
                 android:gravity="center" >
 
                 <Button
-                    android:id="@+id/but_save"
+                    android:id="@+id/but_enter_user"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
