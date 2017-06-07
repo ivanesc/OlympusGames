@@ -72,6 +72,13 @@
         </activity>
 
         <activity
+            android:name=".ModificarPerfil"
+            android:label="@string/title_activity_modificarperfil"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
             android:name=".Plataformas"
             android:label="@string/title_activity_plataformas"
             android:theme="@style/AppTheme.NoActionBar"

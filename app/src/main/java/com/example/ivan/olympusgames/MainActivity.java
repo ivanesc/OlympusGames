@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.item_modificar).setVisible(false);
+        //nav_Menu.findItem(R.id.item_modificar).setVisible(false);
         //nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
         nav_Menu.findItem(R.id.item_reservas).setVisible(false);
         nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);

@@ -1,0 +1,140 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/content_modificar_perfil"
+    android:background="@color/background"
+    android:tileMode="repeat"
+    tools:context="com.example.ivan.olympusgames.ModificarPerfil"
+    tools:showIn="@layout/app_bar_modificar_perfil">
+
+    <ImageView
+        android:id="@+id/fondoperfil2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_head"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/buttonFotoPerfil2"
+                    android:layout_width="350dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    app:srcCompat="@drawable/fotoperfil" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_label_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:text="Contraseña anterior"
+                android:textColor="@color/color_black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edit_password_old"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@color/blue_grey"
+                android:hint="Contraseña anterior..."
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/color_white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_label_new_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:text="Nueva contraseña"
+                android:textColor="@color/color_black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edit_new_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@color/blue_grey"
+                android:hint="Introduce tu contraseña..."
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/color_white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_label_confirm_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:text="Confirmar contraseña"
+                android:textColor="@color/color_black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edit_confirm_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@color/blue_grey"
+                android:hint="Confirma tu contraseña..."
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/color_white"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/but_save_change"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="2"
+                    android:background="#FF415842"
+                    android:text="GUARDAR"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
