@@ -2,6 +2,7 @@ package com.example.ivan.olympusgames;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -13,15 +14,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.ivan.olympusgames.SQLite.Preferencias_Usuario;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -41,24 +46,10 @@ public class Login extends AppCompatActivity {
 
     Toolbar barra1;
 
-    String[] lstSource = {
-
-            "Harry",
-            "Ron",
-            "Hermione",
-            "Snape",
-            "Malfoy",
-            "One",
-            "Two",
-            "Three",
-            "Four",
-            "Five",
-            "Six",
-            "Seven",
-            "Eight",
-            "Nine",
-            "Ten"
-    };
+    EditText usuario;
+    EditText pass;
+    Button boton;
+    Button boton_registrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,58 +91,88 @@ public class Login extends AppCompatActivity {
         lstView = (ListView)findViewById(R.id.lstView);
 
         searchView = (MaterialSearchView)findViewById(R.id.search_view);
+        SearchView.addSearchViewListener(searchView, lstView, contenido, barra);
+        SearchView.addQueryTextListener(searchView, lstView, Login.this);
 
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+        usuario = (EditText)findViewById(R.id.log_user);
+        pass = (EditText)findViewById(R.id.log_password);
+
+        boton_registrar = (Button)findViewById(R.id.but_create);
+        boton_registrar.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onSearchViewShown() {
-                lstView.setVisibility(View.VISIBLE);
-                contenido.setVisibility(View.INVISIBLE);
-                barra.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-
-                //If closed Search View , lstView will return default
-
-                lstView.setVisibility(View.INVISIBLE);
-                //lstView.getLayoutParams().height = 0;
-                //lstView.getLayoutParams().width = 0;
-                contenido.setVisibility(View.VISIBLE);
-                barra.setVisibility(View.VISIBLE);
-
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, Registro.class));
             }
         });
 
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+        boton = (Button)findViewById(R.id.but_enter_user);
+        boton.setOnClickListener(new View.OnClickListener() {
+            String user, password;
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                if(newText != null && !newText.isEmpty()){
-                    List<String> lstFound = new ArrayList<String>();
-                    for(String item:lstSource){
-                        if(item.contains(newText))
-                            lstFound.add(item);
-                    }
+            public void onClick(View v) {
+                int err = 0;
+                user = usuario.getText().toString();
+                password = pass.getText().toString();
 
-                    ArrayAdapter adapter = new ArrayAdapter(Login.this,android.R.layout.simple_list_item_1,lstFound);
-                    lstView.setAdapter(adapter);
+                usuario.setBackground(new ColorDrawable(0xFF455A64));
+                pass.setBackground(new ColorDrawable(0xFF455A64));
+
+                //Comprobar si existe algún error
+                if(user.equals("")) err = 1;
+                else if(password.equals("")) err = 2;
+                else if(isNumeric(user)) err = 3;
+                else if(password.length() > 8) err = 4;
+
+                switch(err){
+                    case 0: //No hay errores en los datos de entrada. Enviar petición
+                        String res = Internet.login(user, password);
+                        res = res.substring(res.indexOf("msj-start")+9, res.indexOf("msj-end"));
+                        if(res.equals("error")){
+                            usuario.setBackground(new ColorDrawable(0xFFFF0000));
+                            pass.setBackground(new ColorDrawable(0xFFFF0000));
+                            Toast.makeText(getApplicationContext(),
+                                    "No se pudo iniciar sesión. Datos incorrectos.", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(),
+                                    "Has iniciado sesión con éxito.", Toast.LENGTH_SHORT).show();
+                            new Preferencias_Usuario(user,password,res,"",Login.this);
+                            startActivity(new Intent(Login.this, MainActivity.class));
+                        }
+                        break;
+                    case 1: //Nombre de usuario vacío
+                        usuario.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "No has introducido el nombre de usuario.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2: //Password vacía
+                        pass.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "No has introducido la contraseña.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3: //Nombre de usuario introducido no cumple con el formato
+                        usuario.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "Debes introducir letras en el nombre de usuario.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4: //Contraseña introducida no cumple con el formato
+                        pass.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "El número máximo de caracteres para la contraseña es 8.", Toast.LENGTH_SHORT).show();
+                        break;
                 }
-                else{
-                    //if search text is null
-                    //return default
-                    ArrayAdapter adapter = new ArrayAdapter(Login.this,android.R.layout.simple_list_item_1,lstSource);
-                    lstView.setAdapter(adapter);
-                }
-                return true;
             }
-
         });
+    }
+
+    private static boolean isNumeric(String cadena){
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
     }
 
     private void prepararDrawer(NavigationView navigationView) {

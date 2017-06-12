@@ -54,12 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
     Toolbar barra1;
 
-    List<String> lstFound;
-    String[] lstSource;
-    String palabra_busqueda = "";
-    String filtro_plataforma = "";
-    String filtro_genero = "";
-
     private ImageSwitcher imageSwitcher;
 
     private int[] gallery = { R.drawable.anuncio1, R.drawable.anuncio2, R.drawable.anuncio3, R.drawable.anuncio4};
@@ -145,64 +139,8 @@ public class MainActivity extends AppCompatActivity {
         lstView = (ListView)findViewById(R.id.lstView);
 
         searchView = (MaterialSearchView)findViewById(R.id.search_view);
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-
-            @Override
-            public void onSearchViewShown() {
-                lstView.setVisibility(View.VISIBLE);
-                contenido.setVisibility(View.INVISIBLE);
-                barra.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-
-                //If closed Search View , lstView will return default
-
-                lstView.setVisibility(View.INVISIBLE);
-                //lstView.getLayoutParams().height = 0;
-                //lstView.getLayoutParams().width = 0;
-                contenido.setVisibility(View.VISIBLE);
-                barra.setVisibility(View.VISIBLE);
-
-            }
-        });
-
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                palabra_busqueda = query;
-                new Cache_Busquedas(palabra_busqueda, MainActivity.this);
-                //Realizar búsqueda por palabra
-                FragmentoCategoria.Busqueda(palabra_busqueda, filtro_plataforma, filtro_genero, MainActivity.this);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                /* Actualizar cache de búsquedas */
-                lstSource = Cache_Busquedas.get(MainActivity.this);
-                if(newText != null && !newText.isEmpty()){
-                    lstFound = new ArrayList<String>();
-                    for(String item:lstSource){
-                        if(item.contains(newText))
-                            lstFound.add(item);
-                    }
-
-                    ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,lstFound);
-                    lstView.setAdapter(adapter);
-                }
-                else{
-                    //if search text is null
-                    //return default
-                    ArrayAdapter adapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,lstSource);
-                    lstView.setAdapter(adapter);
-                }
-                return true;
-            }
-
-        });
+        com.example.ivan.olympusgames.SearchView.addSearchViewListener(searchView, lstView, contenido, barra);
+        com.example.ivan.olympusgames.SearchView.addQueryTextListener(searchView, lstView, MainActivity.this);
     }
 
 

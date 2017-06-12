@@ -16,14 +16,15 @@ public class Preferencias_Usuario {
 
     int Id = 1;
     String Nombre;
+    String Pass;
     String Url_Imagen;
     String Token;
     String Tienda_Preferida;
 
-    public Preferencias_Usuario(String Nombre, String Url_Imagen, String Token, String Tienda_Preferida,
+    public Preferencias_Usuario(String Nombre, String Pass, String Token, String Tienda_Preferida,
                                 Context contexto) {
         this.Nombre = Nombre;
-        this.Url_Imagen = Url_Imagen;
+        this.Pass = Pass;
         this.Token = Token;
         this.Tienda_Preferida = Tienda_Preferida;
 
@@ -31,7 +32,7 @@ public class Preferencias_Usuario {
         if(getAll(contexto) == 0){
             add(contexto);
         }else{
-            update(contexto, this.Id);
+            update(contexto);
         }
     }
 
@@ -45,8 +46,7 @@ public class Preferencias_Usuario {
         ContentValues values = new ContentValues();
         values.put(SQLite_DB.Tabla_Preferencias_Usuario.Id, this.Id);
         values.put(SQLite_DB.Tabla_Preferencias_Usuario.Nombre, this.Nombre);
-        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Nombre, this.Nombre);
-        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Url_Imagen, this.Url_Imagen);
+        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Pass, this.Pass);
         values.put(SQLite_DB.Tabla_Preferencias_Usuario.Token, this.Token);
         values.put(SQLite_DB.Tabla_Preferencias_Usuario.Tienda_Preferida, this.Tienda_Preferida);
 
@@ -55,7 +55,7 @@ public class Preferencias_Usuario {
     }
 
     //Actualiza un dato a la tabla Preferencias_Usuario
-    private void update(Context contexto, int id) {
+    private void update(Context contexto) {
         if (olympusgames_db == null) {
             olympusgames_db = new SQLite_DB(contexto);
         }
@@ -63,12 +63,11 @@ public class Preferencias_Usuario {
 
         ContentValues values = new ContentValues();
         values.put(SQLite_DB.Tabla_Preferencias_Usuario.Nombre, this.Nombre);
-        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Nombre, this.Nombre);
-        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Url_Imagen, this.Url_Imagen);
+        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Pass, this.Pass);
         values.put(SQLite_DB.Tabla_Preferencias_Usuario.Token, this.Token);
         values.put(SQLite_DB.Tabla_Preferencias_Usuario.Tienda_Preferida, this.Tienda_Preferida);
 
-        db.update(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, values, SQLite_DB.Tabla_Preferencias_Usuario.Id+"=?", new String[]{"" + id});
+        db.update(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, values, SQLite_DB.Tabla_Preferencias_Usuario.Id+"=?", new String[]{"" + this.Id});
         db.close();
     }
 
@@ -83,7 +82,7 @@ public class Preferencias_Usuario {
         Cursor cursor = db.query(
                 false // Distinct
                 , SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla // Tabla
-                , new String[]{"id", "nombre"} // Columnas
+                , new String[]{SQLite_DB.Tabla_Preferencias_Usuario.Id, SQLite_DB.Tabla_Preferencias_Usuario.Nombre} // Columnas
                 , null // Cláusula where
                 , null // Vector de argumentos
                 , null // Cláusula group by.
@@ -104,5 +103,132 @@ public class Preferencias_Usuario {
 
         Log.e("Datos leidos", "" + cont);
         return cont;
+    }
+
+    //Obtener pass de la tabla Preferencias_Usuario
+    public static String getPass(Context contexto) {
+        String res = "";
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Preferencias_Usuario.Id, SQLite_DB.Tabla_Preferencias_Usuario.Pass} // Columnas
+                , null // Cláusula where
+                , null // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Log.e(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, cursor.getInt(0)
+                    + ": "
+                    + cursor.getString(1));
+            res = cursor.getString(1);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return res;
+    }
+
+    //Actualiza pass de la tabla Preferencias_Usuario
+    public static void setPass(Context contexto, String pass) {
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Pass, pass);
+
+        db.update(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, values, SQLite_DB.Tabla_Preferencias_Usuario.Id+"=?", new String[]{"" + 1});
+        db.close();
+    }
+
+    //Obtener user de la tabla Preferencias_Usuario
+    public static String getUser(Context contexto) {
+        String res = "";
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Preferencias_Usuario.Id, SQLite_DB.Tabla_Preferencias_Usuario.Nombre} // Columnas
+                , null // Cláusula where
+                , null // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Log.e(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, cursor.getInt(0)
+                    + ": "
+                    + cursor.getString(1));
+            res = cursor.getString(1);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return res;
+    }
+
+    //Obtener icon de la tabla Preferencias_Usuario
+    public static String getIcon(Context contexto) {
+        String res = "";
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Preferencias_Usuario.Id, SQLite_DB.Tabla_Preferencias_Usuario.Url_Imagen} // Columnas
+                , null // Cláusula where
+                , null // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Log.e(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, cursor.getInt(0)
+                    + ": "
+                    + cursor.getString(1));
+            res = cursor.getString(1);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return res;
+    }
+
+    //Actualiza image_url de la tabla Preferencias_Usuario
+    public static void setIcon(Context contexto, String icon) {
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Url_Imagen, icon);
+
+        db.update(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, values, SQLite_DB.Tabla_Preferencias_Usuario.Id+"=?", new String[]{"" + 1});
+        db.close();
     }
 }

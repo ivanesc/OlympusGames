@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Internet {
 
-    private static String ip_server = "192.168.1.119:8080";
+    private static String ip_server = "192.168.1.146:8080";
 
     static boolean msjShown = false;
 
@@ -115,6 +115,48 @@ public class Internet {
         String[] params = {"nombre", "" + nombre, "genero", "" + plataforma, "plataforma", "" + genero};
         try {
             res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetBusqueda.jsp", params);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static String addUsuario(String nombre, String pass){
+        String res = "";
+        String[] params = {"nombre_usuario", "" + nombre, "pass", "" + pass};
+        try {
+            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/AddUsuario.jsp", params);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static String login(String nombre, String pass){
+        String res = "";
+        String[] params = {"nombre_usuario", "" + nombre, "pass", "" + pass};
+        try {
+            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/login.jsp", params);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static String updateUsuario(String nombre, String pass){
+        String res = "";
+        String[] params = {"nombre_usuario", "" + nombre, "pass", "" + pass};
+        try {
+            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/UpdateUsuario.jsp", params);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

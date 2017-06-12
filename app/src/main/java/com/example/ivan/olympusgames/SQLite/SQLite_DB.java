@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLite_DB extends SQLiteOpenHelper {
 
     private static final String NOMBRE_BASE_DATOS = "olympusgames.db";
-    private static final int VERSION_ACTUAL = 13;
+    private static final int VERSION_ACTUAL = 17;
     private final Context contexto;
 
     public static class Tabla_Datos_Juegos {
@@ -144,6 +144,7 @@ public class SQLite_DB extends SQLiteOpenHelper {
         public static final String Nombre_Tabla = "preferencias_usuario";
         public static final String Id = "id";
         public static final String Nombre = "nombre";
+        public static final String Pass = "pass";
         public static final String Url_Imagen = "url_imagen";
         public static final String Token = "token";
         public static final String Tienda_Preferida = "tienda_preferida";
@@ -234,11 +235,12 @@ public class SQLite_DB extends SQLiteOpenHelper {
                 Tabla_Banner.Nombre_Tabla, Tabla_Banner.Id, Tabla_Banner.Url_Imagen1,
                 Tabla_Banner.Url_Imagen2, Tabla_Banner.Url_Imagen3, Tabla_Banner.Url_Imagen4));
         //Crear tabla Preferencias_Usuario
-        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT," +
+        db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT," +
                         "%s TEXT, %s TEXT, %s TEXT);",
                 Tabla_Preferencias_Usuario.Nombre_Tabla, Tabla_Preferencias_Usuario.Id,
-                Tabla_Preferencias_Usuario.Nombre, Tabla_Preferencias_Usuario.Url_Imagen,
-                Tabla_Preferencias_Usuario.Token, Tabla_Preferencias_Usuario.Tienda_Preferida));
+                Tabla_Preferencias_Usuario.Nombre, Tabla_Preferencias_Usuario.Pass,
+                Tabla_Preferencias_Usuario.Url_Imagen, Tabla_Preferencias_Usuario.Token,
+                Tabla_Preferencias_Usuario.Tienda_Preferida));
         //Crear tabla Tabla_Carrito
         db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT," +
                         "%s INTEGER);",

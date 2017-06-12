@@ -1,6 +1,16 @@
 package com.example.ivan.olympusgames;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -11,17 +21,27 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.example.ivan.olympusgames.SQLite.Cache_Busquedas;
+import com.example.ivan.olympusgames.SQLite.Preferencias_Usuario;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,30 +58,16 @@ public class Registro extends AppCompatActivity {
 
     Toolbar barra1;
 
+    EditText usuario;
+    EditText pass;
+    EditText pass_conf;
+    Button boton;
+
     ImageView foto_gallery;
 
     private static final int PICK_IMAGE = 100;
 
     Uri imageUri;
-
-    String[] lstSource = {
-
-            "Harry",
-            "Ron",
-            "Hermione",
-            "Snape",
-            "Malfoy",
-            "One",
-            "Two",
-            "Three",
-            "Four",
-            "Five",
-            "Six",
-            "Seven",
-            "Eight",
-            "Nine",
-            "Ten"
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +111,9 @@ public class Registro extends AppCompatActivity {
         lstView = (ListView)findViewById(R.id.lstView);
 
         searchView = (MaterialSearchView)findViewById(R.id.search_view);
+        SearchView.addSearchViewListener(searchView, lstView, contenido, barra);
+        SearchView.addQueryTextListener(searchView, lstView, Registro.this);
+
 
         foto_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,57 +123,95 @@ public class Registro extends AppCompatActivity {
             }
         });
 
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+        usuario = (EditText)findViewById(R.id.reg_user);
+        pass = (EditText)findViewById(R.id.reg_password);
+        pass_conf = (EditText)findViewById(R.id.conf_regpassword);
+
+        boton = (Button)findViewById(R.id.but_register_user);
+        boton.setOnClickListener(new View.OnClickListener() {
+            String user, password, password_conf;
 
             @Override
-            public void onSearchViewShown() {
-                lstView.setVisibility(View.VISIBLE);
-                contenido.setVisibility(View.INVISIBLE);
-                barra.setVisibility(View.INVISIBLE);
-            }
+            public void onClick(View v) {
+                int err = 0;
+                user = usuario.getText().toString();
+                password = pass.getText().toString();
+                password_conf = pass_conf.getText().toString();
 
-            @Override
-            public void onSearchViewClosed() {
+                usuario.setBackground(new ColorDrawable(0xFF455A64));
+                pass.setBackground(new ColorDrawable(0xFF455A64));
+                pass_conf.setBackground(new ColorDrawable(0xFF455A64));
 
-                //If closed Search View , lstView will return default
+                //Comprobar si existe algún error
+                if(user.equals("")) err = 1;
+                else if(password.equals("")) err = 2;
+                else if(password_conf.equals("")) err = 3;
+                else if(isNumeric(user)) err = 4;
+                else if(password.length() > 8) err = 5;
+                else if(!password.equals(password_conf)) err = 6;
 
-                lstView.setVisibility(View.INVISIBLE);
-                //lstView.getLayoutParams().height = 0;
-                //lstView.getLayoutParams().width = 0;
-                contenido.setVisibility(View.VISIBLE);
-                barra.setVisibility(View.VISIBLE);
+                switch(err){
+                    case 0: //No hay errores en los datos de entrada. Enviar petición
+                        String res = Internet.addUsuario(user, password_conf);
+                        if(res.substring(res.indexOf("msj-start")+9, res.indexOf("msj-end")).equals("error")){
+                            usuario.setBackground(new ColorDrawable(0xFFFF0000));
+                            Toast.makeText(getApplicationContext(),
+                                    "Ese usuario ya está registrado.", Toast.LENGTH_SHORT).show();
+                        }else if(res.substring(res.indexOf("msj-start")+9, res.indexOf("msj-end")).equals("OK")){
+                            Toast.makeText(getApplicationContext(),
+                                    "Registro completado con éxito.", Toast.LENGTH_SHORT).show();
+                            if(imageUri != null){
+                                String icon = guardarImagen(Registro.this, "user", "icon", ((BitmapDrawable)foto_gallery.getDrawable()).getBitmap());
+                                new Preferencias_Usuario("","","","",Registro.this);
+                                Preferencias_Usuario.setIcon(Registro.this,icon);
+                            }
 
+                            startActivity(new Intent(Registro.this, Login.class));
+                        }
+                        break;
+                    case 1: //Nombre de usuario vacío
+                        usuario.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "No has introducido el nombre de usuario.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2: //Password vacía
+                        pass.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "No has introducido la contraseña.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3: //Confirmación de password vacía
+                        pass_conf.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "No has introducido la confirmación de contraseña.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4: //Nombre de usuario introducido no cumple con el formato
+                        usuario.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "Debes introducir letras en el nombre de usuario.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5: //Contraseña introducida no cumple con el formato
+                        pass.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "El número máximo de caracteres para la contraseña es 8.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 6: //Las contraseñas no coinciden
+                        pass.setBackground(new ColorDrawable(0xFFFF0000));
+                        pass_conf.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
+    }
 
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if(newText != null && !newText.isEmpty()){
-                    List<String> lstFound = new ArrayList<String>();
-                    for(String item:lstSource){
-                        if(item.contains(newText))
-                            lstFound.add(item);
-                    }
-
-                    ArrayAdapter adapter = new ArrayAdapter(Registro.this,android.R.layout.simple_list_item_1,lstFound);
-                    lstView.setAdapter(adapter);
-                }
-                else{
-                    //if search text is null
-                    //return default
-                    ArrayAdapter adapter = new ArrayAdapter(Registro.this,android.R.layout.simple_list_item_1,lstSource);
-                    lstView.setAdapter(adapter);
-                }
-                return true;
-            }
-
-        });
+    private static boolean isNumeric(String cadena){
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
     }
 
     @Override
@@ -222,5 +269,23 @@ public class Registro extends AppCompatActivity {
                 startActivity(new Intent(this, Carrito.class));
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private String guardarImagen (Context context, String nombre, String image, Bitmap imagen){
+        ContextWrapper cw = new ContextWrapper(context);
+        File dirImages = cw.getDir("Imagenes", Context.MODE_PRIVATE);
+        File myPath = new File(dirImages, nombre+"_"+image);
+
+        FileOutputStream fos = null;
+        try{
+            fos = new FileOutputStream(myPath);
+            imagen.compress(Bitmap.CompressFormat.JPEG, 10, fos);
+            fos.flush();
+        }catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        return myPath.getAbsolutePath();
     }
 }

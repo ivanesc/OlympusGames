@@ -65,25 +65,6 @@ public class Carrito extends AppCompatActivity {
 
     Toolbar barra1;
 
-    String[] lstSource = {
-
-            "Harry",
-            "Ron",
-            "Hermione",
-            "Snape",
-            "Malfoy",
-            "One",
-            "Two",
-            "Three",
-            "Four",
-            "Five",
-            "Six",
-            "Seven",
-            "Eight",
-            "Nine",
-            "Ten"
-    };
-
 
 
     @Override
@@ -123,58 +104,8 @@ public class Carrito extends AppCompatActivity {
         lstView = (ListView)findViewById(R.id.lstView);
 
         searchView = (MaterialSearchView)findViewById(R.id.search_view);
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-
-            @Override
-            public void onSearchViewShown() {
-                lstView.setVisibility(View.VISIBLE);
-                contenido.setVisibility(View.INVISIBLE);
-                barra.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-
-                //If closed Search View , lstView will return default
-
-                lstView.setVisibility(View.INVISIBLE);
-                //lstView.getLayoutParams().height = 0;
-                //lstView.getLayoutParams().width = 0;
-                contenido.setVisibility(View.VISIBLE);
-                barra.setVisibility(View.VISIBLE);
-
-            }
-        });
-
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if(newText != null && !newText.isEmpty()){
-                    List<String> lstFound = new ArrayList<String>();
-                    for(String item:lstSource){
-                        if(item.contains(newText))
-                            lstFound.add(item);
-                    }
-
-                    ArrayAdapter adapter = new ArrayAdapter(Carrito.this,android.R.layout.simple_list_item_1,lstFound);
-                    lstView.setAdapter(adapter);
-                }
-                else{
-                    //if search text is null
-                    //return default
-                    ArrayAdapter adapter = new ArrayAdapter(Carrito.this,android.R.layout.simple_list_item_1,lstSource);
-                    lstView.setAdapter(adapter);
-                }
-                return true;
-            }
-
-        });
+        SearchView.addSearchViewListener(searchView, lstView, contenido, barra);
+        SearchView.addQueryTextListener(searchView, lstView, Carrito.this);
 
         cantJuego1 = (EditText)findViewById(R.id.cantJuego1);
         cantJuego2 = (EditText)findViewById(R.id.cantJuego2);
