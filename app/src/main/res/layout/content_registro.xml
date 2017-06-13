@@ -68,7 +68,6 @@
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
                 android:hint="Introduce tu nombre de usuario..."
-                android:inputType="textEmailAddress"
                 android:padding="5dp"
                 android:text=""
                 android:textColor="@color/color_white"

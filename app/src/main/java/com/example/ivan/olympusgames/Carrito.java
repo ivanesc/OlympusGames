@@ -12,6 +12,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,25 +35,21 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class Carrito extends AppCompatActivity {
+public class Carrito extends AppCompatActivity
+        implements AdaptadorCarrito.EscuchaEventosClick{
+
+    public static final String EXTRA_POSICION = "com.example.ivan.olympusgames.Carrito.extra.POSICION";
+
+    RecyclerView reciclador;
+    LinearLayoutManager layoutManager;
 
     EditText cantJuego1;
-    EditText cantJuego2;
-    EditText cantJuego3;
     Button inc1;
     Button desc1;
-    Button inc2;
-    Button desc2;
-    Button inc3;
-    Button desc3;
     Button pedidos;
     String texto;
     int cant1=1;
-    int cant2=1;
-    int cant3=1;
     String cant1_mod= "";
-    String cant2_mod= "";
-    String cant3_mod= "";
     int valorTotal=0;
 
     DrawerLayout drawer;
@@ -65,8 +64,6 @@ public class Carrito extends AppCompatActivity {
 
     Toolbar barra1;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,15 +74,22 @@ public class Carrito extends AppCompatActivity {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         if (navigationView != null) {
-            DrawerManager.prepararDrawer(drawer, navigationView, Carrito.this);
+            prepararDrawer(navigationView);
+            // Seleccionar item por defecto
+            //seleccionarItem(navigationView.getMenu().getItem(0));
         }
 
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.item_modificar).setVisible(false);
+        nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
+        nav_Menu.findItem(R.id.item_reservas).setVisible(false);
+        nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
 
         contenido = (RelativeLayout) findViewById(R.id.content_carrito);
 
@@ -99,19 +103,23 @@ public class Carrito extends AppCompatActivity {
         SearchView.addSearchViewListener(searchView, lstView, contenido, barra);
         SearchView.addQueryTextListener(searchView, lstView, Carrito.this);
 
-        cantJuego1 = (EditText)findViewById(R.id.cantJuego1);
-        cantJuego2 = (EditText)findViewById(R.id.cantJuego2);
-        cantJuego3 = (EditText)findViewById(R.id.cantJuego3);
+        reciclador = (RecyclerView) findViewById(R.id.reciclador5);
+
+        layoutManager = new GridLayoutManager(this, 1);
+
+        reciclador.setLayoutManager(layoutManager);
+
+        AdaptadorCarrito adaptador = new AdaptadorCarrito(this);
+        reciclador.setAdapter(adaptador);
+
+        cantJuego1 = (EditText)findViewById(R.id.cantJuegoCarrito);
 
         inc1 = (Button)findViewById(R.id.botonInc1);
         desc1 = (Button)findViewById(R.id.botonDesc1);
-        inc2 = (Button)findViewById(R.id.botonInc2);
-        desc2 = (Button)findViewById(R.id.botonDesc2);
-        inc3 = (Button)findViewById(R.id.botonInc3);
-        desc3 = (Button)findViewById(R.id.botonDesc3);
+
         pedidos = (Button)findViewById(R.id.botonPedidos);
 
-        inc1.setOnClickListener( new View.OnClickListener() {
+        /*inc1.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
                 cant1++;
                 cant1_mod = String.valueOf(cant1);
@@ -125,42 +133,6 @@ public class Carrito extends AppCompatActivity {
                     cant1--;
                     cant1_mod = String.valueOf(cant1);
                     cantJuego1.setText(cant1_mod);
-                }
-            }
-        });
-
-        inc2.setOnClickListener( new View.OnClickListener() {
-            public void onClick(View v){
-                cant2++;
-                cant2_mod = String.valueOf(cant2);
-                cantJuego2.setText(cant2_mod);
-            }
-        });
-
-        desc2.setOnClickListener( new View.OnClickListener() {
-            public void onClick(View v){
-                if(cant2 > 1) {
-                    cant2--;
-                    cant2_mod = String.valueOf(cant2);
-                    cantJuego2.setText(cant2_mod);
-                }
-            }
-        });
-
-        inc3.setOnClickListener( new View.OnClickListener() {
-            public void onClick(View v){
-                cant3++;
-                cant3_mod = String.valueOf(cant3);
-                cantJuego3.setText(cant3_mod);
-            }
-        });
-
-        desc3.setOnClickListener( new View.OnClickListener() {
-            public void onClick(View v){
-                if(cant3 > 1) {
-                    cant3--;
-                    cant3_mod = String.valueOf(cant3);
-                    cantJuego3.setText(cant3_mod);
                 }
             }
         });
@@ -225,8 +197,27 @@ public class Carrito extends AppCompatActivity {
                 startActivity(intentPedidos);
 
             }
-        });
+        });*/
 
+    }
+
+    private void prepararDrawer(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        seleccionarItem(menuItem);
+                        drawer.closeDrawers();
+                        return true;
+                    }
+                });
+
+    }
+
+    public boolean seleccionarItem(MenuItem itemDrawer) {
+        // Setear título actual
+        setTitle(itemDrawer.getTitle());
+        return (new DrawerManager()).onNavigationItemSelected(this, itemDrawer);
     }
 
     @Override
@@ -247,6 +238,14 @@ public class Carrito extends AppCompatActivity {
                 startActivity(new Intent(this, Carrito.class));
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdaptadorCarrito.ViewHolder holder, int posicion) {
+        Intent intent = new Intent(this, JuegoDetallado.class);
+        //Intent intent = new Intent(this, ActividadDetalle.class);
+        //intent.putExtra(EXTRA_POSICION, posicion);
+        startActivity(intent);
     }
 }
 

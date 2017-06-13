@@ -25,7 +25,7 @@
 
     <string name="titulo_tab_novedades">Novedades</string>
     <string name="titulo_tab_ofertas">Ofertas</string>
-    <string name="titulo_tab_populares">Populares</string>
+    <string name="titulo_tab_busquedas">Búsquedas</string>
 
     <string name="empresa">¿Quiénes somos?</string>
     <string name="ubicacion">¿Dónde nos encontramos?</string>
@@ -36,6 +36,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_registro">Registro</string>
     <string name="title_activity_modificarperfil">Editar perfil</string>
+    <string name="title_activity_juegodetallado">Detalle juego</string>
     <string name="title_activity_plataformas">Plataformas</string>
     <string name="title_activity_listadeseos">Lista deseos</string>
     <string name="title_activity_acercade">Acerca de</string>

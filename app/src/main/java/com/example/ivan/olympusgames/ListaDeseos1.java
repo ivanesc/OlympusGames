@@ -29,7 +29,7 @@ import java.util.List;
 public class ListaDeseos1 extends AppCompatActivity
         implements AdaptadorListaDeseos.EscuchaEventosClick {
 
-    public static final String EXTRA_POSICION = "com.example.ivan.olympusgames.galerajaponesa.extra.POSICION";
+    public static final String EXTRA_POSICION = "com.example.ivan.olympusgames.ListaDeseos1.extra.POSICION";
 
     RecyclerView reciclador;
     LinearLayoutManager layoutManager;
@@ -57,7 +57,7 @@ public class ListaDeseos1 extends AppCompatActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -121,7 +121,7 @@ public class ListaDeseos1 extends AppCompatActivity
 
     @Override
     public void onItemClick(AdaptadorListaDeseos.ViewHolder holder, int posicion) {
-        Intent intent = new Intent(this, AcercaDe.class);
+        Intent intent = new Intent(this, JuegoDetallado.class);
         //Intent intent = new Intent(this, ActividadDetalle.class);
         //intent.putExtra(EXTRA_POSICION, posicion);
         startActivity(intent);

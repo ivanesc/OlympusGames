@@ -79,6 +79,13 @@
         </activity>
 
         <activity
+            android:name=".JuegoDetallado"
+            android:label="@string/title_activity_juegodetallado"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
             android:name=".Plataformas"
             android:label="@string/title_activity_plataformas"
             android:theme="@style/AppTheme.NoActionBar"
@@ -105,6 +112,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
         </activity>
+
     </application>
 
 </manifest>
