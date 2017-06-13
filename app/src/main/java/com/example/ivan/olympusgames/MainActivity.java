@@ -2,6 +2,8 @@ package com.example.ivan.olympusgames;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -31,13 +33,17 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.example.ivan.olympusgames.SQLite.Banner;
 import com.example.ivan.olympusgames.SQLite.Cache_Busquedas;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 import static com.example.ivan.olympusgames.R.id.appbar;
 
@@ -56,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageSwitcher imageSwitcher;
 
-    private int[] gallery = { R.drawable.anuncio1, R.drawable.anuncio2, R.drawable.anuncio3, R.drawable.anuncio4};
+    private int[] gallery = {R.drawable.banner1,R.drawable.banner2,R.drawable.banner3,R.drawable.banner4};
 
     private int position=0;
 
@@ -76,31 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 return new ImageView(MainActivity.this);
             }
         });
-
-        // Set animations
-        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
-        imageSwitcher.setInAnimation(fadeIn);
-        imageSwitcher.setOutAnimation(fadeOut);
-
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-
-            public void run() {
-                // avoid exception:
-                // "Only the original thread that created a view hierarchy can touch its views"
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        imageSwitcher.setImageResource(gallery[position]);
-                        position++;
-                        if (position == gallery.length) {
-                            position = 0;
-                        }
-                    }
-                });
-            }
-
-        }, 0, DURATION);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -141,6 +122,32 @@ public class MainActivity extends AppCompatActivity {
         searchView = (MaterialSearchView)findViewById(R.id.search_view);
         com.example.ivan.olympusgames.SearchView.addSearchViewListener(searchView, lstView, contenido, barra);
         com.example.ivan.olympusgames.SearchView.addQueryTextListener(searchView, lstView, MainActivity.this);
+
+        /* Banner */
+        // Set animations
+        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        imageSwitcher.setInAnimation(fadeIn);
+        imageSwitcher.setOutAnimation(fadeOut);
+
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+
+            public void run() {
+                // avoid exception:
+                // "Only the original thread that created a view hierarchy can touch its views"
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        imageSwitcher.setImageResource(gallery[position]);
+                        position++;
+                        if (position == gallery.length) {
+                            position = 0;
+                        }
+                    }
+                });
+            }
+
+        }, 0, DURATION);
     }
 
     @Override
@@ -185,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (timer != null) {
+        if (timer == null) {
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
 
