@@ -69,15 +69,15 @@
         <menu>
 
             <item
-                android:id="@+id/acercade"
+                android:id="@+id/item_acercade"
                 android:icon="@drawable/acercade"
                 android:title="@string/item_acercade" />
             <item
-                android:id="@+id/escribir"
+                android:id="@+id/item_escribir"
                 android:icon="@drawable/escribenos"
                 android:title="@string/item_escribir" />
             <item
-                android:id="@+id/ayuda"
+                android:id="@+id/item_ayuda"
                 android:icon="@drawable/help"
                 android:title="@string/item_ayuda" />
 

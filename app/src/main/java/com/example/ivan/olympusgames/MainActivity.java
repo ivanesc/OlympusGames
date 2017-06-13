@@ -119,16 +119,16 @@ public class MainActivity extends AppCompatActivity {
         //int idinicio = navigationView.getMenu().findItem(R.id.item_listadeseos).getItemId();
 
         if (navigationView != null) {
-            prepararDrawer(navigationView);
-            // Seleccionar item por defecto
-            seleccionarItem(navigationView.getMenu().getItem(0));
+            DrawerManager.prepararDrawer(drawer, navigationView, MainActivity.this);
         }
 
-        Menu nav_Menu = navigationView.getMenu();
-        //nav_Menu.findItem(R.id.item_modificar).setVisible(false);
-        //nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
-        nav_Menu.findItem(R.id.item_reservas).setVisible(false);
-        nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragmentoGenerico1 = new FragmentoCategorias();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.content_main, fragmentoGenerico1)
+                .commit();
+
 
         contenido = (RelativeLayout) findViewById(R.id.content_main);
 
@@ -141,86 +141,6 @@ public class MainActivity extends AppCompatActivity {
         searchView = (MaterialSearchView)findViewById(R.id.search_view);
         com.example.ivan.olympusgames.SearchView.addSearchViewListener(searchView, lstView, contenido, barra);
         com.example.ivan.olympusgames.SearchView.addQueryTextListener(searchView, lstView, MainActivity.this);
-    }
-
-
-    private void prepararDrawer(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        seleccionarItem(menuItem);
-                        drawer.closeDrawers();
-                        return true;
-                    }
-                });
-
-    }
-
-    private void seleccionarItem(MenuItem itemDrawer) {
-        Fragment fragmentoGenerico1 = null;
-        Fragment fragmentoGenerico2 = null;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        switch (itemDrawer.getItemId()) {
-            case R.id.item_inicio:
-                itemDrawer.setChecked(true);
-                fragmentoGenerico1 = new FragmentoCategorias();
-                break;
-            case R.id.item_login:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, Login.class));
-                break;
-            case R.id.item_registrar:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, Registro.class));
-                break;
-            case R.id.item_modificar:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, ModificarPerfil.class));
-                break;
-            case R.id.item_plataformas:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, Plataformas.class));
-                break;
-            case R.id.item_listadeseos:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, ListaDeseos1.class));
-                break;
-            case R.id.acercade:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, AcercaDe.class));
-                break;
-            case R.id.escribir:
-                itemDrawer.setChecked(true);
-                try {
-                    String datosMail = "mailto:olympusgames@gmail.es"
-                            + "?cc=ivanEscobarSanchez@hotmail.com"
-                            + "&subject="
-                            + Uri.encode("Duda acerca producto tienda");
-                    Intent email = new Intent(Intent.ACTION_SENDTO, Uri.parse(datosMail));
-                    this.startActivity(email);
-                    break;
-                } catch (ActivityNotFoundException e) {
-                Toast.makeText(this
-                    , "ActivityNotFound "+e.getMessage()
-                    , Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.ayuda:
-                itemDrawer.setChecked(true);
-                startActivity(new Intent(this, Ayuda.class));
-                break;
-        }
-        if (fragmentoGenerico1 != null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.content_main, fragmentoGenerico1)
-                    .commit();
-        }
-
-        // Setear título actual
-        setTitle(itemDrawer.getTitle());
     }
 
     @Override

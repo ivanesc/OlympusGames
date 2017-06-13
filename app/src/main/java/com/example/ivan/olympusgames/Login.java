@@ -71,16 +71,8 @@ public class Login extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         if (navigationView != null) {
-            prepararDrawer(navigationView);
-            // Seleccionar item por defecto
-            //seleccionarItem(navigationView.getMenu().getItem(0));
+            DrawerManager.prepararDrawer(drawer, navigationView, Login.this);
         }
-
-        Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.item_modificar).setVisible(false);
-        nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
-        nav_Menu.findItem(R.id.item_reservas).setVisible(false);
-        nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
 
         contenido = (RelativeLayout) findViewById(R.id.content_login);
 
@@ -127,18 +119,23 @@ public class Login extends AppCompatActivity {
 
                 switch(err){
                     case 0: //No hay errores en los datos de entrada. Enviar petición
-                        String res = Internet.login(user, password);
-                        res = res.substring(res.indexOf("msj-start")+9, res.indexOf("msj-end"));
-                        if(res.equals("error")){
-                            usuario.setBackground(new ColorDrawable(0xFFFF0000));
-                            pass.setBackground(new ColorDrawable(0xFFFF0000));
-                            Toast.makeText(getApplicationContext(),
-                                    "No se pudo iniciar sesión. Datos incorrectos.", Toast.LENGTH_SHORT).show();
+                        if(Internet.isConnected(Login.this)) {
+                            String res = Internet.login(user, password);
+                            res = res.substring(res.indexOf("msj-start") + 9, res.indexOf("msj-end"));
+                            if (res.equals("error")) {
+                                usuario.setBackground(new ColorDrawable(0xFFFF0000));
+                                pass.setBackground(new ColorDrawable(0xFFFF0000));
+                                Toast.makeText(getApplicationContext(),
+                                        "No se pudo iniciar sesión. Datos incorrectos.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        "Has iniciado sesión con éxito.", Toast.LENGTH_SHORT).show();
+                                new Preferencias_Usuario(user, password, res, "", Login.this);
+                                startActivity(new Intent(Login.this, MainActivity.class));
+                            }
                         }else{
-                            Toast.makeText(getApplicationContext(),
-                                    "Has iniciado sesión con éxito.", Toast.LENGTH_SHORT).show();
-                            new Preferencias_Usuario(user,password,res,"",Login.this);
-                            startActivity(new Intent(Login.this, MainActivity.class));
+                            Toast.makeText(Login.this,
+                                    "No hay conexión a internet.", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 1: //Nombre de usuario vacío
@@ -175,24 +172,6 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    private void prepararDrawer(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        seleccionarItem(menuItem);
-                        drawer.closeDrawers();
-                        return true;
-                    }
-                });
-
-    }
-
-    public boolean seleccionarItem(MenuItem itemDrawer) {
-        // Setear título actual
-        setTitle(itemDrawer.getTitle());
-        return (new DrawerManager()).onNavigationItemSelected(this, itemDrawer);
-    }
 
     @Override
     public void onBackPressed() {

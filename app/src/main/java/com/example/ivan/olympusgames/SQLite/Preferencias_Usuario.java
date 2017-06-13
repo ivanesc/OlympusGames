@@ -231,4 +231,51 @@ public class Preferencias_Usuario {
         db.update(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, values, SQLite_DB.Tabla_Preferencias_Usuario.Id+"=?", new String[]{"" + 1});
         db.close();
     }
+
+    //Obtener token de la tabla Preferencias_Usuario
+    public static String getToken(Context contexto) {
+        String res = "";
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Preferencias_Usuario.Id, SQLite_DB.Tabla_Preferencias_Usuario.Token} // Columnas
+                , null // Cláusula where
+                , null // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Log.e(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, cursor.getInt(0)
+                    + ": "
+                    + cursor.getString(1));
+            res = cursor.getString(1);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return res;
+    }
+
+    //Actualiza token de la tabla Preferencias_Usuario
+    public static void setToken(Context contexto, String token) {
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Token, token);
+
+        db.update(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, values, SQLite_DB.Tabla_Preferencias_Usuario.Id+"=?", new String[]{"" + 1});
+        db.close();
+    }
 }

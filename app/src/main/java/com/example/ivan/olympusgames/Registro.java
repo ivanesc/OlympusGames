@@ -91,16 +91,8 @@ public class Registro extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         if (navigationView != null) {
-            prepararDrawer(navigationView);
-            // Seleccionar item por defecto
-            //seleccionarItem(navigationView.getMenu().getItem(0));
+            DrawerManager.prepararDrawer(drawer, navigationView, Registro.this);
         }
-
-        Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.item_modificar).setVisible(false);
-        nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
-        nav_Menu.findItem(R.id.item_reservas).setVisible(false);
-        nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
 
         contenido = (RelativeLayout) findViewById(R.id.content_registro);
 
@@ -152,21 +144,26 @@ public class Registro extends AppCompatActivity {
 
                 switch(err){
                     case 0: //No hay errores en los datos de entrada. Enviar petición
-                        String res = Internet.addUsuario(user, password_conf);
-                        if(res.substring(res.indexOf("msj-start")+9, res.indexOf("msj-end")).equals("error")){
-                            usuario.setBackground(new ColorDrawable(0xFFFF0000));
-                            Toast.makeText(getApplicationContext(),
-                                    "Ese usuario ya está registrado.", Toast.LENGTH_SHORT).show();
-                        }else if(res.substring(res.indexOf("msj-start")+9, res.indexOf("msj-end")).equals("OK")){
-                            Toast.makeText(getApplicationContext(),
-                                    "Registro completado con éxito.", Toast.LENGTH_SHORT).show();
-                            if(imageUri != null){
-                                String icon = guardarImagen(Registro.this, "user", "icon", ((BitmapDrawable)foto_gallery.getDrawable()).getBitmap());
-                                new Preferencias_Usuario("","","","",Registro.this);
-                                Preferencias_Usuario.setIcon(Registro.this,icon);
-                            }
+                        if(Internet.isConnected(Registro.this)) {
+                            String res = Internet.addUsuario(user, password_conf);
+                            if (res.substring(res.indexOf("msj-start") + 9, res.indexOf("msj-end")).equals("error")) {
+                                usuario.setBackground(new ColorDrawable(0xFFFF0000));
+                                Toast.makeText(getApplicationContext(),
+                                        "Ese usuario ya está registrado.", Toast.LENGTH_SHORT).show();
+                            } else if (res.substring(res.indexOf("msj-start") + 9, res.indexOf("msj-end")).equals("OK")) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Registro completado con éxito.", Toast.LENGTH_SHORT).show();
+                                if (imageUri != null) {
+                                    String icon = guardarImagen(Registro.this, "user", "icon", ((BitmapDrawable) foto_gallery.getDrawable()).getBitmap());
+                                    new Preferencias_Usuario("", "", "", "", Registro.this);
+                                    Preferencias_Usuario.setIcon(Registro.this, icon);
+                                }
 
-                            startActivity(new Intent(Registro.this, Login.class));
+                                startActivity(new Intent(Registro.this, Login.class));
+                            }
+                        }else{
+                            Toast.makeText(Registro.this,
+                                    "No hay conexión a internet.", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 1: //Nombre de usuario vacío
@@ -220,25 +217,6 @@ public class Registro extends AppCompatActivity {
             imageUri = data.getData();
             foto_gallery.setImageURI(imageUri);
         }
-    }
-
-    private void prepararDrawer(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        seleccionarItem(menuItem);
-                        drawer.closeDrawers();
-                        return true;
-                    }
-                });
-
-    }
-
-    public boolean seleccionarItem(MenuItem itemDrawer) {
-        // Setear título actual
-        setTitle(itemDrawer.getTitle());
-        return (new DrawerManager()).onNavigationItemSelected(this, itemDrawer);
     }
 
     @Override

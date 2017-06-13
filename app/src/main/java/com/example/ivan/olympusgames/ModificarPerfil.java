@@ -83,16 +83,8 @@ public class ModificarPerfil extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         if (navigationView != null) {
-            prepararDrawer(navigationView);
-            // Seleccionar item por defecto
-            //seleccionarItem(navigationView.getMenu().getItem(0));
+            DrawerManager.prepararDrawer(drawer, navigationView, ModificarPerfil.this);
         }
-
-        Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.item_modificar).setVisible(false);
-        nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
-        nav_Menu.findItem(R.id.item_reservas).setVisible(false);
-        nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
 
         contenido = (RelativeLayout) findViewById(R.id.content_modificar_perfil);
 
@@ -165,16 +157,20 @@ public class ModificarPerfil extends AppCompatActivity {
                 if(!password_old.equals("") || !password_new.equals("") || !password_conf.equals("")) {
                     switch (err) {
                         case 0: //No hay errores en los datos de entrada. Enviar petición
-                            String res = Internet.updateUsuario(user, password_new);
-                            res = res.substring(res.indexOf("msj-start") + 9, res.indexOf("msj-end"));
-                            if (res.equals("error")) {
-                                Toast.makeText(getApplicationContext(),
-                                        "No se pueden modificar los datos.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(),
-                                        "Se han modificado los datos con éxito.", Toast.LENGTH_SHORT).show();
-                                Preferencias_Usuario.setPass(ModificarPerfil.this, password_new);
-                                startActivity(new Intent(ModificarPerfil.this, Login.class));
+                            if(Internet.isConnected(ModificarPerfil.this)) {
+                                String res = Internet.updateUsuario(user, password_new);
+                                res = res.substring(res.indexOf("msj-start") + 9, res.indexOf("msj-end"));
+                                if (res.equals("error")) {
+                                    Toast.makeText(getApplicationContext(),
+                                            "No se pueden modificar los datos.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(),
+                                            "Se han modificado los datos con éxito.", Toast.LENGTH_SHORT).show();
+                                    Preferencias_Usuario.setPass(ModificarPerfil.this, password_new);
+                                }
+                            }else{
+                                Toast.makeText(ModificarPerfil.this,
+                                        "No hay conexión a internet.", Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case 1: //password_old vacía
@@ -225,25 +221,6 @@ public class ModificarPerfil extends AppCompatActivity {
             imageUri = data.getData();
             foto_gallery2.setImageURI(imageUri);
         }
-    }
-
-    private void prepararDrawer(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        seleccionarItem(menuItem);
-                        drawer.closeDrawers();
-                        return true;
-                    }
-                });
-
-    }
-
-    public boolean seleccionarItem(MenuItem itemDrawer) {
-        // Setear título actual
-        setTitle(itemDrawer.getTitle());
-        return (new DrawerManager()).onNavigationItemSelected(this, itemDrawer);
     }
 
     @Override

@@ -152,6 +152,20 @@ public class Internet {
         return res;
     }
 
+    public static String logout(String nombre){
+        String res = "";
+        String[] params = {"nombre_usuario", "" + nombre};
+        try {
+            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/logout.jsp", params);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
     public static String updateUsuario(String nombre, String pass){
         String res = "";
         String[] params = {"nombre_usuario", "" + nombre, "pass", "" + pass};
