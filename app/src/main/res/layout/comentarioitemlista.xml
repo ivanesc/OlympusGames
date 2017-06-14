@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    style="@style/Base.DialogWindowTitle.AppCompat"
+    android:layout_width="match_parent"
+    android:background="@color/background">
+
+    <View
+        android:id="@+id/linea1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@+id/fechaComentario"
+        android:background="@color/color_white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/fechaComentario"
+        android:layout_below="@+id/autor"
+        android:textColor="@color/color_white"
+        android:textSize="15sp"
+        android:text="sin fecha"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/autor"
+        android:layout_below="@+id/textComentario"
+        android:textColor="@color/color_white"
+        android:textSize="15sp"
+        android:text="Iván Escobar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:id="@+id/textComentario"
+        android:textSize="16sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/rounded_corner"
+        android:inputType="textMultiLine"
+        android:text="por defecto"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/color_white" />
+
+</RelativeLayout>
