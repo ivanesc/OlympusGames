@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    style="@style/Base.DialogWindowTitle.AppCompat"
+    android:layout_width="match_parent"
+    android:background="@color/background">
+
+    <View
+        android:id="@+id/linea2"
+        android:layout_width="30dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/plataforma_det_relleno"
+        android:background="@color/color_white"/>
+
+    <TextView
+        android:id="@+id/plataforma_det_relleno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Plataforma a rellenar"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/color_white"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

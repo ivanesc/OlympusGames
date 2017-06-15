@@ -26,8 +26,11 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -97,15 +100,38 @@ public class JuegoDetallado extends AppCompatActivity
         }
     }
 
+    private class PlataformaJuego {
+        private String nombrePlataforma="Sin nombre";
+
+        public PlataformaJuego(){}
+
+        public PlataformaJuego(String nombrePlataforma) {
+            this.nombrePlataforma = nombrePlataforma;
+        }
+
+        public String getNomPlataforma() {
+            return nombrePlataforma;
+        }
+
+        @Override
+        public String toString() {
+            return this.nombrePlataforma;
+        }
+    }
+
     ArrayList<ComentarioJuego> comentarios;
+    ArrayList<PlataformaJuego> plataformas;
     ListView lvComentarios;
+    ListView lvPlataformas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego_detallado);
         populateComentarios();
+        populatePlataformas();
         showLVComentarios_Complejo();
+        showLVPlataformas_Complejo();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -171,14 +197,64 @@ public class JuegoDetallado extends AppCompatActivity
         comentarios=new ArrayList<ComentarioJuego>();
         comentarios.add( new ComentarioJuego("14-06-2016","Iván Escobar", "Juego verdaderamente fabuloso y adictivo") );
         comentarios.add( new ComentarioJuego("20-08-2017","Fernando Puentes", "Es una gozada este juego. Lo volvería a jugar 100 veces más") );
+        comentarios.add( new ComentarioJuego("14-06-2016","Iván Escobar", "Juego verdaderamente fabuloso y adictivo") );
+        comentarios.add( new ComentarioJuego("14-06-2016","Iván Escobar", "Juego verdaderamente fabuloso y adictivo") );
         return comentarios.size();
+    }
+
+    private int populatePlataformas() {
+        plataformas=new ArrayList<PlataformaJuego>();
+        plataformas.add( new PlataformaJuego("PC") );
+        plataformas.add( new PlataformaJuego("3DS") );
+        //plataformas.add( new PlataformaJuego("XBOX") );
+        //plataformas.add( new PlataformaJuego("3DS") );
+        //plataformas.add( new PlataformaJuego("PC") );
+        return plataformas.size();
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight()+50;
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }
+
+    public static void setListViewHeightBasedOnChildren2(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 
     private void showLVComentarios_Complejo() {
         lvComentarios=(ListView) findViewById(R.id.lvComplejo);
         lvComentarios.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
-        ArrayAdapter adaptadorVehiculos=
+        ArrayAdapter adaptadorComentarios=
                 new ArrayAdapter( this // Context
                         , R.layout.comentarioitemlista //Resource
                         , comentarios // Vector o lista
@@ -205,7 +281,52 @@ public class JuegoDetallado extends AppCompatActivity
                         return fila;
                     }
                 };
-        lvComentarios.setAdapter(adaptadorVehiculos);
+        lvComentarios.setAdapter(adaptadorComentarios);
+        setListViewHeightBasedOnChildren(lvComentarios);
+    }
+
+    private void showLVPlataformas_Complejo() {
+        lvPlataformas=(ListView) findViewById(R.id.lvComplejoPlataformas);
+        lvPlataformas.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+
+        ArrayAdapter adaptadorPlataformas=
+                new ArrayAdapter( this // Context
+                        , R.layout.plataformadetalleitem //Resource
+                        , plataformas // Vector o lista
+                ) {
+                    public View getView(int position
+                            , View convertView
+                            , ViewGroup parent) {
+                        LayoutInflater inflater = (LayoutInflater) getContext()
+                                .getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
+
+                        // Creamos la vista para cada fila
+                        View fila = inflater.inflate(R.layout.plataformadetalleitem, parent, false);
+
+                        // Creamos cada uno de los widgets que forman una fila
+                        TextView nombrePlataformaView = (TextView) fila.findViewById(R.id.plataforma_det_relleno);
+
+                        // Establecemos los valores que queremos que muestren los widgets
+                        PlataformaJuego tmpV=plataformas.get(position);
+                        nombrePlataformaView.setText(tmpV.getNomPlataforma());
+                        return fila;
+                    }
+                };
+        lvPlataformas.setAdapter(adaptadorPlataformas);
+        setListViewHeightBasedOnChildren2(lvPlataformas);
+
+        lvPlataformas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                SparseBooleanArray checked = lvPlataformas.getCheckedItemPositions();
+                for (int i = 0; i < lvPlataformas.getCount(); ++i) {
+                    if(checked.get(i)){
+                        
+                    }
+
+                }
+            }
+        });
     }
 
     private void prepararDrawer(NavigationView navigationView) {

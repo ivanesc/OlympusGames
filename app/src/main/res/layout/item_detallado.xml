@@ -74,7 +74,7 @@
             android:textSize="25dp"
             android:textStyle="bold" />
 
-        <TextView
+        <!-- <TextView
             android:id="@+id/plataforma_det_relleno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,14 +84,14 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/color_white"
             android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textStyle="bold" /> -->
 
         <TextView
             android:id="@+id/genero_juego_det"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/plataforma_det_relleno"
-            android:layout_marginTop="20dp"
+            android:layout_below="@+id/plataforma_det"
+            android:layout_marginTop="190dp"
             android:text="GÉNERO:"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/color_white"
@@ -133,12 +133,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/listadeseos"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="500dp"
+            android:layout_below="@+id/valoracion_det"
+            android:layout_marginTop="20dp"
             android:text="54 €"
             android:textColor="@color/color_white"
-            android:textSize="45dp"
+            android:textSize="40dp"
             android:textStyle="bold" />
 
         <TextView
