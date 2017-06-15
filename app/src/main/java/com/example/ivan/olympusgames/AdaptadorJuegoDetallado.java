@@ -25,7 +25,7 @@ public class AdaptadorJuegoDetallado extends RecyclerView.Adapter<AdaptadorJuego
             implements View.OnClickListener {
         // Campos respectivos de un item
         public TextView nombre;
-        //public TextView plataforma;
+        public TextView plataforma;
         public TextView genero;
         public TextView precio;
         public ImageView imagen;
@@ -34,7 +34,7 @@ public class AdaptadorJuegoDetallado extends RecyclerView.Adapter<AdaptadorJuego
             super(v);
 
             nombre = (TextView) v.findViewById(R.id.nombre_juego_det);
-            //plataforma = (TextView) v.findViewById(R.id.plataforma_det_relleno);
+            plataforma = (TextView) v.findViewById(R.id.plataforma_det_relleno);
             genero = (TextView) v.findViewById(R.id.genero_det_relleno);
             precio = (TextView) v.findViewById(R.id.precio_det);
             imagen = (ImageView) v.findViewById(R.id.miniatura_juego_det);
@@ -74,7 +74,7 @@ public class AdaptadorJuegoDetallado extends RecyclerView.Adapter<AdaptadorJuego
                 .centerCrop()
                 .into(viewHolder.imagen);
         viewHolder.nombre.setText(itemActual.getNombre());
-        //viewHolder.plataforma.setText(itemActual.getPlataforma());
+        viewHolder.plataforma.setText(itemActual.getPlataforma());
         viewHolder.genero.setText(itemActual.getGenero());
         viewHolder.precio.setText(itemActual.getPrecio() + "€");
 

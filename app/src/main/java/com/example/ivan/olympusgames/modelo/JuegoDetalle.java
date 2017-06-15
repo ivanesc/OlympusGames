@@ -13,11 +13,12 @@ public class JuegoDetalle {
     private float precio;
     private String nombre;
     private int Drawable;
-    //private String plataforma;
+    private String plataforma;
     private String genero;
 
-    public JuegoDetalle(String nombre, String genero, float precio, int Drawable) {
+    public JuegoDetalle(String nombre, String plataforma, String genero, float precio, int Drawable) {
         this.nombre = nombre;
+        this.plataforma = plataforma;
         this.genero = genero;
         this.precio = precio;
         this.Drawable = Drawable;
@@ -26,7 +27,7 @@ public class JuegoDetalle {
     public static final List<JuegoDetalle> JUEGOS = new ArrayList<>();
 
     static {
-        JUEGOS.add(new JuegoDetalle("Spartan", "Aventuras", 5, R.drawable.ares));
+        JUEGOS.add(new JuegoDetalle("Spartan", "3DS", "Aventuras", 5, R.drawable.ares));
     }
 
     public float getPrecio() {
@@ -35,6 +36,10 @@ public class JuegoDetalle {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getPlataforma() {
+        return plataforma;
     }
 
     public String getGenero() {

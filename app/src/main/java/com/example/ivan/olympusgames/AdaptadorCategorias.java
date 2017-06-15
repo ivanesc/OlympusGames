@@ -1,9 +1,12 @@
 package com.example.ivan.olympusgames;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,11 +15,16 @@ import com.example.ivan.olympusgames.R;
 
 import java.util.List;
 
-public class AdaptadorCategorias
-        extends RecyclerView.Adapter<AdaptadorCategorias.ViewHolder> {
+public class AdaptadorCategorias extends RecyclerView.Adapter<AdaptadorCategorias.ViewHolder> {
 
 
     private final List<com.example.ivan.olympusgames.modelo.Juego> items;
+
+    interface EscuchaEventosClick {
+        void onItemClick(ViewHolder holder, int posicion);
+    }
+
+    private EscuchaEventosClick escucha;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
@@ -32,7 +40,6 @@ public class AdaptadorCategorias
             imagen = (ImageView) v.findViewById(R.id.miniatura_juego);
         }
     }
-
 
     public AdaptadorCategorias(List<com.example.ivan.olympusgames.modelo.Juego> items) {
         this.items = items;

@@ -36,10 +36,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
+import com.example.ivan.olympusgames.modelo.JuegoDetalle;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.example.ivan.olympusgames.R.id.simpleGallery;
 
@@ -128,6 +132,11 @@ public class JuegoDetallado extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego_detallado);
+
+        Bundle extras = getIntent().getExtras();
+        String id = extras.getString("id");
+
+        String datos[] = Datos_Juegos.getGame(JuegoDetallado.this, Integer.parseInt(id));
         populateComentarios();
         populatePlataformas();
         showLVComentarios_Complejo();
@@ -188,8 +197,11 @@ public class JuegoDetallado extends AppCompatActivity
 
         reciclador.setLayoutManager(layoutManager);
 
+        JuegoDetalle.JUEGOS.add(new JuegoDetalle(datos[1], datos[2].toString(), datos[4], datos[3], Float.parseFloat(datos[5].split("/////")[0]), R.drawable.ares));
         AdaptadorJuegoDetallado adaptador = new AdaptadorJuegoDetallado(this);
         reciclador.setAdapter(adaptador);
+
+
 
     }
 
