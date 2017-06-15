@@ -29,6 +29,7 @@ public class AdaptadorCategorias extends RecyclerView.Adapter<AdaptadorCategoria
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
         public TextView nombre;
+        public TextView plataformas;
         public TextView precio;
         public ImageView imagen;
 
@@ -36,6 +37,7 @@ public class AdaptadorCategorias extends RecyclerView.Adapter<AdaptadorCategoria
             super(v);
 
             nombre = (TextView) v.findViewById(R.id.nombre_juego);
+            plataformas = (TextView) v.findViewById(R.id.plataforma);
             precio = (TextView) v.findViewById(R.id.precio_juego);
             imagen = (ImageView) v.findViewById(R.id.miniatura_juego);
         }
@@ -66,7 +68,8 @@ public class AdaptadorCategorias extends RecyclerView.Adapter<AdaptadorCategoria
                 .centerCrop()
                 .into(viewHolder.imagen);
         viewHolder.nombre.setText(item.getNombre());
-        viewHolder.precio.setText("$" + item.getPrecio());
+        viewHolder.plataformas.setText(item.getPlataformas());
+        viewHolder.precio.setText(item.getPrecio()+"€");
 
     }
 

@@ -12,11 +12,11 @@ import java.util.List;
 public class JuegoListaDeseos {
     private float precio;
     private String nombre;
-    private int Drawable;
+    private String Drawable;
     private String plataforma;
     private String genero;
 
-    public JuegoListaDeseos(String nombre, String plataforma, String genero, float precio, int Drawable) {
+    public JuegoListaDeseos(String nombre, String plataforma, String genero, float precio, String Drawable) {
         this.nombre = nombre;
         this.plataforma = plataforma;
         this.genero = genero;
@@ -25,17 +25,6 @@ public class JuegoListaDeseos {
     }
 
     public static final List<JuegoListaDeseos> JUEGOS = new ArrayList<>();
-
-    static {
-        JUEGOS.add(new JuegoListaDeseos("Juego1", "3DS", "Aventuras", 5, R.drawable.ares));
-        JUEGOS.add(new JuegoListaDeseos("Juego2", "PS4", "Rol", 3.2f, R.drawable.ares));
-        JUEGOS.add(new JuegoListaDeseos("Juego3", "PC", "Rol", 12f, R.drawable.ares));
-        JUEGOS.add(new JuegoListaDeseos("Juego4", "PC", "Plataformas", 9, R.drawable.ares));
-        JUEGOS.add(new JuegoListaDeseos("Juego5", "Xbox One", "Acción", 34f, R.drawable.ares));
-        JUEGOS.add(new JuegoListaDeseos("Juego5", "Xbox One", "Acción", 34f, R.drawable.ares));
-        JUEGOS.add(new JuegoListaDeseos("Juego5", "Xbox One", "Acción", 34f, R.drawable.ares));
-        JUEGOS.add(new JuegoListaDeseos("Juego5", "Xbox One", "Acción", 34f, R.drawable.ares));
-    }
 
     public float getPrecio() {
         return precio;
@@ -53,7 +42,7 @@ public class JuegoListaDeseos {
         return genero;
     }
 
-    public int getDrawable() {
+    public String getDrawable() {
         return Drawable;
     }
 }

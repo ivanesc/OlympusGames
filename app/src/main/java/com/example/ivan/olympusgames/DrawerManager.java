@@ -41,7 +41,6 @@ public class DrawerManager {
 
         switch (id) {
             case R.id.item_inicio:
-                item.setChecked(true);
                 try{
                     Intent intent = new Intent(activity, MainActivity.class);
                     activity.startActivity(intent);
@@ -52,7 +51,6 @@ public class DrawerManager {
                 }
                 break;
             case R.id.item_login:
-                item.setChecked(true);
                 try{
                     Intent intent2 = new Intent(activity, Login.class);
                     activity.startActivity(intent2);
@@ -63,7 +61,6 @@ public class DrawerManager {
                 }
                 break;
             case R.id.item_registrar:
-                item.setChecked(true);
                 try{
                     Intent intent3 = new Intent(activity, Registro.class);
                     activity.startActivity(intent3);
@@ -74,7 +71,6 @@ public class DrawerManager {
                 }
                 break;
             case R.id.item_cerrar_sesión:
-                item.setChecked(true);
                 try{
                     if(Internet.isConnected(activity)) {
                         Preferencias_Usuario.setToken(activity, "");
@@ -93,7 +89,6 @@ public class DrawerManager {
                 }
                 break;
             case R.id.item_modificar:
-                item.setChecked(true);
                 try{
                     Intent intent4 = new Intent(activity, ModificarPerfil.class);
                     activity.startActivity(intent4);
@@ -104,7 +99,6 @@ public class DrawerManager {
                 }
                 break;
             case R.id.item_plataformas:
-                item.setChecked(true);
                 try{
                     Intent intent5 = new Intent(activity, Plataformas.class);
                     activity.startActivity(intent5);
@@ -115,7 +109,6 @@ public class DrawerManager {
                 }
                 break;
             case R.id.item_listadeseos:
-                item.setChecked(true);
                 try{
                     Intent intent = new Intent(activity, ListaDeseos1.class);
                     activity.startActivity(intent);
@@ -126,7 +119,6 @@ public class DrawerManager {
                 }
                 break;
             case R.id.item_acercade:
-                item.setChecked(true);
                 try {
                     Intent intent6 = new Intent(activity, AcercaDe.class);
                     activity.startActivity(intent6);
@@ -137,7 +129,6 @@ public class DrawerManager {
                 }
                 break;
             case R.id.item_escribir:
-                item.setChecked(true);
                 try {
                     String datosMail = "mailto:olympusgames@gmail.es"
                             + "?cc=ivanEscobarSanchez@hotmail.com"
@@ -152,7 +143,6 @@ public class DrawerManager {
                 }
                 break;
             case R.id.item_ayuda:
-                item.setChecked(true);
                 try {
                     Intent intent7 = new Intent(activity, Ayuda.class);
                     activity.startActivity(intent7);

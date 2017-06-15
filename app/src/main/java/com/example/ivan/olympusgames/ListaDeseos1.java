@@ -21,11 +21,17 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
+import com.example.ivan.olympusgames.SQLite.Lista_Deseados;
+import com.example.ivan.olympusgames.modelo.JuegoListaDeseos;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ListaDeseos1 extends AppCompatActivity
         implements AdaptadorListaDeseos.EscuchaEventosClick {
@@ -85,6 +91,18 @@ public class ListaDeseos1 extends AppCompatActivity
 
         reciclador.setLayoutManager(layoutManager);
 
+        //Añadir juegos a la lista
+        JuegoListaDeseos.JUEGOS.clear();
+        for(int i=0; i<Lista_Deseados.getAll(ListaDeseos1.this); i++) {
+            String datos[] = Datos_Juegos.getGame(ListaDeseos1.this, Lista_Deseados.getIdAt(ListaDeseos1.this, i+1));
+            String nombre_juego = datos[1];
+            String plataformas_juego = datos[4].replace("/////",", ");
+            String generos_juego = datos[3].replace("/////",", ");
+            float precio_juego = Float.parseFloat(datos[5].split("/////")[0]);
+            String icon_juego = datos[7];
+            JuegoListaDeseos.JUEGOS.add(new JuegoListaDeseos(nombre_juego, plataformas_juego, generos_juego, precio_juego, icon_juego));
+        }
+
         AdaptadorListaDeseos adaptador = new AdaptadorListaDeseos(this);
         reciclador.setAdapter(adaptador);
 
@@ -122,9 +140,15 @@ public class ListaDeseos1 extends AppCompatActivity
 
     @Override
     public void onItemClick(AdaptadorListaDeseos.ViewHolder holder, int posicion) {
+
+    }
+
+    public void onItemListaDeseosClick(View v) throws InterruptedException, ExecutionException, UnsupportedEncodingException {
+        String itemName = ((TextView) v.findViewById(R.id.nombre_juego_ld)).getText().toString();
         Intent intent = new Intent(this, JuegoDetallado.class);
-        //Intent intent = new Intent(this, ActividadDetalle.class);
-        //intent.putExtra(EXTRA_POSICION, posicion);
+        String datos[] = Datos_Juegos.getGame(ListaDeseos1.this, itemName);
+        String id = datos[0];
+        intent.putExtra("id", id);
         startActivity(intent);
     }
 }

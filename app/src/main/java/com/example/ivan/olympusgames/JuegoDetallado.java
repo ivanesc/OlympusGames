@@ -2,6 +2,8 @@ package com.example.ivan.olympusgames;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -16,6 +18,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +32,7 @@ import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Gallery;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -37,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
+import com.example.ivan.olympusgames.SQLite.Lista_Deseados;
 import com.example.ivan.olympusgames.modelo.JuegoDetalle;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -71,6 +76,15 @@ public class JuegoDetallado extends AppCompatActivity
     AppBarLayout barra;
 
     Toolbar barra1;
+
+    String plataforma_names[];
+    String precios[];
+
+    int plataformaSeleccionada;
+    String precio;
+    int id_juego;
+
+    boolean fav;
 
     private class ComentarioJuego {
         private String fecha="Sin fecha";
@@ -138,7 +152,7 @@ public class JuegoDetallado extends AppCompatActivity
 
         String datos[] = Datos_Juegos.getGame(JuegoDetallado.this, Integer.parseInt(id));
         populateComentarios();
-        populatePlataformas();
+        populatePlataformas(datos[4]);
         showLVComentarios_Complejo();
         showLVPlataformas_Complejo();
 
@@ -197,12 +211,16 @@ public class JuegoDetallado extends AppCompatActivity
 
         reciclador.setLayoutManager(layoutManager);
 
-        JuegoDetalle.JUEGOS.add(new JuegoDetalle(datos[1], datos[2].toString(), datos[4], datos[3], Float.parseFloat(datos[5].split("/////")[0]), R.drawable.ares));
+        plataformaSeleccionada = 0;
+        precios = datos[5].split("/////");
+        precio = precios[plataformaSeleccionada];
+        id_juego = Integer.parseInt(datos[0]);
+
+        JuegoDetalle.JUEGOS.add(new JuegoDetalle(id_juego, datos[1], datos[2].toString(), datos[3], Float.parseFloat(precio), datos[7]));
         AdaptadorJuegoDetallado adaptador = new AdaptadorJuegoDetallado(this);
         reciclador.setAdapter(adaptador);
 
-
-
+        fav = Lista_Deseados.gameFav(JuegoDetallado.this, id_juego);
     }
 
     private int populateComentarios() {
@@ -214,13 +232,12 @@ public class JuegoDetallado extends AppCompatActivity
         return comentarios.size();
     }
 
-    private int populatePlataformas() {
+    private int populatePlataformas(String plataforms) {
         plataformas=new ArrayList<PlataformaJuego>();
-        plataformas.add( new PlataformaJuego("PC") );
-        plataformas.add( new PlataformaJuego("3DS") );
-        //plataformas.add( new PlataformaJuego("XBOX") );
-        //plataformas.add( new PlataformaJuego("3DS") );
-        //plataformas.add( new PlataformaJuego("PC") );
+        plataforma_names = plataforms.split("/////");
+        for(int i=0; i<plataforma_names.length; i++){
+            plataformas.add( new PlataformaJuego(plataforma_names[i]) );
+        }
         return plataformas.size();
     }
 
@@ -299,7 +316,7 @@ public class JuegoDetallado extends AppCompatActivity
 
     private void showLVPlataformas_Complejo() {
         lvPlataformas=(ListView) findViewById(R.id.lvComplejoPlataformas);
-        lvPlataformas.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+        lvPlataformas.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
 
         ArrayAdapter adaptadorPlataformas=
                 new ArrayAdapter( this // Context
@@ -314,6 +331,10 @@ public class JuegoDetallado extends AppCompatActivity
 
                         // Creamos la vista para cada fila
                         View fila = inflater.inflate(R.layout.plataformadetalleitem, parent, false);
+                        if(position == 0){
+                            TextView plataform = (TextView) fila.findViewById(R.id.plataforma_det_relleno);
+                            plataform.setTextColor(Color.rgb(0,255,255));
+                        }
 
                         // Creamos cada uno de los widgets que forman una fila
                         TextView nombrePlataformaView = (TextView) fila.findViewById(R.id.plataforma_det_relleno);
@@ -324,17 +345,14 @@ public class JuegoDetallado extends AppCompatActivity
                         return fila;
                     }
                 };
+
         lvPlataformas.setAdapter(adaptadorPlataformas);
         setListViewHeightBasedOnChildren2(lvPlataformas);
 
         lvPlataformas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                SparseBooleanArray checked = lvPlataformas.getCheckedItemPositions();
                 for (int i = 0; i < lvPlataformas.getCount(); ++i) {
-                    if(checked.get(i)){
-                        
-                    }
 
                 }
             }
@@ -396,6 +414,59 @@ public class JuegoDetallado extends AppCompatActivity
         //Intent intent = new Intent(this, ActividadDetalle.class);
         //intent.putExtra(EXTRA_POSICION, posicion);
         //startActivity(intent);
+    }
+
+    @Override
+    public void onStop () {
+        super.onStop();
+        JuegoDetalle.JUEGOS.clear();
+    }
+
+    public void onPlataformaClick(View v){
+        int pos = 0;
+        int count = lvPlataformas.getAdapter().getCount();
+
+        //Inicializar color plataformas
+        for (int i = 0; i < count; i++)
+        {
+            ViewGroup row = (ViewGroup) lvPlataformas.getChildAt(i);
+            TextView plataform = (TextView) row.findViewById(R.id.plataforma_det_relleno);
+            plataform.setTextColor(Color.WHITE);
+        }
+        //Marcar plataforma seleccionada
+        TextView item = (TextView)v.findViewById(R.id.plataforma_det_relleno);
+        String plataforma = item.getText().toString();
+        for(int i=0; i<plataforma_names.length; i++){
+            if(plataforma_names[i].equals(plataforma)){
+                pos = i;
+                break;
+            }
+        }
+        plataformaSeleccionada = pos;
+        item.setTextColor(Color.rgb(0,255,255));
+
+        //Cambiar precio
+        precio = precios[plataformaSeleccionada];
+        TextView precio_text = (TextView)findViewById(R.id.precio_det);
+        precio_text.setText(precio+"€");
+    }
+
+    public void onFavClick(View v){
+        if(fav){    //Eliminar de favoritos
+            Lista_Deseados.delete(JuegoDetallado.this, id_juego);
+        }else{      //Añadir a favoritos
+            new Lista_Deseados(id_juego, JuegoDetallado.this);
+        }
+
+        setFavImage(fav);
+        fav = !fav;
+    }
+
+    private void setFavImage(boolean fav){
+        ImageButton boton_fav = (ImageButton)findViewById(R.id.favoritos);
+
+        if(fav) boton_fav.setImageResource(R.drawable.listadeseos_off);
+        else boton_fav.setImageResource(R.drawable.listadeseos_on);
     }
 
 }

@@ -137,9 +137,10 @@ public class FragmentoCategoria extends Fragment {
             String game[] = Datos_Juegos.getGame(this.getContext(), id);
 
             String nombre = game[1];
+            String plataformas = game[4].replace("/////", ", ");
             String precio[] = game[5].split("/////");
 
-            NOVEDADES.add(new com.example.ivan.olympusgames.modelo.Juego(Float.parseFloat(precio[0].replace(",",".")), nombre, game[7]));
+            NOVEDADES.add(new com.example.ivan.olympusgames.modelo.Juego(Float.parseFloat(precio[0].replace(",",".")), nombre, plataformas, game[7]));
         }
 
         //OFERTAS
@@ -150,8 +151,9 @@ public class FragmentoCategoria extends Fragment {
             String game[] = Datos_Juegos.getGame(this.getContext(), id);
 
             String nombre = game[1];
+            String plataformas = game[4].replace("/////", ", ");
             String precio[] = game[5].split("/////");
-            OFERTAS.add(new com.example.ivan.olympusgames.modelo.Juego(Float.parseFloat(precio[0].replace(",",".")), nombre, game[7]));
+            OFERTAS.add(new com.example.ivan.olympusgames.modelo.Juego(Float.parseFloat(precio[0].replace(",",".")), nombre, plataformas, game[7]));
         }
 
         switch (indiceSeccion) {
@@ -218,9 +220,10 @@ public class FragmentoCategoria extends Fragment {
             String name = game[1];
             String gens = game[3];
             String plats = game[4];
+            String plataformas = game[4].replace("/////", ", ");
             String precio[] = game[5].split("/////");
             if(name.toLowerCase().contains(nombre.toLowerCase()) && gens.toLowerCase().contains(genero.toLowerCase()) && plats.toLowerCase().contains(plataforma.toLowerCase()))
-                BUSQUEDAS.add(new com.example.ivan.olympusgames.modelo.Juego(Float.parseFloat(precio[0].replace(",",".")), name, game[7]));
+                BUSQUEDAS.add(new com.example.ivan.olympusgames.modelo.Juego(Float.parseFloat(precio[0].replace(",",".")), name, plataformas, game[7]));
         }
 
         switch (indiceSeccion) {

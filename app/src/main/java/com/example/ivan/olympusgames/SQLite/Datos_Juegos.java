@@ -123,7 +123,7 @@ public class Datos_Juegos {
                 , null // Cláusula group by.
                 , null // Cláusula having
                 , null // Cláusula order by.
-                , "3" // Cláusula limit
+                , null // Cláusula limit
         );
 
         cursor.moveToFirst();

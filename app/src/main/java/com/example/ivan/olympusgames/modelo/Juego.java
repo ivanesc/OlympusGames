@@ -10,11 +10,13 @@ import android.graphics.drawable.BitmapDrawable;
 public class Juego {
     private float precio;
     private String nombre;
+    private String plataformas;
     private String Drawable;
 
-    public Juego(float precio, String nombre, String Drawable) {
+    public Juego(float precio, String nombre, String plataformas, String Drawable) {
         this.precio = precio;
         this.nombre = nombre;
+        this.plataformas = plataformas;
         this.Drawable = Drawable;
     }
 
@@ -24,6 +26,10 @@ public class Juego {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getPlataformas() {
+        return plataformas;
     }
 
     public String getDrawable() {
