@@ -1,9 +1,12 @@
 package com.example.ivan.olympusgames;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,15 +15,21 @@ import com.example.ivan.olympusgames.R;
 
 import java.util.List;
 
-public class AdaptadorCategorias
-        extends RecyclerView.Adapter<AdaptadorCategorias.ViewHolder> {
+public class AdaptadorCategorias extends RecyclerView.Adapter<AdaptadorCategorias.ViewHolder> {
 
 
     private final List<com.example.ivan.olympusgames.modelo.Juego> items;
 
+    interface EscuchaEventosClick {
+        void onItemClick(ViewHolder holder, int posicion);
+    }
+
+    private EscuchaEventosClick escucha;
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
         public TextView nombre;
+        public TextView plataformas;
         public TextView precio;
         public ImageView imagen;
 
@@ -28,11 +37,11 @@ public class AdaptadorCategorias
             super(v);
 
             nombre = (TextView) v.findViewById(R.id.nombre_juego);
+            plataformas = (TextView) v.findViewById(R.id.plataforma);
             precio = (TextView) v.findViewById(R.id.precio_juego);
             imagen = (ImageView) v.findViewById(R.id.miniatura_juego);
         }
     }
-
 
     public AdaptadorCategorias(List<com.example.ivan.olympusgames.modelo.Juego> items) {
         this.items = items;
@@ -59,7 +68,8 @@ public class AdaptadorCategorias
                 .centerCrop()
                 .into(viewHolder.imagen);
         viewHolder.nombre.setText(item.getNombre());
-        viewHolder.precio.setText("$" + item.getPrecio());
+        viewHolder.plataformas.setText(item.getPlataformas());
+        viewHolder.precio.setText(item.getPrecio()+"€");
 
     }
 

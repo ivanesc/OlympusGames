@@ -7,18 +7,12 @@
     android:layout_width="match_parent"
     android:background="@color/background">
 
-    <View
-        android:id="@+id/linea2"
-        android:layout_width="30dp"
-        android:layout_height="1dp"
-        android:layout_below="@+id/plataforma_det_relleno"
-        android:background="@color/color_white"/>
-
     <TextView
         android:id="@+id/plataforma_det_relleno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:onClick="onPlataformaClick"
         android:text="Plataforma a rellenar"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/color_white"

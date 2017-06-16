@@ -40,9 +40,7 @@ public class AdaptadorListaDeseos extends RecyclerView.Adapter<AdaptadorListaDes
         }
 
         @Override
-        public void onClick(View view) {
-            escucha.onItemClick(this, getAdapterPosition());
-        }
+        public void onClick(View view) { escucha.onItemClick(this, getAdapterPosition()); }
     }
 
     public AdaptadorListaDeseos(EscuchaEventosClick escucha) {

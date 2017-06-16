@@ -29,7 +29,8 @@
             android:layout_below="@+id/ratingBar"
             android:layout_marginTop="10dp"
             android:layout_toLeftOf="@+id/reservaya"
-            android:src="@drawable/listadeseos" />
+            android:onClick="onFavClick"
+            android:src="@drawable/listadeseos_off" />
 
         <ImageButton
             android:id="@+id/reservaya"
@@ -121,12 +122,12 @@
 
         <RatingBar
             android:id="@+id/ratingBar"
-            android:theme="@style/RatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/miniatura_juego_det"
+            android:layout_marginRight="60dp"
             android:stepSize="0.5"
-            android:layout_marginRight="60dp" />
+            android:theme="@style/RatingBar" />
 
         <TextView
             android:id="@+id/precio_det"
@@ -137,7 +138,7 @@
             android:layout_marginTop="20dp"
             android:text="54 €"
             android:textColor="@color/color_white"
-            android:textSize="40dp"
+            android:textSize="25dp"
             android:textStyle="bold" />
 
         <TextView
@@ -160,7 +161,6 @@
             android:layout_marginTop="60dp"
             android:background="@drawable/rounded_corner"
             android:inputType="textMultiLine"
-            android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/color_white"
             android:textSize="18dp"

@@ -70,21 +70,6 @@ public class Datos_Juegos {
         //Caratula
         Bitmap imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "caratula.jpg");
         this.URL_Icon = guardarImagen(contexto, this.Nombre_Juego, "caratula.jpg", imagen);
-        //imagen1
-        /*imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "Imagen0.jpg");
-        this.URL_Imagen1 = guardarImagen(contexto, this.Nombre_Juego, "Imagen0.jpg", imagen);
-        //imagen2
-        imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "Imagen1.jpg");
-        this.URL_Imagen2 = guardarImagen(contexto, this.Nombre_Juego, "Imagen1.jpg", imagen);
-        //imagen3
-        imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "Imagen2.jpg");
-        this.URL_Imagen3 = guardarImagen(contexto, this.Nombre_Juego, "Imagen2.jpg", imagen);
-        //imagen4
-        imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "Imagen3.jpg");
-        this.URL_Imagen4 = guardarImagen(contexto, this.Nombre_Juego, "Imagen3.jpg", imagen);
-        //imagen5
-        imagen = Internet.downloadImage(this.Nombre_Juego.replace(":","_"), "Imagen4.jpg");
-        this.URL_Imagen5 = guardarImagen(contexto, this.Nombre_Juego, "Imagen4.jpg", imagen);*/
 
         if (olympusgames_db == null) {
             this.olympusgames_db = new SQLite_DB(contexto);
@@ -138,7 +123,7 @@ public class Datos_Juegos {
                 , null // Cláusula group by.
                 , null // Cláusula having
                 , null // Cláusula order by.
-                , "3" // Cláusula limit
+                , null // Cláusula limit
         );
 
         cursor.moveToFirst();
@@ -237,7 +222,125 @@ public class Datos_Juegos {
         return cont;
     }
 
-    private String guardarImagen (Context context, String nombre, String image, Bitmap imagen){
+    //Get datos de un juego con el nombre especificado
+    public static String[] getGame(Context contexto, String name) throws InterruptedException, ExecutionException, UnsupportedEncodingException {
+        String cont[] = new String[13];
+
+        getFotos(contexto, name);
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Datos_Juegos.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Datos_Juegos.Id_Juego, SQLite_DB.Tabla_Datos_Juegos.Nombre_Juego
+                        , SQLite_DB.Tabla_Datos_Juegos.Descripcion_Juego, SQLite_DB.Tabla_Datos_Juegos.Generos
+                        , SQLite_DB.Tabla_Datos_Juegos.Plataformas, SQLite_DB.Tabla_Datos_Juegos.Precios
+                        , SQLite_DB.Tabla_Datos_Juegos.Valoraciones, SQLite_DB.Tabla_Datos_Juegos.URL_Icon
+                        , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen1, SQLite_DB.Tabla_Datos_Juegos.URL_Imagen2
+                        , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen3, SQLite_DB.Tabla_Datos_Juegos.URL_Imagen4
+                        , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen5} // Columnas
+                , SQLite_DB.Tabla_Datos_Juegos.Nombre_Juego+"=?" // Cláusula where
+                , new String[]{""+name} // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            cont[0] = cursor.getString(0);
+            cont[1] = cursor.getString(1);
+            cont[2] = cursor.getString(2);
+            cont[3] = cursor.getString(3);
+            cont[4] = cursor.getString(4);
+            cont[5] = cursor.getString(5);
+            cont[6] = cursor.getString(6);
+            cont[7] = cursor.getString(7);
+            cont[8] = cursor.getString(8);
+            cont[9] = cursor.getString(9);
+            cont[10] = cursor.getString(10);
+            cont[11] = cursor.getString(11);
+            cont[12] = cursor.getString(12);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return cont;
+    }
+
+    private static boolean foto_isExists(Context contexto, String name){
+        boolean res = false;
+        String cont = new String();
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Datos_Juegos.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Datos_Juegos.URL_Imagen1} // Columnas
+                , SQLite_DB.Tabla_Datos_Juegos.Nombre_Juego+"=?" // Cláusula where
+                , new String[]{""+name} // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            cont = cursor.getString(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        if(!cont.equals("")) res = true;
+
+        return res;
+    }
+
+    private static void getFotos(Context contexto, String name) throws InterruptedException, ExecutionException, UnsupportedEncodingException {
+        Bitmap imagen;
+        if(!foto_isExists(contexto, name)) {
+            //imagen1
+            imagen = Internet.downloadImage(name.replace(":", "_"), "Imagen0.jpg");
+            String URL_Imagen1 = guardarImagen(contexto, name, "Imagen0.jpg", imagen);
+            //imagen2
+            imagen = Internet.downloadImage(name.replace(":", "_"), "Imagen1.jpg");
+            String URL_Imagen2 = guardarImagen(contexto, name, "Imagen1.jpg", imagen);
+            //imagen3
+            imagen = Internet.downloadImage(name.replace(":", "_"), "Imagen2.jpg");
+            String URL_Imagen3 = guardarImagen(contexto, name, "Imagen2.jpg", imagen);
+            //imagen4
+            imagen = Internet.downloadImage(name.replace(":", "_"), "Imagen3.jpg");
+            String URL_Imagen4 = guardarImagen(contexto, name, "Imagen3.jpg", imagen);
+            //imagen5
+            imagen = Internet.downloadImage(name.replace(":", "_"), "Imagen4.jpg");
+            String URL_Imagen5 = guardarImagen(contexto, name, "Imagen4.jpg", imagen);
+
+            if (olympusgames_db == null) {
+                olympusgames_db = new SQLite_DB(contexto);
+            }
+            SQLiteDatabase db = olympusgames_db.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(SQLite_DB.Tabla_Datos_Juegos.URL_Imagen1, URL_Imagen1);
+            values.put(SQLite_DB.Tabla_Datos_Juegos.URL_Imagen2, URL_Imagen2);
+            values.put(SQLite_DB.Tabla_Datos_Juegos.URL_Imagen3, URL_Imagen3);
+            values.put(SQLite_DB.Tabla_Datos_Juegos.URL_Imagen4, URL_Imagen4);
+            values.put(SQLite_DB.Tabla_Datos_Juegos.URL_Imagen5, URL_Imagen5);
+
+            db.update(SQLite_DB.Tabla_Datos_Juegos.Nombre_Tabla, values, SQLite_DB.Tabla_Datos_Juegos.Nombre_Juego + "=?", new String[]{"" + name});
+            db.close();
+        }
+    }
+
+    private static String guardarImagen(Context context, String nombre, String image, Bitmap imagen){
         ContextWrapper cw = new ContextWrapper(context);
         File dirImages = cw.getDir("Imagenes", Context.MODE_PRIVATE);
         File myPath = new File(dirImages, nombre+"_"+image);

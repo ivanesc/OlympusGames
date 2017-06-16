@@ -1,5 +1,6 @@
 package com.example.ivan.olympusgames;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -30,11 +32,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.ivan.olympusgames.SQLite.Banner;
 import com.example.ivan.olympusgames.SQLite.Cache_Busquedas;
+import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.io.File;
@@ -212,7 +216,16 @@ public class MainActivity extends AppCompatActivity {
 
             }, 0, DURATION);
         }
+    }
 
+    public void runThis(View v) throws InterruptedException, ExecutionException, UnsupportedEncodingException {
+        String itemName = ((TextView) v.findViewById(R.id.nombre_juego)).getText().toString();
+        String datos[] = Datos_Juegos.getGame(MainActivity.this, itemName);
+        String id = datos[0];
+        Intent intent = new Intent(this, JuegoDetallado.class);
+        //Intent intent = new Intent(this, ActividadDetalle.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 }
 

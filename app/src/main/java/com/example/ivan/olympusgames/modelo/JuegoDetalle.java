@@ -11,13 +11,16 @@ import java.util.List;
  */
 public class JuegoDetalle {
     private float precio;
+    private int id;
     private String nombre;
-    private int Drawable;
-    //private String plataforma;
+    private String descripcion;
+    private String Drawable;
     private String genero;
 
-    public JuegoDetalle(String nombre, String genero, float precio, int Drawable) {
+    public JuegoDetalle(int id, String nombre, String descripcion, String genero, float precio, String Drawable) {
+        this.id = id;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.genero = genero;
         this.precio = precio;
         this.Drawable = Drawable;
@@ -25,8 +28,8 @@ public class JuegoDetalle {
 
     public static final List<JuegoDetalle> JUEGOS = new ArrayList<>();
 
-    static {
-        JUEGOS.add(new JuegoDetalle("Spartan", "Aventuras", 5, R.drawable.ares));
+    public int getId() {
+        return id;
     }
 
     public float getPrecio() {
@@ -37,11 +40,15 @@ public class JuegoDetalle {
         return nombre;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
     public String getGenero() {
         return genero;
     }
 
-    public int getDrawable() {
+    public String getDrawable() {
         return Drawable;
     }
 }
