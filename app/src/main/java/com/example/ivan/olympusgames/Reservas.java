@@ -1,41 +1,31 @@
 package com.example.ivan.olympusgames;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-import java.util.ArrayList;
-import java.util.List;
+public class Reservas extends AppCompatActivity
+        implements AdaptadorListaReservas.EscuchaEventosClick {
 
+    public static final String EXTRA_POSICION = "com.example.ivan.olympusgames.Reservas.extra.POSICION";
 
-public class Carrito2 extends AppCompatActivity {
-    TextView pantallaPedido;
-
-    Button reservas;
+    RecyclerView reciclador;
+    LinearLayoutManager layoutManager;
 
     DrawerLayout drawer;
 
@@ -52,7 +42,8 @@ public class Carrito2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_carrito2);
+        setContentView(R.layout.activity_lista_reservas);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -65,38 +56,29 @@ public class Carrito2 extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         if (navigationView != null) {
-            DrawerManager.prepararDrawer(drawer, navigationView, Carrito2.this);
+            DrawerManager.prepararDrawer(drawer, navigationView, Reservas.this);
         }
 
-        contenido = (RelativeLayout) findViewById(R.id.content_carrito);
-
-        reservas = (Button) findViewById(R.id.botonListaReservas);
+        contenido = (RelativeLayout) findViewById(R.id.content_listareservas);
 
         barra = (AppBarLayout) findViewById(R.id.appbar);
 
         barra1 = (Toolbar) findViewById(R.id.toolbar);
 
-        lstView = (ListView)findViewById(R.id.lstView);
+        lstView = (ListView) findViewById(R.id.lstView);
 
-        searchView = (MaterialSearchView)findViewById(R.id.search_view);
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
         SearchView.addSearchViewListener(searchView, lstView, contenido, barra);
-        SearchView.addQueryTextListener(searchView, lstView, Carrito2.this);
+        SearchView.addQueryTextListener(searchView, lstView, Reservas.this);
 
-        String prueba = getIntent().getStringExtra("pedidos");
+        reciclador = (RecyclerView) findViewById(R.id.reciclador6);
 
-        pantallaPedido = (TextView) findViewById(R.id.textPedidos);
+        layoutManager = new GridLayoutManager(this, 1);
 
-        pantallaPedido.setText(prueba);
-        Toast.makeText(getApplicationContext(),prueba, Toast.LENGTH_LONG).show();
+        reciclador.setLayoutManager(layoutManager);
 
-        reservas.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Carrito2.this, Reservas.class);
-                startActivity(intent);
-            }
-        });
-
+        AdaptadorListaReservas adaptador = new AdaptadorListaReservas(this);
+        reciclador.setAdapter(adaptador);
 
     }
 
@@ -130,5 +112,11 @@ public class Carrito2 extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onItemClick(AdaptadorListaReservas.ViewHolder holder, int posicion) {
+        Intent intent = new Intent(this, InteriorReservas.class);
+        //Intent intent = new Intent(this, ActividadDetalle.class);
+        //intent.putExtra(EXTRA_POSICION, posicion);
+        startActivity(intent);
+    }
 }
-

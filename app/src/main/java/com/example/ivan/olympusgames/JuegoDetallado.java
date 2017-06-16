@@ -321,7 +321,7 @@ public class JuegoDetallado extends AppCompatActivity
                 SparseBooleanArray checked = lvPlataformas.getCheckedItemPositions();
                 for (int i = 0; i < lvPlataformas.getCount(); ++i) {
                     if(checked.get(i)){
-                        
+
                     }
 
                 }

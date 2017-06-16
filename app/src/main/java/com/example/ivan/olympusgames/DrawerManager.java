@@ -125,6 +125,17 @@ public class DrawerManager {
                             , Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.item_reservas:
+                item.setChecked(true);
+                try{
+                    Intent intent = new Intent(activity, Reservas.class);
+                    activity.startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(activity
+                            , "ActivityNotFound "+e.getMessage()
+                            , Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.item_acercade:
                 item.setChecked(true);
                 try {

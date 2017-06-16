@@ -242,7 +242,7 @@ public class Carrito extends AppCompatActivity
 
     @Override
     public void onItemClick(AdaptadorCarrito.ViewHolder holder, int posicion) {
-        Intent intent = new Intent(this, JuegoDetallado.class);
+        Intent intent = new Intent(this, Carrito2.class);
         //Intent intent = new Intent(this, ActividadDetalle.class);
         //intent.putExtra(EXTRA_POSICION, posicion);
         startActivity(intent);

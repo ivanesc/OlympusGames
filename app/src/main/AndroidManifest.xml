@@ -100,6 +100,24 @@
         </activity>
 
         <activity
+            android:name=".Reservas"
+            android:label="@string/title_activity_reservas"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".InteriorReservas"
+            android:label="@string/title_activity_reservas"
+            android:parentActivityName=".Reservas"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ivan.olympusgames.Reservas" />
+        </activity>
+
+        <activity
             android:name=".AcercaDe"
             android:label="@string/title_activity_acercade"
             android:theme="@style/AppTheme.NoActionBar"
