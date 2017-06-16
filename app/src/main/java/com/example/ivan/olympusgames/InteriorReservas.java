@@ -47,8 +47,8 @@ public class InteriorReservas extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         contenido = (RelativeLayout) findViewById(R.id.content_interiorreserva);
 
@@ -71,36 +71,6 @@ public class InteriorReservas extends AppCompatActivity
         AdaptadorInteriorReserva adaptador = new AdaptadorInteriorReserva(this);
         reciclador.setAdapter(adaptador);
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_actividad, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawer.openDrawer(GravityCompat.START);
-                return true;
-            case R.id.action_carrito:
-                startActivity(new Intent(this, Carrito.class));
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

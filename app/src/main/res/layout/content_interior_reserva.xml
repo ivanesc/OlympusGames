@@ -14,6 +14,17 @@
     tools:context="com.example.ivan.olympusgames.InteriorReservas"
     tools:showIn="@layout/app_bar_interior_reserva">
 
+    <TextView
+        android:id="@+id/tv_label_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:gravity="center"
+        android:text="JUEGOS DE TU RESERVA"
+        android:textColor="@color/color_white"
+        android:textSize="20sp" />
+
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/reciclador7"
         android:layout_width="match_parent"

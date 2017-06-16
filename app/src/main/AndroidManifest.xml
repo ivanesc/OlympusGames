@@ -108,7 +108,7 @@
 
         <activity
             android:name=".InteriorReservas"
-            android:label="@string/title_activity_reservas"
+            android:label="@string/title_activity_pedidos_reserva"
             android:parentActivityName=".Reservas"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">

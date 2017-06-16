@@ -34,6 +34,7 @@
 
     <string name="title_activity_carrito">Carrito</string>
     <string name="title_activity_reservas">Reservas</string>
+    <string name="title_activity_pedidos_reserva">Pedidos reserva</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_registro">Registro</string>
     <string name="title_activity_modificarperfil">Editar perfil</string>
