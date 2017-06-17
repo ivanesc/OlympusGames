@@ -11,24 +11,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLite_DB extends SQLiteOpenHelper {
 
     private static final String NOMBRE_BASE_DATOS = "olympusgames.db";
-    private static final int VERSION_ACTUAL = 18;
+    private static final int VERSION_ACTUAL = 22;
     private final Context contexto;
 
     public static class Tabla_Datos_Juegos {
-        /* los juegos permanecen mientras esten en alguna de las otras tablas que lo necesitan
-        * id_juego integer primary key
-        * nombre text
-        * generos text (separados por ,)
-        * plataformas text (separados por ,)
-        * precios text (separados por ,)
-        * valoraciones text (separados por ,)
-        * url_icon text
-        * url_imagen1 text
-        * url_imagen2 text
-        * url_imagen3 text
-        * url_imagen4 text
-        * url_imagen5 text
-        */
+
         public static final String Nombre_Tabla = "datos_juegos";
         public static final String Id_Juego = "id_juego";
         public static final String Nombre_Juego = "nombre";
@@ -43,45 +30,32 @@ public class SQLite_DB extends SQLiteOpenHelper {
         public static final String URL_Imagen3 = "url_imagen3";
         public static final String URL_Imagen4 = "url_imagen4";
         public static final String URL_Imagen5 = "url_imagen5";
+        public static final String Valoracion = "valoracion";
     }
 
     public static class Tabla_Novedades {
-        /* límite 20 juegos
-        * id integer primary key autoincrement
-        * id_juego integer coger datos de datos_juegos
-        */
+
         public static final String Nombre_Tabla = "novedades";
         public static final String Id = "id";
         public static final String Id_Juego = "id_juego";
     }
 
     public static class Tabla_Ofertas {
-        /* límite 20 juegos
-        * id integer primary key autoincrement
-        * id_juego integer coger datos de datos_juegos
-        */
+
         public static final String Nombre_Tabla = "ofertas";
         public static final String Id = "id";
         public static final String Id_Juego = "id_juego";
     }
 
     public static class Tabla_Busquedas {
-        /* límite 20 juegos
-        * id integer primary key autoincrement
-        * id_juego integer coger datos de datos_juegos
-        */
+
         public static final String Nombre_Tabla = "busquedas";
         public static final String Id = "id";
         public static final String Id_Juego = "id_juego";
     }
 
     public static class Tabla_Comentarios {
-        /* límite 10 comentarios por juego
-        * id integer primary key autoincrement
-        * id_juego integer
-        * usuario text
-        * comentario text
-        */
+
         public static final String Nombre_Tabla = "comentarios";
         public static final String Id = "id";
         public static final String Id_Juego = "id_juego";
@@ -90,14 +64,7 @@ public class SQLite_DB extends SQLiteOpenHelper {
     }
 
     public static class Tabla_Reservas {
-        /* límite de 10 reservas
-        * id integer primary key autoincrement
-        * num_juegos integer
-        * precio_total text
-        * fecha text
-        * tienda text
-        * lista_juegos text (separados por /////) id_juego de los juegos. coger datos de datos_juegos
-        */
+
         public static final String Nombre_Tabla = "reservas";
         public static final String Id = "id";
         public static final String Num_Juegos = "num_juegos";
@@ -105,26 +72,20 @@ public class SQLite_DB extends SQLiteOpenHelper {
         public static final String Fecha = "fecha";
         public static final String Tienda = "tienda";
         public static final String Lista_Juegos = "lista_juegos";
+        public static final String Lista_Plataformas = "lista_plataformas";
+        public static final String Estado = "estado";
+        public static final String Identificador = "identificador";
     }
 
     public static class Tabla_Lista_Deseados {
-        /* Sin límite
-        * id integer primary key autoincrement
-        * id_juego text coger datos de datos_juegos
-        */
+
         public static final String Nombre_Tabla = "lista_deseados";
         public static final String Id = "id";
         public static final String Id_Juego = "id_juego";
     }
 
     public static class Tabla_Banner {
-        /* Limitado a 4 imagenes
-        * id integer primary key
-        * url_imagen1 text
-        * url_imagen2 text
-        * url_imagen3 text
-        * url_imagen4 text
-        */
+
         public static final String Nombre_Tabla = "banner";
         public static final String Id = "id";
         public static final String Url_Imagen1 = "url_imagen1";
@@ -134,13 +95,7 @@ public class SQLite_DB extends SQLiteOpenHelper {
     }
 
     public static class Tabla_Preferencias_Usuario {
-        /*
-        * id integer primary key autoincrement
-        * nombre text
-        * url_imagen text
-        * token text
-        * tienda_preferida text
-        */
+
         public static final String Nombre_Tabla = "preferencias_usuario";
         public static final String Id = "id";
         public static final String Nombre = "nombre";
@@ -151,22 +106,16 @@ public class SQLite_DB extends SQLiteOpenHelper {
     }
 
     public static class Tabla_Carrito {
-        /*
-        * id integer primary key autoincrement
-        * id_juego text
-        * cantidad integer
-        */
+
         public static final String Nombre_Tabla = "carrito";
         public static final String Id = "id";
         public static final String Id_Juego = "id_juego";
+        public static final String PosPlataforma = "pos_plataforma";
         public static final String Cantidad = "cantidad";
     }
 
     public static class Tabla_Cache_Busquedas {
-        /*
-        * id integer primary key autoincrement
-        * busqueda text
-        */
+
         public static final String Nombre_Tabla = "cache_busquedas";
         public static final String Id = "id";
         public static final String Busqueda = "busqueda";
@@ -196,12 +145,12 @@ public class SQLite_DB extends SQLiteOpenHelper {
         //Crear tabla Datos_Juegos
         db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY," + "%s TEXT," +
                         "%s TEXT,%s TEXT,%s TEXT,%s TEXT,%s TEXT,%s TEXT,%s TEXT,%s TEXT,"+
-                        "%s TEXT,%s TEXT,%s TEXT);",
+                        "%s TEXT,%s TEXT,%s TEXT, %s TEXT);",
                 Tabla_Datos_Juegos.Nombre_Tabla, Tabla_Datos_Juegos.Id_Juego, Tabla_Datos_Juegos.Nombre_Juego,
                 Tabla_Datos_Juegos.Descripcion_Juego, Tabla_Datos_Juegos.Generos, Tabla_Datos_Juegos.Plataformas,
                 Tabla_Datos_Juegos.Precios, Tabla_Datos_Juegos.Valoraciones, Tabla_Datos_Juegos.URL_Icon,
                 Tabla_Datos_Juegos.URL_Imagen1, Tabla_Datos_Juegos.URL_Imagen2, Tabla_Datos_Juegos.URL_Imagen3,
-                Tabla_Datos_Juegos.URL_Imagen4, Tabla_Datos_Juegos.URL_Imagen5));
+                Tabla_Datos_Juegos.URL_Imagen4, Tabla_Datos_Juegos.URL_Imagen5, Tabla_Datos_Juegos.Valoracion));
         //Crear tabla Novedades
         db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
                 Tabla_Novedades.Nombre_Tabla, Tabla_Novedades.Id,
@@ -219,12 +168,13 @@ public class SQLite_DB extends SQLiteOpenHelper {
                         "%s TEXT, %s TEXT);",
                 Tabla_Comentarios.Nombre_Tabla, Tabla_Comentarios.Id, Tabla_Comentarios.Id_Juego,
                 Tabla_Comentarios.Usuario, Tabla_Comentarios.Comentario));
-        //Crear tabla Reservas
+        //Crear tabla Reservas_Cache
         db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER," +
-                        "%s TEXT, %s DATE, %s TEXT, %s TEXT);",
+                        "%s TEXT, %s DATE, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT);",
                 Tabla_Reservas.Nombre_Tabla, Tabla_Reservas.Id, Tabla_Reservas.Num_Juegos,
                 Tabla_Reservas.Precio_Total, Tabla_Reservas.Fecha, Tabla_Reservas.Tienda,
-                Tabla_Reservas.Lista_Juegos));
+                Tabla_Reservas.Lista_Juegos, Tabla_Reservas.Estado, Tabla_Reservas.Identificador,
+                Tabla_Reservas.Lista_Plataformas));
         //Crear tabla Lista_Deseados
         db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
                 Tabla_Lista_Deseados.Nombre_Tabla, Tabla_Lista_Deseados.Id,
@@ -243,9 +193,9 @@ public class SQLite_DB extends SQLiteOpenHelper {
                 Tabla_Preferencias_Usuario.Tienda_Preferida));
         //Crear tabla Tabla_Carrito
         db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT," +
-                        "%s INTEGER);",
+                        "%s INTEGER, %s TEXT);",
                 Tabla_Carrito.Nombre_Tabla, Tabla_Carrito.Id, Tabla_Carrito.Id_Juego,
-                Tabla_Carrito.Cantidad));
+                Tabla_Carrito.Cantidad, Tabla_Carrito.PosPlataforma));
         //Crear tabla Tabla_Cache_Busquedas
         db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT);",
                 Tabla_Cache_Busquedas.Nombre_Tabla, Tabla_Cache_Busquedas.Id, Tabla_Cache_Busquedas.Busqueda));

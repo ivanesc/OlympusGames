@@ -119,7 +119,6 @@ public class DrawerManager {
                 }
                 break;
             case R.id.item_reservas:
-                item.setChecked(true);
                 try{
                     Intent intent = new Intent(activity, Reservas.class);
                     activity.startActivity(intent);

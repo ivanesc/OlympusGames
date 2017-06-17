@@ -49,6 +49,7 @@
             android:layout_below="@+id/ratingBar"
             android:layout_marginRight="75dp"
             android:layout_marginTop="10dp"
+            android:onClick="onAddCarrClick"
             android:src="@drawable/add_carro" />
 
         <TextView

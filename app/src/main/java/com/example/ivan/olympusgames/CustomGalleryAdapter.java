@@ -1,6 +1,7 @@
 package com.example.ivan.olympusgames;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,9 +11,9 @@ import android.widget.ImageView;
 public class CustomGalleryAdapter extends BaseAdapter {
 
     private Context context;
-    private int[] images;
+    private Drawable[] images;
 
-    public CustomGalleryAdapter(Context c, int[] images) {
+    public CustomGalleryAdapter(Context c, Drawable[] images) {
         context = c;
         this.images = images;
     }
@@ -37,7 +38,7 @@ public class CustomGalleryAdapter extends BaseAdapter {
 
         // create a ImageView programmatically
         ImageView imageView = new ImageView(context);
-        imageView.setImageResource(images[position]); // set image in ImageView
+        imageView.setImageDrawable(images[position]); // set image in ImageView
         imageView.setLayoutParams(new Gallery.LayoutParams(200, 200)); // set ImageView param
         return imageView;
     }

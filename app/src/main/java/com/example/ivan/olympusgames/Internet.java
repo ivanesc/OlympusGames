@@ -179,4 +179,24 @@ public class Internet {
 
         return res;
     }
+
+    public static String addReserva(String nombre_usuario, String num_juegos, String lista_juegos,
+                                    String fecha, String tienda, String precio_total,
+                                    String lista_plataformas, String estado, String identificacion,
+                                    String token){
+        String res = "";
+        String[] params = {"nombre_usuario", "" + nombre_usuario, "num_juegos", "" + num_juegos,
+                "lista_juegos", "" + lista_juegos, "fecha", "" + fecha, "tienda", "" + tienda,
+                "precio_total", "" + precio_total, "lista_plataformas","" + lista_plataformas,
+                "estado", "" + estado, "identificacion", "" + identificacion, "token", "" + token};
+        try {
+            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/AddReserva.jsp", params);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
 }

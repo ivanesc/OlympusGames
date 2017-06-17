@@ -12,11 +12,11 @@ import java.util.List;
 public class JuegoInteriorReservas {
     private double precio;
     private String nombre;
-    private int Drawable;
+    private String Drawable;
     private String plataforma;
     private String genero;
 
-    public JuegoInteriorReservas(String nombre, String plataforma, String genero, double precio, int Drawable) {
+    public JuegoInteriorReservas(String nombre, String plataforma, String genero, double precio, String Drawable) {
         this.nombre = nombre;
         this.plataforma = plataforma;
         this.genero = genero;
@@ -25,12 +25,6 @@ public class JuegoInteriorReservas {
     }
 
     public static final List<JuegoInteriorReservas> JUEGOS = new ArrayList<>();
-
-    static {
-        JUEGOS.add(new JuegoInteriorReservas("Juego1", "3DS", "Aventuras", 5, R.drawable.ares));
-        JUEGOS.add(new JuegoInteriorReservas("Juego2", "PS4", "Rol", 3.2, R.drawable.ares));
-        JUEGOS.add(new JuegoInteriorReservas("Juego3", "PC", "Rol", 12f, R.drawable.ares));
-    }
 
     public double getPrecio() {
         return precio;
@@ -48,7 +42,7 @@ public class JuegoInteriorReservas {
         return genero;
     }
 
-    public int getDrawable() {
+    public String getDrawable() {
         return Drawable;
     }
 }

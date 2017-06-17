@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="onItemIteriorReservasClick">
 
         <ImageView
             android:id="@+id/miniatura_juego_cont_res"
@@ -28,20 +29,20 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="Nombre juego"
-            android:textColor="@color/color_white"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/color_white"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/plataforma_cont_res"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_alignLeft="@+id/nombre_juego_cont_res"
             android:layout_below="@+id/nombre_juego_cont_res"
+            android:layout_marginTop="20dp"
             android:text="Plataforma"
-            android:textColor="@color/color_white"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/color_white" />
 
         <TextView
             android:id="@+id/genero_juego_cont_res"
@@ -51,8 +52,8 @@
             android:layout_below="@+id/plataforma_cont_res"
             android:layout_marginTop="20dp"
             android:text="Género"
-            android:textColor="@color/color_white"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/color_white" />
 
         <TextView
             android:id="@+id/precio_cont_res"

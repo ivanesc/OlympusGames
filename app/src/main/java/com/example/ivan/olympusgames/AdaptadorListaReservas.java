@@ -67,7 +67,7 @@ public class AdaptadorListaReservas extends RecyclerView.Adapter<AdaptadorListaR
 
         JuegoListaReservas itemActual = JuegoListaReservas.JUEGOS.get(i);
 
-        viewHolder.idReserva.setText("#"+itemActual.getId());
+        viewHolder.idReserva.setText(itemActual.getId());
         viewHolder.estadoReserva.setText(itemActual.getEstado());
         viewHolder.numArticulos.setText(itemActual.getArticulos());
         viewHolder.precioTotal.setText(itemActual.getPrecio() + "€");

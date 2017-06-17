@@ -26,12 +26,6 @@ public class JuegoListaReservas {
 
     public static final List<JuegoListaReservas> JUEGOS = new ArrayList<>();
 
-    static {
-        JUEGOS.add(new JuegoListaReservas("105601", "Listo para recoger", "3", 20.30, "14-07-2017"));
-        JUEGOS.add(new JuegoListaReservas("139862", "Enviando a tienda", "1", 11,"20-11-2015"));
-        JUEGOS.add(new JuegoListaReservas("114509", "Listo para recoger", "2", 16.80,"19-02-2016"));
-    }
-
     public double getPrecio() {
         return preciototal;
     }

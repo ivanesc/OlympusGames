@@ -1,5 +1,6 @@
 package com.example.ivan.olympusgames;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,27 +25,39 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ivan.olympusgames.SQLite.Carrito_Cache;
+import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
+import com.example.ivan.olympusgames.SQLite.Lista_Deseados;
+import com.example.ivan.olympusgames.SQLite.Preferencias_Usuario;
+import com.example.ivan.olympusgames.SQLite.Reservas_Cache;
+import com.example.ivan.olympusgames.modelo.CarritoModelo;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 
 public class Carrito extends AppCompatActivity
         implements AdaptadorCarrito.EscuchaEventosClick{
 
-    public static final String EXTRA_POSICION = "com.example.ivan.olympusgames.Carrito.extra.POSICION";
+    public static final String EXTRA_POSICION = "com.example.ivan.olympusgames.Carrito_Cache.extra.POSICION";
 
     RecyclerView reciclador;
     LinearLayoutManager layoutManager;
 
-    EditText cantJuego1;
+    TextView cantJuego1;
     Button inc1;
     Button desc1;
     Button pedidos;
@@ -109,10 +123,26 @@ public class Carrito extends AppCompatActivity
 
         reciclador.setLayoutManager(layoutManager);
 
+        //Añadir juegos a la lista
+        CarritoModelo.JUEGOS.clear();
+        for(int i = 0; i< Carrito_Cache.getAll(Carrito.this); i++) {
+            String reserva[] = Carrito_Cache.getReservaAt(Carrito.this, i+1);
+            int id_juego = Integer.parseInt(reserva[0]);
+            int posPlataforma = Integer.parseInt(reserva[1]);
+            int cant = Integer.parseInt(reserva[2]);
+
+            String datos[] = Datos_Juegos.getGame(Carrito.this, id_juego);
+            String nombre_juego = datos[1];
+            String plataformas_juego = datos[4].split("/////")[posPlataforma];
+            float precio_juego = Float.parseFloat(datos[5].split("/////")[posPlataforma]);
+
+            CarritoModelo.JUEGOS.add(new CarritoModelo(nombre_juego, plataformas_juego, precio_juego, cant));
+        }
+
         AdaptadorCarrito adaptador = new AdaptadorCarrito(this);
         reciclador.setAdapter(adaptador);
 
-        cantJuego1 = (EditText)findViewById(R.id.cantJuegoCarrito);
+        cantJuego1 = (TextView)findViewById(R.id.cantJuegoCarrito);
 
         inc1 = (Button)findViewById(R.id.botonInc1);
         desc1 = (Button)findViewById(R.id.botonDesc1);
@@ -188,7 +218,7 @@ public class Carrito extends AppCompatActivity
 
                 Toast.makeText(getApplicationContext(),texto, Toast.LENGTH_LONG).show();
 
-                Intent intentPedidos = new Intent(Carrito.this, Carrito2.class);
+                Intent intentPedidos = new Intent(Carrito_Cache.this, Carrito2.class);
 
                 intentPedidos.putExtra("pedidos",enviarPedidos);
 
@@ -242,10 +272,72 @@ public class Carrito extends AppCompatActivity
 
     @Override
     public void onItemClick(AdaptadorCarrito.ViewHolder holder, int posicion) {
-        Intent intent = new Intent(this, Carrito2.class);
+        /*Intent intent = new Intent(this, JuegoDetallado.class);
         //Intent intent = new Intent(this, ActividadDetalle.class);
         //intent.putExtra(EXTRA_POSICION, posicion);
+        startActivity(intent);*/
+    }
+
+    public void onItemCarritoClick(View v) throws InterruptedException, ExecutionException, UnsupportedEncodingException {
+        String itemName = ((TextView) v.findViewById(R.id.nombreJuegoCarrito)).getText().toString();
+        String datos[] = Datos_Juegos.getGame(Carrito.this, itemName);
+        String id = datos[0];
+        Intent intent = new Intent(Carrito.this, JuegoDetallado.class);
+        //Intent intent = new Intent(this, ActividadDetalle.class);
+        intent.putExtra("id", id);
         startActivity(intent);
+    }
+
+    public void onReservaClick(View v) {
+        /*Intent intent = new Intent(Carrito.this, Carrito2.class);
+        //Intent intent = new Intent(this, ActividadDetalle.class);
+        startActivity(intent);*/
+
+        /* Carrito 2 para realizar reserva */
+        int num_juegos = Carrito_Cache.getAll(Carrito.this);
+        if(Internet.isConnected(Carrito.this)){
+            if(num_juegos > 0) {
+                Calendar c = Calendar.getInstance();
+                String fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
+                String tienda = "La Loma";
+                String Estado = "Pendiente";
+                String Identificador = "#" + fecha.replace("/", "") + c.get(Calendar.HOUR_OF_DAY) + c.get(Calendar.MINUTE) + c.get(Calendar.SECOND);
+                float precio_total = 0;
+                String Lista_Juegos = "";
+                String Lista_Plataformas = "";
+                for (int i = 0; i < num_juegos; i++) {
+                    String datosCarrito[] = Carrito_Cache.getReservaAt(Carrito.this, i + 1);
+                    int id_juego = Integer.parseInt(datosCarrito[0]);
+                    int posPlataforma = Integer.parseInt(datosCarrito[1]);
+                    int cantidad = Integer.parseInt(datosCarrito[2]);
+                    String datosJuego[] = Datos_Juegos.getGame(Carrito.this, id_juego);
+                    precio_total += Float.parseFloat(datosJuego[5].split("/////")[posPlataforma]) * cantidad;
+
+                    Lista_Juegos += id_juego;
+                    Lista_Plataformas += posPlataforma;
+                    if (i < num_juegos - 1) {
+                        Lista_Juegos += "/////";
+                        Lista_Plataformas += "/////";
+                    }
+                }
+                String nombre_usuario = Preferencias_Usuario.getUser(Carrito.this);
+                String token = Preferencias_Usuario.getToken(Carrito.this);
+
+                new Reservas_Cache(num_juegos, String.format("%.2f", precio_total), fecha, tienda, Lista_Juegos, Lista_Plataformas,
+                        Estado, Identificador, Carrito.this);
+                Internet.addReserva(nombre_usuario, "" + num_juegos, Lista_Juegos, fecha, tienda,
+                        String.format("%.2f", precio_total), Lista_Plataformas, Estado, Identificador, token);
+                Carrito_Cache.clean(Carrito.this);
+                Intent intent = new Intent(Carrito.this, Reservas.class);
+                startActivity(intent);
+            }else{
+                Toast.makeText(Carrito.this,
+                        "No hay productos en el carrito. Añade productos para realizar la reserva.", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(Carrito.this,
+                    "No tienes conexión a internet.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

@@ -12,17 +12,22 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.example.ivan.olympusgames.SQLite.Reservas_Cache;
+import com.example.ivan.olympusgames.modelo.JuegoListaReservas;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 public class Reservas extends AppCompatActivity
         implements AdaptadorListaReservas.EscuchaEventosClick {
 
-    public static final String EXTRA_POSICION = "com.example.ivan.olympusgames.Reservas.extra.POSICION";
+    public static final String EXTRA_POSICION = "com.example.ivan.olympusgames.Reservas_Cache.extra.POSICION";
 
     RecyclerView reciclador;
     LinearLayoutManager layoutManager;
@@ -77,6 +82,18 @@ public class Reservas extends AppCompatActivity
 
         reciclador.setLayoutManager(layoutManager);
 
+        //Añadir juegos a la lista
+        JuegoListaReservas.JUEGOS.clear();
+        for(int i = 0; i< Reservas_Cache.getAll(Reservas.this); i++) {
+            String datos[] = Reservas_Cache.getGame(Reservas.this, i+1);
+            String identificador = datos[7];
+            String estado = datos[6];
+            String num_juegos = datos[0];
+            String precio_total = datos[1];
+            String fecha = datos[2];
+            JuegoListaReservas.JUEGOS.add(new JuegoListaReservas(identificador, estado, num_juegos, Double.parseDouble(precio_total.replace(",",".")), fecha));
+        }
+
         AdaptadorListaReservas adaptador = new AdaptadorListaReservas(this);
         reciclador.setAdapter(adaptador);
 
@@ -114,9 +131,14 @@ public class Reservas extends AppCompatActivity
 
     @Override
     public void onItemClick(AdaptadorListaReservas.ViewHolder holder, int posicion) {
+
+    }
+
+    public void onReservaClick(View v){
+        String identificador = (((TextView)v.findViewById(R.id.reservaid)).getText().toString());
+
         Intent intent = new Intent(this, InteriorReservas.class);
-        //Intent intent = new Intent(this, ActividadDetalle.class);
-        //intent.putExtra(EXTRA_POSICION, posicion);
+        intent.putExtra("identificador", identificador);
         startActivity(intent);
     }
 }

@@ -40,6 +40,7 @@ public class Datos_Juegos {
     public String URL_Imagen3;
     public String URL_Imagen4;
     public String URL_Imagen5;
+    public String Valoracion = "0";
 
     public Datos_Juegos(int Id_Juego, String Nombre_Juego, String Descripcion_Juego, String Generos,
                           String Plataformas, String Precios, String Valoraciones, String URL_Icon,
@@ -90,6 +91,7 @@ public class Datos_Juegos {
         values.put(SQLite_DB.Tabla_Datos_Juegos.URL_Imagen3, this.URL_Imagen3);
         values.put(SQLite_DB.Tabla_Datos_Juegos.URL_Imagen4, this.URL_Imagen4);
         values.put(SQLite_DB.Tabla_Datos_Juegos.URL_Imagen5, this.URL_Imagen5);
+        values.put(SQLite_DB.Tabla_Datos_Juegos.Valoracion, this.Valoracion);
 
         db.insert(SQLite_DB.Tabla_Datos_Juegos.Nombre_Tabla, null, values);
         db.close();
@@ -117,7 +119,7 @@ public class Datos_Juegos {
         Cursor cursor = db.query(
                 false // Distinct
                 , SQLite_DB.Tabla_Datos_Juegos.Nombre_Tabla // Tabla
-                , new String[]{"id_juego", "nombre", "generos", "length(nombre)"} // Columnas
+                , new String[]{SQLite_DB.Tabla_Datos_Juegos.Id_Juego} // Columnas
                 , null // Cláusula where
                 , null // Vector de argumentos
                 , null // Cláusula group by.
@@ -128,20 +130,26 @@ public class Datos_Juegos {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Log.e("Dato "+SQLite_DB.Tabla_Datos_Juegos.Nombre_Tabla, cursor.getInt(0)
-                    + ": "
-                    + cursor.getString(1)
-                    + ": "
-                    + cursor.getString(2)
-                    + ": "
-                    + cursor.getInt(3));
             cursor.moveToNext();
             cont++;
         }
         cursor.close();
 
-        Log.e("Datos leidos", ""+cont);
         return cont;
+    }
+
+    //Actualiza la valoración del usuario a un juego de la tabla Datos_Juegos
+    public static void updateVal(Context contexto, String name, String val) {
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SQLite_DB.Tabla_Datos_Juegos.Valoracion, val);
+
+        db.update(SQLite_DB.Tabla_Datos_Juegos.Nombre_Tabla, values, SQLite_DB.Tabla_Datos_Juegos.Nombre_Juego+"=?", new String[]{"" + name});
+        db.close();
     }
 
     //Comprueba si existe un dato en la tabla Datos_Juegos
@@ -174,9 +182,53 @@ public class Datos_Juegos {
         return res;
     }
 
+    //Get valoración de usuario de un juego con el id especificado
+    public static String getVal(Context contexto, int id) {
+        String cont = new String();
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Datos_Juegos.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Datos_Juegos.Valoracion} // Columnas
+                , SQLite_DB.Tabla_Datos_Juegos.Id_Juego+"=?" // Cláusula where
+                , new String[]{""+id} // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            cont = cursor.getString(0);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return cont;
+    }
+
+    //Actualiza valoracion del usuario a un juego de la tabla Datos_Juegos
+    public static void setVal(Context contexto, String id, String val) {
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SQLite_DB.Tabla_Datos_Juegos.Valoracion, val);
+
+        db.update(SQLite_DB.Tabla_Datos_Juegos.Nombre_Tabla, values, SQLite_DB.Tabla_Datos_Juegos.Id_Juego+"=?", new String[]{"" + id});
+        db.close();
+    }
+
     //Get datos de un juego con el id especificado
     public static String[] getGame(Context contexto, int id) {
-        String cont[] = new String[13];
+        String cont[] = new String[14];
 
         if (olympusgames_db == null) {
             olympusgames_db = new SQLite_DB(contexto);
@@ -191,7 +243,7 @@ public class Datos_Juegos {
                         , SQLite_DB.Tabla_Datos_Juegos.Valoraciones, SQLite_DB.Tabla_Datos_Juegos.URL_Icon
                         , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen1, SQLite_DB.Tabla_Datos_Juegos.URL_Imagen2
                         , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen3, SQLite_DB.Tabla_Datos_Juegos.URL_Imagen4
-                        , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen5} // Columnas
+                        , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen5, SQLite_DB.Tabla_Datos_Juegos.Valoracion} // Columnas
                 , SQLite_DB.Tabla_Datos_Juegos.Id_Juego+"=?" // Cláusula where
                 , new String[]{""+id} // Vector de argumentos
                 , null // Cláusula group by.
@@ -215,6 +267,7 @@ public class Datos_Juegos {
             cont[10] = cursor.getString(10);
             cont[11] = cursor.getString(11);
             cont[12] = cursor.getString(12);
+            cont[13] = cursor.getString(13);
             cursor.moveToNext();
         }
         cursor.close();
@@ -224,7 +277,7 @@ public class Datos_Juegos {
 
     //Get datos de un juego con el nombre especificado
     public static String[] getGame(Context contexto, String name) throws InterruptedException, ExecutionException, UnsupportedEncodingException {
-        String cont[] = new String[13];
+        String cont[] = new String[14];
 
         getFotos(contexto, name);
 
@@ -241,7 +294,7 @@ public class Datos_Juegos {
                         , SQLite_DB.Tabla_Datos_Juegos.Valoraciones, SQLite_DB.Tabla_Datos_Juegos.URL_Icon
                         , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen1, SQLite_DB.Tabla_Datos_Juegos.URL_Imagen2
                         , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen3, SQLite_DB.Tabla_Datos_Juegos.URL_Imagen4
-                        , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen5} // Columnas
+                        , SQLite_DB.Tabla_Datos_Juegos.URL_Imagen5, SQLite_DB.Tabla_Datos_Juegos.Valoracion} // Columnas
                 , SQLite_DB.Tabla_Datos_Juegos.Nombre_Juego+"=?" // Cláusula where
                 , new String[]{""+name} // Vector de argumentos
                 , null // Cláusula group by.
@@ -265,6 +318,7 @@ public class Datos_Juegos {
             cont[10] = cursor.getString(10);
             cont[11] = cursor.getString(11);
             cont[12] = cursor.getString(12);
+            cont[13] = cursor.getString(13);
             cursor.moveToNext();
         }
         cursor.close();
@@ -306,7 +360,7 @@ public class Datos_Juegos {
 
     private static void getFotos(Context contexto, String name) throws InterruptedException, ExecutionException, UnsupportedEncodingException {
         Bitmap imagen;
-        if(!foto_isExists(contexto, name)) {
+        if(!foto_isExists(contexto, name) && Internet.isConnected(contexto)) {
             //imagen1
             imagen = Internet.downloadImage(name.replace(":", "_"), "Imagen0.jpg");
             String URL_Imagen1 = guardarImagen(contexto, name, "Imagen0.jpg", imagen);
