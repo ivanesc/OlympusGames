@@ -20,6 +20,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!--
+             The API key for Google Maps-based APIs.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <!-- Single Activity Model-->
         <activity
             android:name=".MainActivity"
@@ -93,8 +104,22 @@
         </activity>
 
         <activity
+            android:name=".Generos"
+            android:label="@string/title_activity_generos"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
             android:name=".ListaDeseos1"
             android:label="@string/title_activity_listadeseos"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".MasReservados"
+            android:label="@string/title_activity_mas_reservados"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
         </activity>
@@ -115,6 +140,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ivan.olympusgames.Reservas" />
+        </activity>
+
+        <activity
+            android:name=".MapaTiendas"
+            android:label="@string/title_activity_mapatiendas"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity

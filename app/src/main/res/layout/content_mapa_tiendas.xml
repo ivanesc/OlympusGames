@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_mapa_tiendas"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.ivan.olympusgames.MapaTiendas"
+    tools:showIn="@layout/app_bar_mapa_tiendas">
+
+    <TextView
+        android:id="@+id/localiza_texto_mapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Localiza tu tienda más cercana:"
+        android:textColor="@color/color_white"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/miubicacion"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/localiza_texto_mapa"
+        android:hint="Ingresa  ubicación..."
+        android:textColor="@color/color_white"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="16dp" />
+
+    <ImageButton
+        android:id="@+id/gpsautomatico"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/localiza_texto_mapa"
+        android:layout_toRightOf="@+id/miubicacion"
+        android:src="@drawable/gps"/>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/miubicacion"
+        android:layout_marginTop="20dp"
+        tools:context="com.example.ivan.olympusgames.MapaTiendas" />
+
+</RelativeLayout>

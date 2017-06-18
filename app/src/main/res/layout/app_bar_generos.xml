@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.ivan.olympusgames.Plataformas">
+    tools:context="com.example.ivan.olympusgames.Generos">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -52,7 +52,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp">
 
-    <include layout="@layout/content_plataformas" />
+    <include layout="@layout/content_generos" />
 
     </ScrollView>
 

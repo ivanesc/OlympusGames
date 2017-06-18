@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Internet {
 
-    private static String ip_server = "192.168.1.146:8080";
+    private static String ip_server = "192.168.1.35:8080";
 
     static boolean msjShown = false;
 

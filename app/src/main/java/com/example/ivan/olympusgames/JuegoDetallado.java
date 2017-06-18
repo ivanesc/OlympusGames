@@ -379,7 +379,7 @@ public class JuegoDetallado extends AppCompatActivity
     public boolean seleccionarItem(MenuItem itemDrawer) {
         // Setear título actual
         setTitle(itemDrawer.getTitle());
-        return (new DrawerManager()).onNavigationItemSelected(this, itemDrawer);
+        return (new DrawerManager()).NavigationItemSelected(this, itemDrawer);
     }
 
     @Override

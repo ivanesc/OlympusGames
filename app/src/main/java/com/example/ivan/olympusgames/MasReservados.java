@@ -12,28 +12,28 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.ivan.olympusgames.SQLite.Reservas_Cache;
-import com.example.ivan.olympusgames.modelo.JuegoListaReservas;
+import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
+import com.example.ivan.olympusgames.SQLite.Lista_Deseados;
+import com.example.ivan.olympusgames.modelo.JuegoListaDeseos;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-public class Reservas extends AppCompatActivity
-        implements AdaptadorListaReservas.EscuchaEventosClick {
+import java.io.UnsupportedEncodingException;
+import java.util.concurrent.ExecutionException;
 
-    public static final String EXTRA_POSICION = "com.example.ivan.olympusgames.Reservas_Cache.extra.POSICION";
+public class MasReservados extends AppCompatActivity
+        implements AdaptadorMasReservados.EscuchaEventosClick {
+
+    public static final String EXTRA_POSICION = "com.example.ivan.olympusgames.MasReservados.extra.POSICION";
 
     RecyclerView reciclador;
     LinearLayoutManager layoutManager;
-
-    Button tiendas;
 
     DrawerLayout drawer;
 
@@ -50,7 +50,7 @@ public class Reservas extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_reservas);
+        setContentView(R.layout.activity_mas_reservados);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,10 +64,10 @@ public class Reservas extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         if (navigationView != null) {
-            DrawerManager.prepararDrawer(drawer, navigationView, Reservas.this);
+            DrawerManager.prepararDrawer(drawer, navigationView, MasReservados.this);
         }
 
-        contenido = (RelativeLayout) findViewById(R.id.content_listareservas);
+        contenido = (RelativeLayout) findViewById(R.id.content_mas_reservados);
 
         barra = (AppBarLayout) findViewById(R.id.appbar);
 
@@ -75,39 +75,18 @@ public class Reservas extends AppCompatActivity
 
         lstView = (ListView) findViewById(R.id.lstView);
 
-        tiendas = (Button)findViewById(R.id.botonIrTiendas);
-
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         SearchView.addSearchViewListener(searchView, lstView, contenido, barra);
-        SearchView.addQueryTextListener(searchView, lstView, Reservas.this);
+        SearchView.addQueryTextListener(searchView, lstView, MasReservados.this);
 
-        reciclador = (RecyclerView) findViewById(R.id.reciclador6);
+        reciclador = (RecyclerView) findViewById(R.id.reciclador8);
 
         layoutManager = new GridLayoutManager(this, 1);
 
         reciclador.setLayoutManager(layoutManager);
 
-        //Añadir juegos a la lista
-        JuegoListaReservas.JUEGOS.clear();
-        for(int i = 0; i< Reservas_Cache.getAll(Reservas.this); i++) {
-            String datos[] = Reservas_Cache.getGame(Reservas.this, i+1);
-            String identificador = datos[7];
-            String estado = datos[6];
-            String num_juegos = datos[0];
-            String precio_total = datos[1];
-            String fecha = datos[2];
-            JuegoListaReservas.JUEGOS.add(new JuegoListaReservas(identificador, estado, num_juegos, Double.parseDouble(precio_total.replace(",",".")), fecha));
-        }
-
-        AdaptadorListaReservas adaptador = new AdaptadorListaReservas(this);
+        AdaptadorMasReservados adaptador = new AdaptadorMasReservados(this);
         reciclador.setAdapter(adaptador);
-
-        tiendas.setOnClickListener( new View.OnClickListener() {
-            public void onClick(View v){
-                Intent intent = new Intent(Reservas.this, MapaTiendas.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -141,16 +120,10 @@ public class Reservas extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onItemClick(AdaptadorListaReservas.ViewHolder holder, int posicion) {
+    public void onItemClick(AdaptadorMasReservados.ViewHolder holder, int posicion) {
+        Intent intent = new Intent(this, JuegoDetallado.class);
 
-    }
-
-    public void onReservaClick(View v){
-        String identificador = (((TextView)v.findViewById(R.id.reservaid)).getText().toString());
-
-        Intent intent = new Intent(this, InteriorReservas.class);
-        intent.putExtra("identificador", identificador);
         startActivity(intent);
     }
+
 }

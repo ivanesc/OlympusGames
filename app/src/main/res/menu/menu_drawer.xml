@@ -22,8 +22,8 @@
                 android:icon="@drawable/genero"
                 android:title="@string/item_genero" />
             <item
-                android:id="@+id/item_seminuevo"
-                android:icon="@drawable/seminuevo"
+                android:id="@+id/item_masreservados"
+                android:icon="@drawable/ranking"
                 android:title="@string/item_masreservados" />
 
             </menu>

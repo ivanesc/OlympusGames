@@ -40,7 +40,10 @@
     <string name="title_activity_modificarperfil">Editar perfil</string>
     <string name="title_activity_juegodetallado">Detalle juego</string>
     <string name="title_activity_plataformas">Plataformas</string>
+    <string name="title_activity_generos">Géneros</string>
+    <string name="title_activity_mas_reservados">+ Reservados</string>
     <string name="title_activity_listadeseos">Lista deseos</string>
+    <string name="title_activity_mapatiendas">Tiendas</string>
     <string name="title_activity_acercade">Acerca de</string>
     <string name="title_activity_ayuda">Ayuda</string>
 

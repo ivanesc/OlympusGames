@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_generos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:background="@color/background"
+    tools:context="com.example.ivan.olympusgames.Generos"
+    tools:showIn="@layout/app_bar_generos">
+
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="20dp"
+            android:layout_marginTop="100dp"
+            android:stretchColumns="*">
+
+            <TableRow android:layout_marginTop="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/button00"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/aventuras" />
+
+                    <TextView
+                        android:id="@+id/aventura"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button00"
+                        android:background="@color/accentColor"
+                        android:text="Aventura"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="40dp">
+
+                    <ImageButton
+                        android:id="@+id/button01"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/puzzle" />
+
+                    <TextView
+                        android:id="@+id/puzzle"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button01"
+                        android:background="@color/accentColor"
+                        android:text="Puzzle"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/button10"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/accion" />
+
+                    <TextView
+                        android:id="@+id/accion"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button10"
+                        android:background="@color/accentColor"
+                        android:text="Acción"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="40dp">
+
+                    <ImageButton
+                        android:id="@+id/button11"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/fantasia" />
+
+                    <TextView
+                        android:id="@+id/fantasia"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button11"
+                        android:background="@color/accentColor"
+                        android:text="Fantasía"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/button30"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/arcade" />
+
+                    <TextView
+                        android:id="@+id/arcade"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button30"
+                        android:background="@color/accentColor"
+                        android:text="Arcade"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="40dp">
+
+                    <ImageButton
+                        android:id="@+id/button31"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/social" />
+
+                    <TextView
+                        android:id="@+id/social"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button31"
+                        android:background="@color/accentColor"
+                        android:text="Social"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/button40"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:srcCompat="@drawable/habilidad" />
+
+                <TextView
+                    android:id="@+id/habilidad"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/button40"
+                    android:background="@color/accentColor"
+                    android:text="Habilidad"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                    android:textSize="30sp"
+                    android:textStyle="normal|bold" />
+
+            </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="40dp">
+
+                    <ImageButton
+                        android:id="@+id/button41"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/estrategia" />
+
+                    <TextView
+                        android:id="@+id/estrategia"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button41"
+                        android:background="@color/accentColor"
+                        android:text="Estrategia"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/button50"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/turnos" />
+
+                    <TextView
+                        android:id="@+id/turnos"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button50"
+                        android:background="@color/accentColor"
+                        android:text="Turnos"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="40dp">
+
+                    <ImageButton
+                        android:id="@+id/button51"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/shooter" />
+
+                    <TextView
+                        android:id="@+id/shooter"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button51"
+                        android:background="@color/accentColor"
+                        android:text="Shooter"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/button60"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/deportivo" />
+
+                    <TextView
+                        android:id="@+id/deportivo"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button60"
+                        android:background="@color/accentColor"
+                        android:text="Deportivo"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="40dp">
+
+                    <ImageButton
+                        android:id="@+id/button61"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/mundoabierto" />
+
+                    <TextView
+                        android:id="@+id/mundoabierto"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button61"
+                        android:background="@color/accentColor"
+                        android:text="M.abierto"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/button70"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/rol" />
+
+                    <TextView
+                        android:id="@+id/rol"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button70"
+                        android:background="@color/accentColor"
+                        android:text="Deportivo"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="40dp">
+
+                    <ImageButton
+                        android:id="@+id/button71"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/simulador" />
+
+                    <TextView
+                        android:id="@+id/simulador"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button71"
+                        android:background="@color/accentColor"
+                        android:text="Simulador"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/button80"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/survival" />
+
+                    <TextView
+                        android:id="@+id/survival"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button80"
+                        android:background="@color/accentColor"
+                        android:text="Survival"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="40dp">
+
+                    <ImageButton
+                        android:id="@+id/button81"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/horror" />
+
+                    <TextView
+                        android:id="@+id/horror"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button81"
+                        android:background="@color/accentColor"
+                        android:text="Horror"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/button90"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/coches" />
+
+                    <TextView
+                        android:id="@+id/coches"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button90"
+                        android:background="@color/accentColor"
+                        android:text="Coches"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="40dp">
+
+                    <ImageButton
+                        android:id="@+id/button91"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:srcCompat="@drawable/lucha" />
+
+                    <TextView
+                        android:id="@+id/lucha"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/button91"
+                        android:background="@color/accentColor"
+                        android:text="Lucha"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:textSize="30sp"
+                        android:textStyle="normal|bold" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/button100"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:srcCompat="@drawable/plataformasgenero" />
+
+                <TextView
+                    android:id="@+id/plataformas"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/button100"
+                    android:background="@color/accentColor"
+                    android:text="Plataformas"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                    android:textSize="25sp"
+                    android:textStyle="normal|bold" />
+
+            </RelativeLayout>
+
+            </TableRow>
+
+        </TableLayout>
+
+</RelativeLayout>

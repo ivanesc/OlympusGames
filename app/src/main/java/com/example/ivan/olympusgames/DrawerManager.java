@@ -108,6 +108,26 @@ public class DrawerManager {
                             , Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.item_genero:
+                try{
+                    Intent intent6 = new Intent(activity, Generos.class);
+                    activity.startActivity(intent6);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(activity
+                            , "ActivityNotFound "+e.getMessage()
+                            , Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.item_masreservados:
+                try{
+                    Intent intent7 = new Intent(activity, MasReservados.class);
+                    activity.startActivity(intent7);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(activity
+                            , "ActivityNotFound "+e.getMessage()
+                            , Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.item_listadeseos:
                 try{
                     Intent intent = new Intent(activity, ListaDeseos1.class);
@@ -130,8 +150,8 @@ public class DrawerManager {
                 break;
             case R.id.item_acercade:
                 try {
-                    Intent intent6 = new Intent(activity, AcercaDe.class);
-                    activity.startActivity(intent6);
+                    Intent intent8 = new Intent(activity, AcercaDe.class);
+                    activity.startActivity(intent8);
                 } catch (ActivityNotFoundException e) {
                     Toast.makeText(activity
                             , "ActivityNotFound "+e.getMessage()
@@ -154,8 +174,8 @@ public class DrawerManager {
                 break;
             case R.id.item_ayuda:
                 try {
-                    Intent intent7 = new Intent(activity, Ayuda.class);
-                    activity.startActivity(intent7);
+                    Intent intent9 = new Intent(activity, Ayuda.class);
+                    activity.startActivity(intent9);
                 } catch (ActivityNotFoundException e) {
                     Toast.makeText(activity
                             , "ActivityNotFound "+e.getMessage()
@@ -203,6 +223,8 @@ public class DrawerManager {
             case "Plataformas":
                 nav_Menu.findItem(R.id.item_plataformas).setChecked(true);
                 break;
+            case "Generos":
+                nav_Menu.findItem(R.id.item_genero).setChecked(true);
             case "Lista deseos":
                 nav_Menu.findItem(R.id.item_listadeseos).setChecked(true);
                 break;
@@ -226,7 +248,7 @@ public class DrawerManager {
         }
     }
 
-    public boolean onNavigationItemSelected(Activity activity, MenuItem item) {
+    /*public boolean onNavigationItemSelected(Activity activity, MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -342,5 +364,5 @@ public class DrawerManager {
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+    }*/
 }
