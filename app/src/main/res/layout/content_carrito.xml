@@ -25,6 +25,7 @@
         android:id="@+id/sinproductoscarrito"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
         android:gravity="center"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
