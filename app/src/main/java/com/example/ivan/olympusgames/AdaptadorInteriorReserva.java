@@ -26,6 +26,7 @@ public class AdaptadorInteriorReserva extends RecyclerView.Adapter<AdaptadorInte
         public TextView plataformaReserva;
         public TextView generoReserva;
         public TextView precioReserva;
+        public TextView cantidadReserva;
         public ImageView imagen;
 
         public ViewHolder(View v) {
@@ -35,6 +36,7 @@ public class AdaptadorInteriorReserva extends RecyclerView.Adapter<AdaptadorInte
             plataformaReserva = (TextView) v.findViewById(R.id.plataforma_cont_res);
             generoReserva = (TextView) v.findViewById(R.id.genero_juego_cont_res);
             precioReserva = (TextView) v.findViewById(R.id.precio_cont_res);
+            cantidadReserva = (TextView) v.findViewById(R.id.cantidad_juego_cont_res);
             imagen = (ImageView) v.findViewById(R.id.miniatura_juego_cont_res);
 
             v.setOnClickListener(this);
@@ -75,6 +77,7 @@ public class AdaptadorInteriorReserva extends RecyclerView.Adapter<AdaptadorInte
         viewHolder.nombreJuegoReserva.setText(itemActual.getNombre());
         viewHolder.plataformaReserva.setText(itemActual.getPlataforma());
         viewHolder.generoReserva.setText(itemActual.getGenero());
+        //viewHolder.cantidadReserva.setText(itemActual.getCantidad());
         viewHolder.precioReserva.setText(String.format("%.2f", itemActual.getPrecio()) + "€");
 
     }

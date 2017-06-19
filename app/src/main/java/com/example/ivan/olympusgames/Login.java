@@ -50,6 +50,7 @@ public class Login extends AppCompatActivity {
     EditText pass;
     Button boton;
     Button boton_registrar;
+    Button boton_olvido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,15 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Login.this, Registro.class));
+            }
+        });
+
+        boton_olvido = (Button)findViewById(R.id.but_forgot);
+        boton_olvido.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, Olvido.class));
             }
         });
 

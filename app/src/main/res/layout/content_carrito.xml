@@ -21,6 +21,17 @@
         android:paddingTop="130dp"
         android:scrollbars="vertical" />
 
+    <TextView
+        android:id="@+id/sinproductoscarrito"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="NO TIENES NINGÚN JUEGO EN TU CARRITO ACTUALMENTE"
+        android:textColor="@color/color_white"
+        android:textSize="30sp" />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,18 +47,20 @@
             android:background="#ffffa400"
             android:onClick="onReservaClick"
             android:text="Realizar Reserva"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="144dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_below="@+id/botonPedidos"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="20dp"
             android:layout_weight="0.73"
-            android:src="@drawable/juegocarrito" />
+            android:src="@drawable/juegocarrito"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

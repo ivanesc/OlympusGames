@@ -34,6 +34,20 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/cantidad_juego_cont_res"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="70dp"
+            android:layout_toRightOf="@+id/nombre_juego_cont_res"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="x1"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/color_white"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/plataforma_cont_res"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

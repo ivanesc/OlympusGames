@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.ivan.olympusgames.Carrito">
+    tools:context="com.example.ivan.olympusgames.Olvido">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -46,17 +46,6 @@
         android:divider="#806326"
         android:dividerHeight="2dp" />
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="35dp">
-
-        <include
-            layout="@layout/content_carrito"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </ScrollView>
+    <include layout="@layout/content_olvido" />
 
 </android.support.design.widget.CoordinatorLayout>

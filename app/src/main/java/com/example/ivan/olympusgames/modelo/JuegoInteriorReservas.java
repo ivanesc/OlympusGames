@@ -15,6 +15,7 @@ public class JuegoInteriorReservas {
     private String Drawable;
     private String plataforma;
     private String genero;
+    private String cantidad;
 
     public JuegoInteriorReservas(String nombre, String plataforma, String genero, double precio, String Drawable) {
         this.nombre = nombre;
@@ -45,4 +46,7 @@ public class JuegoInteriorReservas {
     public String getDrawable() {
         return Drawable;
     }
+
+    public String getCantidad() { return cantidad; }
+
 }

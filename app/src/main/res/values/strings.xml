@@ -38,6 +38,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_registro">Registro</string>
     <string name="title_activity_modificarperfil">Editar perfil</string>
+    <string name="title_activity_olvidocontrasena">¿Contraseña?</string>
     <string name="title_activity_juegodetallado">Detalle juego</string>
     <string name="title_activity_plataformas">Plataformas</string>
     <string name="title_activity_generos">Géneros</string>

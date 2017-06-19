@@ -90,6 +90,13 @@
         </activity>
 
         <activity
+            android:name=".Olvido"
+            android:label="@string/title_activity_olvidocontrasena"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
             android:name=".JuegoDetallado"
             android:label="@string/title_activity_juegodetallado"
             android:theme="@style/AppTheme.NoActionBar"
