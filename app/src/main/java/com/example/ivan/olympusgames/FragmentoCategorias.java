@@ -22,7 +22,7 @@ import java.util.List;
 public class FragmentoCategorias extends Fragment {
     private AppBarLayout appBarLayout;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private static ViewPager viewPager;
 
     public FragmentoCategorias() {
     }
@@ -60,6 +60,10 @@ public class FragmentoCategorias extends Fragment {
         adapter.addFragment(FragmentoCategoria.nuevaInstancia(1), getString(R.string.titulo_tab_ofertas));
         adapter.addFragment(FragmentoCategoria.nuevaInstancia(2), getString(R.string.titulo_tab_busquedas));
         viewPager.setAdapter(adapter);
+    }
+
+    public static void changeTab(int pos){
+        viewPager.setCurrentItem(pos);
     }
 
     @Override

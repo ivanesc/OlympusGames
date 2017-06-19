@@ -214,4 +214,18 @@ public class Reservas_Cache {
 
         return cont;
     }
+
+    //Actualiza un dato a la tabla Reservas
+    public static void updateEstado(Context contexto, String identificador, String estado) {
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SQLite_DB.Tabla_Reservas.Estado, estado);
+
+        db.update(SQLite_DB.Tabla_Reservas.Nombre_Tabla, values, SQLite_DB.Tabla_Reservas.Identificador+"=?", new String[]{"" + identificador});
+        db.close();
+    }
 }

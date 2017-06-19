@@ -1,5 +1,6 @@
 package com.example.ivan.olympusgames;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,5 +74,8 @@ public class AdaptadorListaReservas extends RecyclerView.Adapter<AdaptadorListaR
         viewHolder.precioTotal.setText(itemActual.getPrecio() + "€");
         viewHolder.fechaReserva.setText(itemActual.getFecha());
 
+        if(itemActual.getEstado().equals("Recogido")) viewHolder.estadoReserva.setTextColor(Color.GREEN);
+        if(itemActual.getEstado().equals("En tienda")) viewHolder.estadoReserva.setTextColor(Color.rgb(238, 165, 38));
+        if(itemActual.getEstado().equals("Pendiente")) viewHolder.estadoReserva.setTextColor(Color.RED);
     }
 }

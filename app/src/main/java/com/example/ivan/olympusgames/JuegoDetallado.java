@@ -36,10 +36,14 @@ import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
 import com.example.ivan.olympusgames.SQLite.Carrito_Cache;
 import com.example.ivan.olympusgames.SQLite.Lista_Deseados;
 import com.example.ivan.olympusgames.SQLite.Preferencias_Usuario;
+import com.example.ivan.olympusgames.SQLite.Reservas_Cache;
 import com.example.ivan.olympusgames.modelo.JuegoDetalle;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 public class JuegoDetallado extends AppCompatActivity
         implements AdaptadorJuegoDetallado.EscuchaEventosClick{
@@ -133,6 +137,7 @@ public class JuegoDetallado extends AppCompatActivity
     ArrayList<PlataformaJuego> plataformas;
     ListView lvComentarios;
     ListView lvPlataformas;
+    String datos[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +147,7 @@ public class JuegoDetallado extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
         String id = extras.getString("id");
 
-        String datos[] = Datos_Juegos.getGame(JuegoDetallado.this, Integer.parseInt(id));
+        datos = Datos_Juegos.getGame(JuegoDetallado.this, Integer.parseInt(id));
         populateComentarios();
         populatePlataformas(datos[4]);
         showLVComentarios_Complejo();
@@ -160,16 +165,8 @@ public class JuegoDetallado extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         if (navigationView != null) {
-            prepararDrawer(navigationView);
-            // Seleccionar item por defecto
-            //seleccionarItem(navigationView.getMenu().getItem(9));
+            DrawerManager.prepararDrawer(drawer, navigationView, JuegoDetallado.this);
         }
-
-        Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.item_modificar).setVisible(false);
-        nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
-        nav_Menu.findItem(R.id.item_reservas).setVisible(false);
-        nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
 
         contenido = (RelativeLayout) findViewById(R.id.content_juegodetallado);
 
@@ -363,25 +360,6 @@ public class JuegoDetallado extends AppCompatActivity
         });
     }
 
-    private void prepararDrawer(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        seleccionarItem(menuItem);
-                        drawer.closeDrawers();
-                        return true;
-                    }
-                });
-
-    }
-
-    public boolean seleccionarItem(MenuItem itemDrawer) {
-        // Setear título actual
-        setTitle(itemDrawer.getTitle());
-        return (new DrawerManager()).NavigationItemSelected(this, itemDrawer);
-    }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -504,5 +482,41 @@ public class JuegoDetallado extends AppCompatActivity
 
         if(carr) boton_carr.setImageResource(R.drawable.add_carro);
         else boton_carr.setImageResource(R.drawable.delete_carro);
+    }
+
+    public void onReservaDirectaClick(View v) {
+        if(Internet.isConnected(JuegoDetallado.this)){
+            if(!Preferencias_Usuario.getToken(JuegoDetallado.this).equals("")) {
+                Calendar c = Calendar.getInstance();
+                String fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
+                String tienda = "La Loma";
+                String Estado = "Pendiente";
+                String Identificador = "#" + fecha.replace("/", "") + c.get(Calendar.HOUR_OF_DAY) + c.get(Calendar.MINUTE) + c.get(Calendar.SECOND);
+                String datosJuego[] = Datos_Juegos.getGame(JuegoDetallado.this, id_juego);
+                float precio_total = Float.parseFloat(datosJuego[5].split("/////")[plataformaSeleccionada]);
+                String Lista_Juegos = ""+id_juego;
+                String Lista_Plataformas = ""+plataformaSeleccionada;
+
+                String nombre_usuario = Preferencias_Usuario.getUser(JuegoDetallado.this);
+                String token = Preferencias_Usuario.getToken(JuegoDetallado.this);
+
+                new Reservas_Cache(1, String.format("%.2f", precio_total), fecha, tienda, Lista_Juegos, Lista_Plataformas,
+                        Estado, Identificador, JuegoDetallado.this);
+                Internet.addReserva(nombre_usuario, "" + 1, Lista_Juegos, fecha, tienda,
+                        String.format("%.2f", precio_total), Lista_Plataformas, Estado, Identificador, token);
+                Toast.makeText(JuegoDetallado.this,
+                        "Reserva realizada con éxito.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(JuegoDetallado.this, Reservas.class);
+                startActivity(intent);
+            }else{
+                Toast.makeText(JuegoDetallado.this,
+                        "Debes hacer login para poder reservar productos.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(JuegoDetallado.this, Login.class);
+                startActivity(intent);
+            }
+        }else{
+            Toast.makeText(JuegoDetallado.this,
+                    "No hay conexión a internet.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

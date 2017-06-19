@@ -1,12 +1,18 @@
 package com.example.ivan.olympusgames;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ivan.olympusgames.SQLite.Cache_Busquedas;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -26,12 +32,19 @@ public class SearchView {
     static String filtro_plataforma = "";
     static String filtro_genero = "";
 
-    public static void addSearchViewListener(MaterialSearchView searchView, final ListView lstView, final RelativeLayout contenido,
+    public static void addSearchViewListener(final MaterialSearchView searchView, final ListView lstView, final RelativeLayout contenido,
                                              final AppBarLayout barra){
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
 
             @Override
             public void onSearchViewShown() {
+                lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String sugerencia = ((TextView)view).getText().toString();
+                        searchView.setQuery(sugerencia, false);
+                    }
+                });
                 lstView.setVisibility(View.VISIBLE);
                 contenido.setVisibility(View.INVISIBLE);
                 barra.setVisibility(View.INVISIBLE);
@@ -39,12 +52,8 @@ public class SearchView {
 
             @Override
             public void onSearchViewClosed() {
-
                 //If closed Search View , lstView will return default
-
                 lstView.setVisibility(View.INVISIBLE);
-                //lstView.getLayoutParams().height = 0;
-                //lstView.getLayoutParams().width = 0;
                 contenido.setVisibility(View.VISIBLE);
                 barra.setVisibility(View.VISIBLE);
 
@@ -52,12 +61,19 @@ public class SearchView {
         });
     }
 
-    public static void addSearchViewListener(MaterialSearchView searchView, final ListView lstView, final LinearLayout contenido,
-                                              final AppBarLayout barra){
+    public static void addSearchViewListener(final MaterialSearchView searchView, final ListView lstView, final LinearLayout contenido,
+                                             final AppBarLayout barra){
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
 
             @Override
             public void onSearchViewShown() {
+                lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String sugerencia = ((TextView)view).getText().toString();
+                        searchView.setQuery(sugerencia, false);
+                    }
+                });
                 lstView.setVisibility(View.VISIBLE);
                 contenido.setVisibility(View.INVISIBLE);
                 barra.setVisibility(View.INVISIBLE);
@@ -69,8 +85,6 @@ public class SearchView {
                 //If closed Search View , lstView will return default
 
                 lstView.setVisibility(View.INVISIBLE);
-                //lstView.getLayoutParams().height = 0;
-                //lstView.getLayoutParams().width = 0;
                 contenido.setVisibility(View.VISIBLE);
                 barra.setVisibility(View.VISIBLE);
 
@@ -86,6 +100,19 @@ public class SearchView {
                 new Cache_Busquedas(palabra_busqueda, contexto);
                 //Realizar búsqueda por palabra
                 FragmentoCategoria.Busqueda(palabra_busqueda, filtro_plataforma, filtro_genero, contexto);
+                String activity_name = ((Activity)contexto).getTitle().toString();
+                if(Internet.isConnected(contexto)) {
+                    if (activity_name.equals("Inicio")) {
+                        FragmentoCategorias.changeTab(2);
+                    } else {
+                        Intent intent = new Intent(contexto, MainActivity.class);
+                        intent.putExtra("busqueda", true);
+                        contexto.startActivity(intent);
+                    }
+                }else{
+                    Toast.makeText(contexto,
+                            "No hay conexión a internet. La búsqueda se realizará sobre la caché.", Toast.LENGTH_SHORT).show();
+                }
                 return false;
             }
 
@@ -100,13 +127,13 @@ public class SearchView {
                             lstFound.add(item);
                     }
 
-                    ArrayAdapter adapter = new ArrayAdapter(contexto,android.R.layout.simple_list_item_1,lstFound);
+                    ArrayAdapter adapter = new ArrayAdapter(contexto,R.layout.search_view_style,lstFound);
                     lstView.setAdapter(adapter);
                 }
                 else{
                     //if search text is null
                     //return default
-                    ArrayAdapter adapter = new ArrayAdapter(contexto,android.R.layout.simple_list_item_1,lstSource);
+                    ArrayAdapter adapter = new ArrayAdapter(contexto,R.layout.search_view_style,lstSource);
                     lstView.setAdapter(adapter);
                 }
                 return true;

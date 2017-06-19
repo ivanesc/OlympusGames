@@ -50,6 +50,36 @@ public class DrawerManager {
                             , Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.item_plataformas:
+                try{
+                    Intent intent5 = new Intent(activity, Plataformas.class);
+                    activity.startActivity(intent5);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(activity
+                            , "ActivityNotFound "+e.getMessage()
+                            , Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.item_genero:
+                try{
+                    Intent intent6 = new Intent(activity, Generos.class);
+                    activity.startActivity(intent6);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(activity
+                            , "ActivityNotFound "+e.getMessage()
+                            , Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.item_masreservados:
+                try{
+                    Intent intent7 = new Intent(activity, MasReservados.class);
+                    activity.startActivity(intent7);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(activity
+                            , "ActivityNotFound "+e.getMessage()
+                            , Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.item_login:
                 try{
                     Intent intent2 = new Intent(activity, Login.class);
@@ -92,36 +122,6 @@ public class DrawerManager {
                 try{
                     Intent intent4 = new Intent(activity, ModificarPerfil.class);
                     activity.startActivity(intent4);
-                } catch (ActivityNotFoundException e) {
-                    Toast.makeText(activity
-                            , "ActivityNotFound "+e.getMessage()
-                            , Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.item_plataformas:
-                try{
-                    Intent intent5 = new Intent(activity, Plataformas.class);
-                    activity.startActivity(intent5);
-                } catch (ActivityNotFoundException e) {
-                    Toast.makeText(activity
-                            , "ActivityNotFound "+e.getMessage()
-                            , Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.item_genero:
-                try{
-                    Intent intent6 = new Intent(activity, Generos.class);
-                    activity.startActivity(intent6);
-                } catch (ActivityNotFoundException e) {
-                    Toast.makeText(activity
-                            , "ActivityNotFound "+e.getMessage()
-                            , Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.item_masreservados:
-                try{
-                    Intent intent7 = new Intent(activity, MasReservados.class);
-                    activity.startActivity(intent7);
                 } catch (ActivityNotFoundException e) {
                     Toast.makeText(activity
                             , "ActivityNotFound "+e.getMessage()
@@ -184,9 +184,6 @@ public class DrawerManager {
                 break;
         }
 
-        // Setear título actual
-        //setTitle(item.getTitle());
-
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -211,6 +208,18 @@ public class DrawerManager {
         String activityName = activity.getTitle().toString();
 
         switch(activityName){
+            case "Inicio":
+                nav_Menu.findItem(R.id.item_inicio).setChecked(true);
+                break;
+            case "Plataformas":
+                nav_Menu.findItem(R.id.item_plataformas).setChecked(true);
+                break;
+            case "Generos":
+                nav_Menu.findItem(R.id.item_genero).setChecked(true);
+                break;
+            case "+ Reservados":
+                nav_Menu.findItem(R.id.item_masreservados).setChecked(true);
+                break;
             case "Login":
                 nav_Menu.findItem(R.id.item_login).setChecked(true);
                 break;
@@ -220,13 +229,11 @@ public class DrawerManager {
             case "Editar perfil":
                 nav_Menu.findItem(R.id.item_modificar).setChecked(true);
                 break;
-            case "Plataformas":
-                nav_Menu.findItem(R.id.item_plataformas).setChecked(true);
-                break;
-            case "Generos":
-                nav_Menu.findItem(R.id.item_genero).setChecked(true);
             case "Lista deseos":
                 nav_Menu.findItem(R.id.item_listadeseos).setChecked(true);
+                break;
+            case "Reservas":
+                nav_Menu.findItem(R.id.item_reservas).setChecked(true);
                 break;
             case "Acerca de":
                 nav_Menu.findItem(R.id.item_acercade).setChecked(true);
@@ -234,15 +241,6 @@ public class DrawerManager {
             case "Ayuda":
                 nav_Menu.findItem(R.id.item_ayuda).setChecked(true);
                 break;
-            case "Inicio":
-                nav_Menu.findItem(R.id.item_inicio).setChecked(true);
-                break;
-            /*case "":
-                break;
-            case "":
-                break;
-            case "":
-                break;*/
             default:
                 Log.e("ACTIVITY","Activity: "+activityName);
         }

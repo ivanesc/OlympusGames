@@ -20,7 +20,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.ivan.olympusgames.SQLite.Preferencias_Usuario;
 import com.example.ivan.olympusgames.SQLite.Reservas_Cache;
 import com.example.ivan.olympusgames.modelo.JuegoListaReservas;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -93,6 +95,20 @@ public class Reservas extends AppCompatActivity
             String datos[] = Reservas_Cache.getGame(Reservas.this, i+1);
             String identificador = datos[7];
             String estado = datos[6];
+            if(!Internet.isConnected(Reservas.this)){
+                Toast.makeText(getApplicationContext(),
+                        "No hay conexión a internet. Sin conexión no se actualizará el estado de tus reservas.", Toast.LENGTH_SHORT).show();
+            }else{
+                String res = Internet.stateReserva(identificador, Preferencias_Usuario.getToken(Reservas.this), Preferencias_Usuario.getUser(Reservas.this));
+                String aux = res.substring(res.indexOf("msj-start") + 9, res.indexOf("msj-end"));
+                if (aux.equals("error")) {
+                    Toast.makeText(getApplicationContext(),
+                            "Se ha producido un error al actualizar el estado de las reservas.", Toast.LENGTH_SHORT).show();
+                }else{
+                    estado = aux;
+                    Reservas_Cache.updateEstado(Reservas.this, identificador, estado);
+                }
+            }
             String num_juegos = datos[0];
             String precio_total = datos[1];
             String fecha = datos[2];

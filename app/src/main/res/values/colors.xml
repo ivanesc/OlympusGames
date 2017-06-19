@@ -12,12 +12,12 @@
     <!-- Indigo 700 -->
     <color name="primary_700">#303F9F</color>
     <!-- Pink 500 -->
-    <color name="accent_500">#E91E63</color>
+    <color name="accent_500">#e91e63</color>
     <!-- Pink 700 -->
     <color name="accent_700">#C2185B</color>
     <color name="black_trans80">#142f2f37</color>
     <color name="indicator_unselected">#4D000000</color>
-    <color name="blue_grey">#455A64</color>
+    <color name="blue_grey">#323232</color>
     <color name="red">#f44336</color>
     <color name="pink">#E91E63</color>
     <color name="purple">#9C27B0</color>

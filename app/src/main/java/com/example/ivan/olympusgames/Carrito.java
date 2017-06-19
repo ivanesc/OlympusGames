@@ -94,16 +94,8 @@ public class Carrito extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         if (navigationView != null) {
-            prepararDrawer(navigationView);
-            // Seleccionar item por defecto
-            //seleccionarItem(navigationView.getMenu().getItem(0));
+            DrawerManager.prepararDrawer(drawer, navigationView, Carrito.this);
         }
-
-        Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.item_modificar).setVisible(false);
-        nav_Menu.findItem(R.id.item_listadeseos).setVisible(false);
-        nav_Menu.findItem(R.id.item_reservas).setVisible(false);
-        nav_Menu.findItem(R.id.item_cerrar_sesión).setVisible(false);
 
         contenido = (RelativeLayout) findViewById(R.id.content_carrito);
 
@@ -149,105 +141,6 @@ public class Carrito extends AppCompatActivity
 
         pedidos = (Button)findViewById(R.id.botonPedidos);
 
-        /*inc1.setOnClickListener( new View.OnClickListener() {
-            public void onClick(View v){
-                cant1++;
-                cant1_mod = String.valueOf(cant1);
-                cantJuego1.setText(cant1_mod);
-            }
-        });
-
-        desc1.setOnClickListener( new View.OnClickListener() {
-            public void onClick(View v){
-                if(cant1 > 1) {
-                    cant1--;
-                    cant1_mod = String.valueOf(cant1);
-                    cantJuego1.setText(cant1_mod);
-                }
-            }
-        });
-
-        pedidos.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                valorTotal=0;
-                texto="";
-
-
-                    int cant = Integer.valueOf(cantJuego1.getText().toString());
-
-                    int valorproductos = 10;
-
-                    String nombreProductos = "Juego1";
-
-                    int total = cant*valorproductos;
-                    valorTotal = valorTotal+total;
-
-                    texto = texto+" "+nombreProductos+" Cant:"+cant+" total: "+total+" €"+"\n";
-
-
-                    int cant2 = Integer.valueOf(cantJuego2.getText().toString());
-
-                    int valorproductos2 = 20;
-
-                    String nombreProductos2 = "Juego2";
-
-                    int total2 = cant2*valorproductos2;
-                    valorTotal = valorTotal+total2;
-
-                    texto = texto+" "+nombreProductos2+" Cant:"+cant2+" total: "+total2+" €"+"\n";
-
-                    int cant3 = Integer.valueOf(cantJuego3.getText().toString());
-
-                    int valorproductos3 = 5;
-
-                    String nombreProductos3 = "Juego3";
-
-                    int total3 = cant3*valorproductos3;
-                    valorTotal = valorTotal+total3;
-
-                    texto = texto+" "+nombreProductos3+" Cant:"+cant3+" total: "+total3+" €"+"\n";
-
-
-                texto = texto + "===============================";
-                texto = texto+" Valor Totales a Pagar: "+valorTotal+" € \n";
-
-                String enviarPedidos = texto;
-
-
-                Toast.makeText(getApplicationContext(),texto, Toast.LENGTH_LONG).show();
-
-                Intent intentPedidos = new Intent(Carrito_Cache.this, Carrito2.class);
-
-                intentPedidos.putExtra("pedidos",enviarPedidos);
-
-
-
-                startActivity(intentPedidos);
-
-            }
-        });*/
-
-    }
-
-    private void prepararDrawer(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        seleccionarItem(menuItem);
-                        drawer.closeDrawers();
-                        return true;
-                    }
-                });
-
-    }
-
-    public boolean seleccionarItem(MenuItem itemDrawer) {
-        // Setear título actual
-        setTitle(itemDrawer.getTitle());
-        return (new DrawerManager()).NavigationItemSelected(this, itemDrawer);
     }
 
     @Override
@@ -289,47 +182,52 @@ public class Carrito extends AppCompatActivity
     }
 
     public void onReservaClick(View v) {
-        /*Intent intent = new Intent(Carrito.this, Carrito2.class);
-        //Intent intent = new Intent(this, ActividadDetalle.class);
-        startActivity(intent);*/
-
         /* Carrito 2 para realizar reserva */
         int num_juegos = Carrito_Cache.getAll(Carrito.this);
         if(Internet.isConnected(Carrito.this)){
             if(num_juegos > 0) {
-                Calendar c = Calendar.getInstance();
-                String fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
-                String tienda = "La Loma";
-                String Estado = "Pendiente";
-                String Identificador = "#" + fecha.replace("/", "") + c.get(Calendar.HOUR_OF_DAY) + c.get(Calendar.MINUTE) + c.get(Calendar.SECOND);
-                float precio_total = 0;
-                String Lista_Juegos = "";
-                String Lista_Plataformas = "";
-                for (int i = 0; i < num_juegos; i++) {
-                    String datosCarrito[] = Carrito_Cache.getReservaAt(Carrito.this, i + 1);
-                    int id_juego = Integer.parseInt(datosCarrito[0]);
-                    int posPlataforma = Integer.parseInt(datosCarrito[1]);
-                    int cantidad = Integer.parseInt(datosCarrito[2]);
-                    String datosJuego[] = Datos_Juegos.getGame(Carrito.this, id_juego);
-                    precio_total += Float.parseFloat(datosJuego[5].split("/////")[posPlataforma]) * cantidad;
+                if(!Preferencias_Usuario.getToken(Carrito.this).equals("")) {
+                    Calendar c = Calendar.getInstance();
+                    String fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
+                    String tienda = "La Loma";
+                    String Estado = "Pendiente";
+                    String Identificador = "#" + fecha.replace("/", "") + c.get(Calendar.HOUR_OF_DAY) + c.get(Calendar.MINUTE) + c.get(Calendar.SECOND);
+                    float precio_total = 0;
+                    String Lista_Juegos = "";
+                    String Lista_Plataformas = "";
+                    for (int i = 0; i < num_juegos; i++) {
+                        String datosCarrito[] = Carrito_Cache.getReservaAt(Carrito.this, i + 1);
+                        int id_juego = Integer.parseInt(datosCarrito[0]);
+                        int posPlataforma = Integer.parseInt(datosCarrito[1]);
+                        int cantidad = Integer.parseInt(datosCarrito[2]);
+                        String datosJuego[] = Datos_Juegos.getGame(Carrito.this, id_juego);
+                        precio_total += Float.parseFloat(datosJuego[5].split("/////")[posPlataforma]) * cantidad;
 
-                    Lista_Juegos += id_juego;
-                    Lista_Plataformas += posPlataforma;
-                    if (i < num_juegos - 1) {
-                        Lista_Juegos += "/////";
-                        Lista_Plataformas += "/////";
+                        Lista_Juegos += id_juego;
+                        Lista_Plataformas += posPlataforma;
+                        if (i < num_juegos - 1) {
+                            Lista_Juegos += "/////";
+                            Lista_Plataformas += "/////";
+                        }
                     }
-                }
-                String nombre_usuario = Preferencias_Usuario.getUser(Carrito.this);
-                String token = Preferencias_Usuario.getToken(Carrito.this);
+                    String nombre_usuario = Preferencias_Usuario.getUser(Carrito.this);
+                    String token = Preferencias_Usuario.getToken(Carrito.this);
 
-                new Reservas_Cache(num_juegos, String.format("%.2f", precio_total), fecha, tienda, Lista_Juegos, Lista_Plataformas,
-                        Estado, Identificador, Carrito.this);
-                Internet.addReserva(nombre_usuario, "" + num_juegos, Lista_Juegos, fecha, tienda,
-                        String.format("%.2f", precio_total), Lista_Plataformas, Estado, Identificador, token);
-                Carrito_Cache.clean(Carrito.this);
-                Intent intent = new Intent(Carrito.this, Reservas.class);
-                startActivity(intent);
+                    new Reservas_Cache(num_juegos, String.format("%.2f", precio_total), fecha, tienda, Lista_Juegos, Lista_Plataformas,
+                            Estado, Identificador, Carrito.this);
+                    Internet.addReserva(nombre_usuario, "" + num_juegos, Lista_Juegos, fecha, tienda,
+                            String.format("%.2f", precio_total), Lista_Plataformas, Estado, Identificador, token);
+                    Carrito_Cache.clean(Carrito.this);
+                    Toast.makeText(Carrito.this,
+                            "Reserva realizada con éxito.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Carrito.this, Reservas.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(Carrito.this,
+                            "Debes hacer login para poder reservar productos.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Carrito.this, Login.class);
+                    startActivity(intent);
+                }
             }else{
                 Toast.makeText(Carrito.this,
                         "No hay productos en el carrito. Añade productos para realizar la reserva.", Toast.LENGTH_SHORT).show();

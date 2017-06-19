@@ -145,7 +145,6 @@ public class ModificarPerfil extends AppCompatActivity {
                 else if(password_new.length() > 8) err = 5;
                 else if(!password_new.equals(password_conf)) err = 6;
                 else if(!password_now.equals(password_old)) err = 7;
-                Log.e("PASS","Now: "+password_now+"; New: "+password_new);
 
                 if(imageUri != null){
                     String icon = guardarImagen(ModificarPerfil.this, "user", "icon", ((BitmapDrawable)foto_gallery2.getDrawable()).getBitmap());
@@ -210,6 +209,12 @@ public class ModificarPerfil extends AppCompatActivity {
                                     "La contraseña anterior es incorrecta.", Toast.LENGTH_SHORT).show();
                             break;
                     }
+                }else{
+                    old_pass.setBackground(new ColorDrawable(0xFFFF0000));
+                    new_pass.setBackground(new ColorDrawable(0xFFFF0000));
+                    pass_conf.setBackground(new ColorDrawable(0xFFFF0000));
+                    Toast.makeText(getApplicationContext(),
+                            "Debes introducir valores en los campos.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

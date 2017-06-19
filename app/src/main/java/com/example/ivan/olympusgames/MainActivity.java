@@ -12,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -74,10 +75,17 @@ public class MainActivity extends AppCompatActivity {
 
     private Timer timer = null;
 
+    boolean busqueda = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            busqueda = extras.getBoolean("busqueda");
+        }
 
         imageSwitcher = (ImageSwitcher) findViewById(R.id.imageSwitcher);
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
@@ -101,8 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        //int idinicio = navigationView.getMenu().findItem(R.id.item_listadeseos).getItemId();
-
         if (navigationView != null) {
             DrawerManager.prepararDrawer(drawer, navigationView, MainActivity.this);
         }
@@ -113,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.content_main, fragmentoGenerico1)
                 .commit();
-
 
         contenido = (RelativeLayout) findViewById(R.id.content_main);
 
@@ -155,6 +160,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onStart(){
+        super.onStart();
+        if(busqueda) FragmentoCategorias.changeTab(2);
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -190,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         if (timer != null) {
             timer.cancel();
+            timer = null;
         }
     }
 

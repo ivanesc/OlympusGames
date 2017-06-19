@@ -39,6 +39,7 @@
             android:layout_below="@+id/ratingBar"
             android:layout_marginTop="10dp"
             android:layout_toLeftOf="@+id/action_carrito"
+            android:onClick="onReservaDirectaClick"
             android:src="@drawable/reservaya" />
 
         <ImageButton

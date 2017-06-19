@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Internet {
 
-    private static String ip_server = "192.168.1.35:8080";
+    private static String ip_server = "192.168.1.146:8080";
 
     static boolean msjShown = false;
 
@@ -191,6 +191,20 @@ public class Internet {
                 "estado", "" + estado, "identificacion", "" + identificacion, "token", "" + token};
         try {
             res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/AddReserva.jsp", params);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
+    public static String stateReserva(String identificador, String token, String user){
+        String res = "";
+        String[] params = {"identificador", "" + identificador, "token", "" + token, "usuario", ""+user};
+        try {
+            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/StateReserva.jsp", params);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
