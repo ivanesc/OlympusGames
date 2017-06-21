@@ -27,16 +27,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button00"
+                        android:id="@+id/opcion1"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/aventuras" />
 
                     <TextView
                         android:id="@+id/aventura"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button00"
+                        android:layout_below="@+id/opcion1"
                         android:background="@color/accentColor"
                         android:text="Aventura"
                         android:textAlignment="center"
@@ -52,16 +53,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button01"
+                        android:id="@+id/opcion2"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/puzzle" />
 
                     <TextView
                         android:id="@+id/puzzle"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button01"
+                        android:layout_below="@+id/opcion2"
                         android:background="@color/accentColor"
                         android:text="Puzzle"
                         android:textAlignment="center"
@@ -80,16 +82,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button10"
+                        android:id="@+id/opcion3"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/accion" />
 
                     <TextView
                         android:id="@+id/accion"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button10"
+                        android:layout_below="@+id/opcion3"
                         android:background="@color/accentColor"
                         android:text="Acción"
                         android:textAlignment="center"
@@ -105,16 +108,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button11"
+                        android:id="@+id/opcion4"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/fantasia" />
 
                     <TextView
                         android:id="@+id/fantasia"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button11"
+                        android:layout_below="@+id/opcion4"
                         android:background="@color/accentColor"
                         android:text="Fantasía"
                         android:textAlignment="center"
@@ -133,16 +137,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button30"
+                        android:id="@+id/opcion5"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/arcade" />
 
                     <TextView
                         android:id="@+id/arcade"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button30"
+                        android:layout_below="@+id/opcion5"
                         android:background="@color/accentColor"
                         android:text="Arcade"
                         android:textAlignment="center"
@@ -158,16 +163,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button31"
+                        android:id="@+id/opcion6"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/social" />
 
                     <TextView
                         android:id="@+id/social"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button31"
+                        android:layout_below="@+id/opcion6"
                         android:background="@color/accentColor"
                         android:text="Social"
                         android:textAlignment="center"
@@ -186,16 +192,17 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/button40"
+                    android:id="@+id/opcion7"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
+                    android:onClick="onGeneroBusquedaClick"
                     app:srcCompat="@drawable/habilidad" />
 
                 <TextView
                     android:id="@+id/habilidad"
                     android:layout_width="140dp"
                     android:layout_height="40dp"
-                    android:layout_below="@+id/button40"
+                    android:layout_below="@+id/opcion7"
                     android:background="@color/accentColor"
                     android:text="Habilidad"
                     android:textAlignment="center"
@@ -211,16 +218,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button41"
+                        android:id="@+id/opcion8"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/estrategia" />
 
                     <TextView
                         android:id="@+id/estrategia"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button41"
+                        android:layout_below="@+id/opcion8"
                         android:background="@color/accentColor"
                         android:text="Estrategia"
                         android:textAlignment="center"
@@ -239,16 +247,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button50"
+                        android:id="@+id/opcion9"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/turnos" />
 
                     <TextView
                         android:id="@+id/turnos"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button50"
+                        android:layout_below="@+id/opcion9"
                         android:background="@color/accentColor"
                         android:text="Turnos"
                         android:textAlignment="center"
@@ -264,16 +273,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button51"
+                        android:id="@+id/opcion10"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/shooter" />
 
                     <TextView
                         android:id="@+id/shooter"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button51"
+                        android:layout_below="@+id/opcion10"
                         android:background="@color/accentColor"
                         android:text="Shooter"
                         android:textAlignment="center"
@@ -292,16 +302,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button60"
+                        android:id="@+id/opcion11"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/deportivo" />
 
                     <TextView
                         android:id="@+id/deportivo"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button60"
+                        android:layout_below="@+id/opcion11"
                         android:background="@color/accentColor"
                         android:text="Deportivo"
                         android:textAlignment="center"
@@ -317,16 +328,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button61"
+                        android:id="@+id/opcion12"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/mundoabierto" />
 
                     <TextView
                         android:id="@+id/mundoabierto"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button61"
+                        android:layout_below="@+id/opcion12"
                         android:background="@color/accentColor"
                         android:text="M.abierto"
                         android:textAlignment="center"
@@ -345,18 +357,19 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button70"
+                        android:id="@+id/opcion13"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/rol" />
 
                     <TextView
                         android:id="@+id/rol"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button70"
+                        android:layout_below="@+id/opcion13"
                         android:background="@color/accentColor"
-                        android:text="Deportivo"
+                        android:text="Rol"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
                         android:textSize="30sp"
@@ -370,16 +383,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button71"
+                        android:id="@+id/opcion14"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/simulador" />
 
                     <TextView
                         android:id="@+id/simulador"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button71"
+                        android:layout_below="@+id/opcion14"
                         android:background="@color/accentColor"
                         android:text="Simulador"
                         android:textAlignment="center"
@@ -398,16 +412,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button80"
+                        android:id="@+id/opcion15"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/survival" />
 
                     <TextView
                         android:id="@+id/survival"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button80"
+                        android:layout_below="@+id/opcion15"
                         android:background="@color/accentColor"
                         android:text="Survival"
                         android:textAlignment="center"
@@ -423,16 +438,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button81"
+                        android:id="@+id/opcion16"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/horror" />
 
                     <TextView
                         android:id="@+id/horror"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button81"
+                        android:layout_below="@+id/opcion16"
                         android:background="@color/accentColor"
                         android:text="Horror"
                         android:textAlignment="center"
@@ -451,16 +467,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button90"
+                        android:id="@+id/opcion17"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/coches" />
 
                     <TextView
                         android:id="@+id/coches"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button90"
+                        android:layout_below="@+id/opcion17"
                         android:background="@color/accentColor"
                         android:text="Coches"
                         android:textAlignment="center"
@@ -476,16 +493,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button91"
+                        android:id="@+id/opcion18"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onGeneroBusquedaClick"
                         app:srcCompat="@drawable/lucha" />
 
                     <TextView
                         android:id="@+id/lucha"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button91"
+                        android:layout_below="@+id/opcion18"
                         android:background="@color/accentColor"
                         android:text="Lucha"
                         android:textAlignment="center"
@@ -504,16 +522,17 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/button100"
+                    android:id="@+id/opcion19"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
+                    android:onClick="onGeneroBusquedaClick"
                     app:srcCompat="@drawable/plataformasgenero" />
 
                 <TextView
                     android:id="@+id/plataformas"
                     android:layout_width="140dp"
                     android:layout_height="40dp"
-                    android:layout_below="@+id/button100"
+                    android:layout_below="@+id/opcion19"
                     android:background="@color/accentColor"
                     android:text="Plataformas"
                     android:textAlignment="center"

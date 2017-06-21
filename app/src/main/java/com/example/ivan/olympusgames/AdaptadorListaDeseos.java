@@ -8,7 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
 import com.example.ivan.olympusgames.modelo.JuegoListaDeseos;
+
+import java.io.UnsupportedEncodingException;
+import java.util.concurrent.ExecutionException;
 
 public class AdaptadorListaDeseos extends RecyclerView.Adapter<AdaptadorListaDeseos.ViewHolder> {
 
@@ -25,7 +29,9 @@ public class AdaptadorListaDeseos extends RecyclerView.Adapter<AdaptadorListaDes
         public TextView plataforma;
         public TextView genero;
         public TextView precio;
+        public TextView val;
         public ImageView imagen;
+        public ImageView imagen_val;
 
         public ViewHolder(View v) {
             super(v);
@@ -34,7 +40,9 @@ public class AdaptadorListaDeseos extends RecyclerView.Adapter<AdaptadorListaDes
             plataforma = (TextView) v.findViewById(R.id.plataforma_ld);
             genero = (TextView) v.findViewById(R.id.genero_juego_ld);
             precio = (TextView) v.findViewById(R.id.precio_ld);
+            val = (TextView) v.findViewById(R.id.valoracion);
             imagen = (ImageView) v.findViewById(R.id.miniatura_juego_ld);
+            imagen_val = (ImageView) v.findViewById(R.id.valoracion_ld);
 
             v.setOnClickListener(this);
         }
@@ -72,6 +80,24 @@ public class AdaptadorListaDeseos extends RecyclerView.Adapter<AdaptadorListaDes
         viewHolder.plataforma.setText(itemActual.getPlataforma());
         viewHolder.genero.setText(itemActual.getGenero());
         viewHolder.precio.setText(itemActual.getPrecio() + "€");
+
+        //Cambiar valoracion
+        float valoracion = 0;
+        try {
+            valoracion = Float.parseFloat(Datos_Juegos.getGame(null, itemActual.getNombre())[6].split("/////")[0]);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        if(valoracion < 5) viewHolder.imagen_val.setImageResource(R.drawable.valoracion_baja);
+        else if(valoracion < 8) viewHolder.imagen_val.setImageResource(R.drawable.valoracion_media);
+        else viewHolder.imagen_val.setImageResource(R.drawable.valoracion_alta);
+
+        viewHolder.val.setText(""+valoracion);
 
     }
 }

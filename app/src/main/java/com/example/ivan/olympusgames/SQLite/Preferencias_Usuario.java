@@ -17,6 +17,7 @@ public class Preferencias_Usuario {
     int Id = 1;
     String Nombre;
     String Pass;
+    String Correo;
     String Url_Imagen;
     String Token;
     String Tienda_Preferida;
@@ -93,16 +94,56 @@ public class Preferencias_Usuario {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Log.e(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, cursor.getInt(0)
-                    + ": "
-                    + cursor.getString(1));
             cursor.moveToNext();
             cont++;
         }
         cursor.close();
 
-        Log.e("Datos leidos", "" + cont);
         return cont;
+    }
+
+    //Actualiza el correo de la tabla Preferencias_Usuario
+    public static void updateCorreo(Context contexto, String correo) {
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Correo, correo);
+
+        db.update(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, values, SQLite_DB.Tabla_Preferencias_Usuario.Id+"=?", new String[]{"" + 1});
+        db.close();
+    }
+
+    //Obtener correo de la tabla Preferencias_Usuario
+    public static String getCorreo(Context contexto) {
+        String res = "";
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Preferencias_Usuario.Id, SQLite_DB.Tabla_Preferencias_Usuario.Correo} // Columnas
+                , null // Cláusula where
+                , null // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            res = cursor.getString(1);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return res;
     }
 
     //Obtener pass de la tabla Preferencias_Usuario
@@ -274,6 +315,50 @@ public class Preferencias_Usuario {
 
         ContentValues values = new ContentValues();
         values.put(SQLite_DB.Tabla_Preferencias_Usuario.Token, token);
+
+        db.update(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, values, SQLite_DB.Tabla_Preferencias_Usuario.Id+"=?", new String[]{"" + 1});
+        db.close();
+    }
+
+    //Obtener tienda preferida de la tabla Preferencias_Usuario
+    public static String getTienda(Context contexto) {
+        String res = "";
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Preferencias_Usuario.Id, SQLite_DB.Tabla_Preferencias_Usuario.Tienda_Preferida} // Columnas
+                , null // Cláusula where
+                , null // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            res = cursor.getString(1);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return res;
+    }
+
+    //Actualiza tienda preferida de la tabla Preferencias_Usuario
+    public static void setTienda(Context contexto, String tienda) {
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SQLite_DB.Tabla_Preferencias_Usuario.Tienda_Preferida, tienda);
 
         db.update(SQLite_DB.Tabla_Preferencias_Usuario.Nombre_Tabla, values, SQLite_DB.Tabla_Preferencias_Usuario.Id+"=?", new String[]{"" + 1});
         db.close();

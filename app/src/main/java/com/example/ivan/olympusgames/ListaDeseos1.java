@@ -2,6 +2,9 @@ package com.example.ivan.olympusgames;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -18,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -25,6 +29,7 @@ import android.widget.TextView;
 
 import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
 import com.example.ivan.olympusgames.SQLite.Lista_Deseados;
+import com.example.ivan.olympusgames.SQLite.Preferencias_Usuario;
 import com.example.ivan.olympusgames.modelo.JuegoListaDeseos;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -63,7 +68,34 @@ public class ListaDeseos1 extends AppCompatActivity
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                float n = 0;
+                String iconPath = Preferencias_Usuario.getIcon(ListaDeseos1.this);
+                Drawable icon = getResources().getDrawable(R.drawable.ares);
+                int fondo = Color.rgb(72,72,72);
+
+                if(iconPath != null) {
+                    if(!Preferencias_Usuario.getToken(ListaDeseos1.this).equals("")) {
+                        if (iconPath.equals(""))
+                            icon = getResources().getDrawable(R.drawable.fotoperfil);
+                        else icon = Drawable.createFromPath(iconPath);
+
+                        fondo = Color.rgb(63, 81, 181);
+                    }
+                }
+
+                if (drawer.isDrawerOpen(GravityCompat.START)) n=0;
+                else if(n == 0){
+                    n=1;
+                    ((LinearLayout)findViewById(R.id.fondoMenu)).setBackground(new ColorDrawable(fondo));
+                    ((ImageView)findViewById(R.id.iconoMenu)).setImageDrawable(icon);
+                }
+                super.onDrawerSlide(drawerView, slideOffset);
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 

@@ -2,6 +2,7 @@ package com.example.ivan.olympusgames;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -14,6 +15,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,9 +24,11 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -34,6 +38,7 @@ import android.widget.Toast;
 
 import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
 import com.example.ivan.olympusgames.SQLite.Carrito_Cache;
+import com.example.ivan.olympusgames.SQLite.Comentarios;
 import com.example.ivan.olympusgames.SQLite.Lista_Deseados;
 import com.example.ivan.olympusgames.SQLite.Preferencias_Usuario;
 import com.example.ivan.olympusgames.SQLite.Reservas_Cache;
@@ -74,6 +79,7 @@ public class JuegoDetallado extends AppCompatActivity
 
     String plataforma_names[];
     String precios[];
+    String valoraciones[];
 
     int plataformaSeleccionada;
     String precio;
@@ -148,6 +154,7 @@ public class JuegoDetallado extends AppCompatActivity
         String id = extras.getString("id");
 
         datos = Datos_Juegos.getGame(JuegoDetallado.this, Integer.parseInt(id));
+        id_juego = Integer.parseInt(datos[0]);
         populateComentarios();
         populatePlataformas(datos[4]);
         showLVComentarios_Complejo();
@@ -158,7 +165,34 @@ public class JuegoDetallado extends AppCompatActivity
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                float n = 0;
+                String iconPath = Preferencias_Usuario.getIcon(JuegoDetallado.this);
+                Drawable icon = getResources().getDrawable(R.drawable.ares);
+                int fondo = Color.rgb(72,72,72);
+
+                if(iconPath != null) {
+                    if(!Preferencias_Usuario.getToken(JuegoDetallado.this).equals("")) {
+                        if (iconPath.equals(""))
+                            icon = getResources().getDrawable(R.drawable.fotoperfil);
+                        else icon = Drawable.createFromPath(iconPath);
+
+                        fondo = Color.rgb(63, 81, 181);
+                    }
+                }
+
+                if (drawer.isDrawerOpen(GravityCompat.START)) n=0;
+                else if(n == 0){
+                    n=1;
+                    ((LinearLayout)findViewById(R.id.fondoMenu)).setBackground(new ColorDrawable(fondo));
+                    ((ImageView)findViewById(R.id.iconoMenu)).setImageDrawable(icon);
+                }
+                super.onDrawerSlide(drawerView, slideOffset);
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -213,10 +247,10 @@ public class JuegoDetallado extends AppCompatActivity
 
         plataformaSeleccionada = 0;
         precios = datos[5].split("/////");
+        valoraciones = datos[6].split("/////");
         precio = precios[plataformaSeleccionada];
-        id_juego = Integer.parseInt(datos[0]);
 
-        JuegoDetalle.JUEGOS.add(new JuegoDetalle(id_juego, datos[1], datos[2].toString(), datos[3], Float.parseFloat(precio), datos[7]));
+        JuegoDetalle.JUEGOS.add(new JuegoDetalle(id_juego, datos[1], datos[2].toString(), datos[3].replace("/////",", "), Float.parseFloat(precio), datos[7]));
         AdaptadorJuegoDetallado adaptador = new AdaptadorJuegoDetallado(this);
         reciclador.setAdapter(adaptador);
 
@@ -226,10 +260,31 @@ public class JuegoDetallado extends AppCompatActivity
 
     private int populateComentarios() {
         comentarios=new ArrayList<ComentarioJuego>();
-        comentarios.add( new ComentarioJuego("14-06-2016","Iván Escobar", "Juego verdaderamente fabuloso y adictivo") );
-        comentarios.add( new ComentarioJuego("20-08-2017","Fernando Puentes", "Es una gozada este juego. Lo volvería a jugar 100 veces más") );
-        comentarios.add( new ComentarioJuego("14-06-2016","Iván Escobar", "Juego verdaderamente fabuloso y adictivo") );
-        comentarios.add( new ComentarioJuego("14-06-2016","Iván Escobar", "Juego verdaderamente fabuloso y adictivo") );
+
+        if(Internet.isConnected(JuegoDetallado.this)) {
+            String id_juego = ""+this.id_juego;
+            String comentarios = Internet.getComentarios(id_juego);
+            String comentarioSplit[] = comentarios.split("<br/>");
+            for (int i = 1; i < comentarioSplit.length; i++) {
+                String comentarioItem[] = comentarioSplit[i].split("%/%");
+
+                String Nombre_Usuario = comentarioItem[0];
+                String Comentario = comentarioItem[1];
+                String Fecha = comentarioItem[2];
+
+                new Comentarios(this.id_juego, Nombre_Usuario, Comentario, Fecha, JuegoDetallado.this);
+            }
+        }
+
+        //Añadir juegos a la lista
+        comentarios.clear();
+        for(int i=Comentarios.getAll(JuegoDetallado.this, ""+this.id_juego); i>0; i--) {
+            String datos[] = Comentarios.getComentarioAt(JuegoDetallado.this, ""+this.id_juego, ""+i);
+            String nombre_usuario = datos[0];
+            String comentario = datos[1];
+            String fecha = datos[2];
+            comentarios.add( new ComentarioJuego(fecha,nombre_usuario, comentario) );
+        }
         return comentarios.size();
     }
 
@@ -431,6 +486,15 @@ public class JuegoDetallado extends AppCompatActivity
         precio = precios[plataformaSeleccionada];
         TextView precio_text = (TextView)findViewById(R.id.precio_det);
         precio_text.setText(precio+"€");
+
+        //Cambiar valoracion
+        float valoracion = Float.parseFloat(valoraciones[plataformaSeleccionada]);
+
+        if(valoracion < 5) ((ImageView)findViewById(R.id.valoracion_det)).setImageResource(R.drawable.valoracion_baja);
+        else if(valoracion < 8) ((ImageView)findViewById(R.id.valoracion_det)).setImageResource(R.drawable.valoracion_media);
+        else ((ImageView)findViewById(R.id.valoracion_det)).setImageResource(R.drawable.valoracion_alta);
+
+        ((TextView)findViewById(R.id.valoracion)).setText(""+valoracion);
     }
 
     public void onFavClick(View v){
@@ -511,6 +575,37 @@ public class JuegoDetallado extends AppCompatActivity
             }else{
                 Toast.makeText(JuegoDetallado.this,
                         "Debes hacer login para poder reservar productos.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(JuegoDetallado.this, Login.class);
+                startActivity(intent);
+            }
+        }else{
+            Toast.makeText(JuegoDetallado.this,
+                    "No hay conexión a internet.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onEnviarComentarioClick(View v) {
+        String comentario = ((EditText)findViewById(R.id.write_comentario)).getText().toString();
+        if(Internet.isConnected(JuegoDetallado.this)){
+            String token = Preferencias_Usuario.getToken(JuegoDetallado.this);
+            if(!token.equals("")) {
+                String nombre_usuario = Preferencias_Usuario.getUser(JuegoDetallado.this);
+                Calendar c = Calendar.getInstance();
+                String fecha = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
+
+                String res = Internet.addComentario("" + this.id_juego, nombre_usuario, comentario, fecha, token);
+                if (res.substring(res.indexOf("msj-start") + 9, res.indexOf("msj-end")).equals("OK")) {
+                    new Comentarios(this.id_juego, nombre_usuario, comentario, fecha, JuegoDetallado.this);
+
+                    Toast.makeText(getApplicationContext(),
+                            "Se ha publicado el comentario.", Toast.LENGTH_SHORT).show();
+
+                    populateComentarios();
+                    showLVComentarios_Complejo();
+                }
+            }else{
+                Toast.makeText(getApplicationContext(),
+                        "Debes hacer login para publicar comentarios.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(JuegoDetallado.this, Login.class);
                 startActivity(intent);
             }

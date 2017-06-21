@@ -12,12 +12,12 @@ import java.util.List;
 public class JuegoMasReservados {
     private double precio;
     private String nombre;
-    private int Drawable;
+    private String Drawable;
     private String plataforma;
     private String genero;
     private String ranking;
 
-    public JuegoMasReservados(String nombre, String plataforma, String genero, double precio, int Drawable, String ranking) {
+    public JuegoMasReservados(String nombre, String plataforma, String genero, double precio, String Drawable, String ranking) {
         this.nombre = nombre;
         this.plataforma = plataforma;
         this.genero = genero;
@@ -27,14 +27,6 @@ public class JuegoMasReservados {
     }
 
     public static final List<JuegoMasReservados> JUEGOS = new ArrayList<>();
-
-    static {
-        JUEGOS.add(new JuegoMasReservados("Super Mario", "3DS", "Plataformas", 20.30, R.drawable.ares, "1" ));
-        JUEGOS.add(new JuegoMasReservados("Super Mario", "3DS", "Plataformas", 20.30, R.drawable.ares, "2" ));
-        JUEGOS.add(new JuegoMasReservados("Super Mario", "3DS", "Plataformas", 20.30, R.drawable.ares, "3" ));
-        JUEGOS.add(new JuegoMasReservados("Super Mario", "3DS", "Plataformas", 20.30, R.drawable.ares, "4" ));
-        JUEGOS.add(new JuegoMasReservados("Super Mario", "3DS", "Plataformas", 20.30, R.drawable.ares, "5" ));
-    }
 
     public double getPrecio() {
         return precio;
@@ -52,7 +44,7 @@ public class JuegoMasReservados {
         return genero;
     }
 
-    public int getDrawable() {
+    public String getDrawable() {
         return Drawable;
     }
 

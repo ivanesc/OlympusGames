@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class Busquedas {
 
     private static SQLite_DB olympusgames_db;
-    static int limite = 20;
+    static int limite = 100;
 
     int Id_Juego;
 

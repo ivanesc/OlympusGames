@@ -13,7 +13,7 @@ import android.util.Log;
 public class Reservas_Cache {
 
     private static SQLite_DB olympusgames_db;
-    static int limite = 10;
+    static int limite = 20;
 
     int Num_Juegos;
     String Precio_Total;
@@ -72,6 +72,17 @@ public class Reservas_Cache {
         SQLiteDatabase db = olympusgames_db.getWritableDatabase();
 
         db.delete(SQLite_DB.Tabla_Reservas.Nombre_Tabla, SQLite_DB.Tabla_Reservas.Id+"=?", new String[]{"" + id});
+        db.close();
+    }
+
+    //Elimina un dato de la tabla Reservas_Cache
+    public static void delete(Context contexto, String identificador) {
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getWritableDatabase();
+
+        db.delete(SQLite_DB.Tabla_Reservas.Nombre_Tabla, SQLite_DB.Tabla_Reservas.Identificador+"=?", new String[]{"" + identificador});
         db.close();
     }
 
@@ -208,6 +219,36 @@ public class Reservas_Cache {
             cont[5] = cursor.getString(5);
             cont[6] = cursor.getString(6);
             cont[7] = cursor.getString(7);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return cont;
+    }
+
+    //Get datos de un juego con el identificador especificado
+    public static String getEstadoReserva(Context contexto, String identificador) {
+        String cont = "";
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Reservas.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Reservas.Estado} // Columnas
+                , SQLite_DB.Tabla_Reservas.Identificador+"=?" // Cláusula where
+                , new String[]{""+identificador} // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            cont = cursor.getString(0);
             cursor.moveToNext();
         }
         cursor.close();

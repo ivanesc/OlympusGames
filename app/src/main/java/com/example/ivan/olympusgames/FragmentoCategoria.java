@@ -213,17 +213,46 @@ public class FragmentoCategoria extends Fragment {
         //BUSQUEDAS
         BUSQUEDAS.clear();
         int nBusquedas = Busquedas.getAll(contexto);
-        for(int i=0; i< nBusquedas; i++){
-            int id = Busquedas.getId(contexto, i+1);
-            String game[] = Datos_Juegos.getGame(contexto, id);
+        if(!nombre.equals("")) {
+            for (int i = 0; i < nBusquedas; i++) {
+                int id = Busquedas.getId(contexto, i + 1);
+                String game[] = Datos_Juegos.getGame(contexto, id);
 
-            String name = game[1];
-            String gens = game[3];
-            String plats = game[4];
-            String plataformas = game[4].replace("/////", ", ");
-            String precio[] = game[5].split("/////");
-            if(name.toLowerCase().contains(nombre.toLowerCase()) && gens.toLowerCase().contains(genero.toLowerCase()) && plats.toLowerCase().contains(plataforma.toLowerCase()))
-                BUSQUEDAS.add(new com.example.ivan.olympusgames.modelo.Juego(Float.parseFloat(precio[0].replace(",",".")), name, plataformas, game[7]));
+                String name = game[1];
+                String gens = game[3];
+                String plats = game[4];
+                String plataformas = game[4].replace("/////", ", ");
+                String precio[] = game[5].split("/////");
+                if (name.toLowerCase().contains(nombre.toLowerCase()))
+                    BUSQUEDAS.add(new com.example.ivan.olympusgames.modelo.Juego(Float.parseFloat(precio[0].replace(",", ".")), name, plataformas, game[7]));
+            }
+        }else if(!plataforma.equals("")) {
+            for (int i = 0; i < nBusquedas; i++) {
+                int id = Busquedas.getId(contexto, i + 1);
+                String game[] = Datos_Juegos.getGame(contexto, id);
+
+                String name = game[1];
+                String gens = game[3];
+                String plats = game[4];
+                String plataformas = game[4].replace("/////", ", ");
+                String precio[] = game[5].split("/////");
+                if (plataformas.toLowerCase().contains(plataforma.toLowerCase()))
+                    BUSQUEDAS.add(new com.example.ivan.olympusgames.modelo.Juego(Float.parseFloat(precio[0].replace(",", ".")), name, plataformas, game[7]));
+            }
+        }else if(!genero.equals("")) {
+            for (int i = 0; i < nBusquedas; i++) {
+                int id = Busquedas.getId(contexto, i + 1);
+                String game[] = Datos_Juegos.getGame(contexto, id);
+
+                String name = game[1];
+                String gens = game[3];
+                String plats = game[4];
+                String generos = game[3].replace("/////", ", ");
+                String plataformas = game[4].replace("/////", ", ");
+                String precio[] = game[5].split("/////");
+                if (generos.toLowerCase().contains(genero.toLowerCase()))
+                    BUSQUEDAS.add(new com.example.ivan.olympusgames.modelo.Juego(Float.parseFloat(precio[0].replace(",", ".")), name, plataformas, game[7]));
+            }
         }
 
         switch (indiceSeccion) {

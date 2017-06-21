@@ -33,9 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/localiza_texto_mapa"
         android:hint="Ingresa  ubicación..."
-        android:textColor="@color/color_white"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="16dp" />
+        android:textColor="@color/color_white"
+        android:textSize="16dp"/>
 
     <ImageButton
         android:id="@+id/gpsautomatico"
@@ -43,7 +43,8 @@
         android:layout_height="50dp"
         android:layout_below="@+id/localiza_texto_mapa"
         android:layout_toRightOf="@+id/miubicacion"
-        android:src="@drawable/gps"/>
+        android:onClick="onLocButtonClick"
+        android:src="@drawable/gps" />
 
     <fragment
         android:id="@+id/map"

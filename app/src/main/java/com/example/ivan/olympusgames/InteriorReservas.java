@@ -16,11 +16,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
+import com.example.ivan.olympusgames.SQLite.Preferencias_Usuario;
 import com.example.ivan.olympusgames.SQLite.Reservas_Cache;
 import com.example.ivan.olympusgames.modelo.JuegoInteriorReservas;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -47,6 +50,8 @@ public class InteriorReservas extends AppCompatActivity
     AppBarLayout barra;
 
     Toolbar barra1;
+
+    String identificador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +83,7 @@ public class InteriorReservas extends AppCompatActivity
         reciclador.setLayoutManager(layoutManager);
 
         Bundle extras = getIntent().getExtras();
-        String identificador = extras.getString("identificador");
+        identificador = extras.getString("identificador");
 
         //Añadir juegos a la lista
         String datos[] = Reservas_Cache.getReserva(InteriorReservas.this, identificador);
@@ -106,6 +111,19 @@ public class InteriorReservas extends AppCompatActivity
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Button boton = (Button)findViewById(R.id.cancelaReserva);
+        String estado = Reservas_Cache.getEstadoReserva(InteriorReservas.this, identificador);
+
+        if(estado.equals("Recogido")){
+            boton.setText("ELIMINAR RESERVA");
+        }else{
+            boton.setText("CANCELAR RESERVA");
+        }
+    }
+
+    @Override
     public void onItemClick(AdaptadorInteriorReserva.ViewHolder holder, int posicion) {
 
     }
@@ -118,5 +136,35 @@ public class InteriorReservas extends AppCompatActivity
         Intent intent = new Intent(this, JuegoDetallado.class);
         intent.putExtra("id", id_juedo[0]);
         startActivity(intent);
+    }
+
+    public void onCancelarReservaClick(View v) {
+        String estado = Reservas_Cache.getEstadoReserva(InteriorReservas.this, identificador);
+
+        if(estado.equals("Recogido")){
+            Reservas_Cache.delete(InteriorReservas.this, identificador);
+            Toast.makeText(InteriorReservas.this,
+                    "Reserva "+identificador+" eliminada.", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(InteriorReservas.this, Reservas.class);
+            InteriorReservas.this.startActivity(intent);
+        }else{
+            if(Internet.isConnected(InteriorReservas.this)) {
+                String res = Internet.deleteReserva(Preferencias_Usuario.getUser(InteriorReservas.this), Preferencias_Usuario.getToken(InteriorReservas.this), identificador);
+                if(res.substring(res.indexOf("msj-start") + 9, res.indexOf("msj-end")).equals("error")){
+                    Toast.makeText(InteriorReservas.this,
+                            "Tu no has realizado la reserva.", Toast.LENGTH_SHORT).show();
+                }else{
+                    Reservas_Cache.delete(InteriorReservas.this, identificador);
+                    Toast.makeText(InteriorReservas.this,
+                            "Reserva "+identificador+" cancelada.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(InteriorReservas.this, Reservas.class);
+                    InteriorReservas.this.startActivity(intent);
+                }
+            }else {
+                Toast.makeText(InteriorReservas.this,
+                        "No hay conexión a internet.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

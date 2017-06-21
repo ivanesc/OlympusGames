@@ -3,7 +3,9 @@ package com.example.ivan.olympusgames;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,6 +42,7 @@ import android.widget.ViewSwitcher;
 import com.example.ivan.olympusgames.SQLite.Banner;
 import com.example.ivan.olympusgames.SQLite.Cache_Busquedas;
 import com.example.ivan.olympusgames.SQLite.Datos_Juegos;
+import com.example.ivan.olympusgames.SQLite.Preferencias_Usuario;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.io.File;
@@ -76,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer = null;
 
     boolean busqueda = false;
+    boolean plat = false;
+    boolean gen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            busqueda = extras.getBoolean("busqueda");
+            if(extras.containsKey("busqueda")) busqueda = extras.getBoolean("busqueda");
+            if(extras.containsKey("plataforma")) plat = extras.getBoolean("plataforma");
+            if(extras.containsKey("genero")) gen = extras.getBoolean("genero");
         }
 
         imageSwitcher = (ImageSwitcher) findViewById(R.id.imageSwitcher);
@@ -103,7 +110,34 @@ public class MainActivity extends AppCompatActivity {
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                float n = 0;
+                String iconPath = Preferencias_Usuario.getIcon(MainActivity.this);
+                Drawable icon = getResources().getDrawable(R.drawable.ares);
+                int fondo = Color.rgb(72,72,72);
+
+                if(iconPath != null) {
+                    if(!Preferencias_Usuario.getToken(MainActivity.this).equals("")) {
+                        if (iconPath.equals(""))
+                            icon = getResources().getDrawable(R.drawable.fotoperfil);
+                        else icon = Drawable.createFromPath(iconPath);
+
+                        fondo = Color.rgb(63, 81, 181);
+                    }
+                }
+
+                if (drawer.isDrawerOpen(GravityCompat.START)) n=0;
+                else if(n == 0){
+                    n=1;
+                    ((LinearLayout)findViewById(R.id.fondoMenu)).setBackground(new ColorDrawable(fondo));
+                    ((ImageView)findViewById(R.id.iconoMenu)).setImageDrawable(icon);
+                }
+                super.onDrawerSlide(drawerView, slideOffset);
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -162,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-        if(busqueda) FragmentoCategorias.changeTab(2);
+        if(busqueda || plat || gen) FragmentoCategorias.changeTab(2);
     }
 
     @Override

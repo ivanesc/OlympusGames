@@ -13,20 +13,19 @@ import android.util.Log;
 public class Comentarios {
 
     private static SQLite_DB olympusgames_db;
-    int limite_juego = 10;
 
     int Id_Juego;
     String Usuario;
     String Comentario;
+    String Fecha;
 
-    public Comentarios(int Id_Juego, String Usuario, String Comentario, Context contexto) {
+    public Comentarios(int Id_Juego, String Usuario, String Comentario, String Fecha, Context contexto) {
         this.Id_Juego = Id_Juego;
         this.Usuario = Usuario;
         this.Comentario = Comentario;
+        this.Fecha = Fecha;
 
-        //Agrega solo 10 comentarios, por lo que los 10 primeros valores devueltos por el servidor deben ser los más actuales
-        //Cada vez que se entra en un juego, se borran todos los comentarios almacenados para ese Id_Juego y se guardan los 10 primeros
-        if(getAll(contexto, this.Id_Juego) < limite_juego){
+        if(!exist(contexto, Id_Juego, Usuario, Comentario, Fecha)){
             add(contexto);
         }
     }
@@ -42,6 +41,7 @@ public class Comentarios {
         values.put(SQLite_DB.Tabla_Comentarios.Id_Juego, this.Id_Juego);
         values.put(SQLite_DB.Tabla_Comentarios.Usuario, this.Usuario);
         values.put(SQLite_DB.Tabla_Comentarios.Comentario, this.Comentario);
+        values.put(SQLite_DB.Tabla_Comentarios.Fecha, this.Fecha);
 
         db.insert(SQLite_DB.Tabla_Comentarios.Nombre_Tabla, null, values);
         db.close();
@@ -59,7 +59,7 @@ public class Comentarios {
     }
 
     //Obtener todos los datos de un id_juego de la tabla Comentarios
-    public static int getAll(Context contexto, int id_juego) {
+    public static int getAll(Context contexto, String id_juego) {
         int cont = 0;
 
         if (olympusgames_db == null) {
@@ -80,15 +80,74 @@ public class Comentarios {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Log.e("Dato " + SQLite_DB.Tabla_Comentarios.Nombre_Tabla, cursor.getInt(0)
-                    + ": "
-                    + cursor.getString(1));
             cursor.moveToNext();
             cont++;
         }
         cursor.close();
 
-        Log.e("Datos leidos", "" + cont);
+        return cont;
+    }
+
+    //Comprueba si existe un comentario en la tabla Comentarios
+    public static boolean exist(Context contexto, int id_Juego, String usuario, String comentario, String fecha) {
+        boolean res = false;
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Comentarios.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Comentarios.Id_Juego} // Columnas
+                , SQLite_DB.Tabla_Comentarios.Usuario+"=? AND "+SQLite_DB.Tabla_Comentarios.Comentario+"=?"
+                  +" AND "+SQLite_DB.Tabla_Comentarios.Fecha+"=? AND "+SQLite_DB.Tabla_Comentarios.Id_Juego+"=?"// Cláusula where
+                , new String[]{""+usuario, ""+comentario, ""+fecha, ""+id_Juego} // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , "1" // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            res = true;
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return res;
+    }
+
+    public static String[] getComentarioAt(Context contexto, String id_juego, String pos) {
+        String cont[] = new String[3];
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Comentarios.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Comentarios.Usuario, SQLite_DB.Tabla_Comentarios.Comentario,
+                        SQLite_DB.Tabla_Comentarios.Fecha} // Columnas
+                , SQLite_DB.Tabla_Comentarios.Id_Juego+"=?" // Cláusula where
+                , new String[]{""+id_juego} // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , ""+pos // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            cont[0] = cursor.getString(0);
+            cont[1] = cursor.getString(1);
+            cont[2] = cursor.getString(2);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
         return cont;
     }
 }

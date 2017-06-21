@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -59,6 +60,7 @@ public class Registro extends AppCompatActivity {
     Toolbar barra1;
 
     EditText usuario;
+    EditText email;
     EditText pass;
     EditText pass_conf;
     Button boton;
@@ -84,7 +86,34 @@ public class Registro extends AppCompatActivity {
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                float n = 0;
+                String iconPath = Preferencias_Usuario.getIcon(Registro.this);
+                Drawable icon = getResources().getDrawable(R.drawable.ares);
+                int fondo = Color.rgb(72,72,72);
+
+                if(iconPath != null) {
+                    if(!Preferencias_Usuario.getToken(Registro.this).equals("")) {
+                        if (iconPath.equals(""))
+                            icon = getResources().getDrawable(R.drawable.fotoperfil);
+                        else icon = Drawable.createFromPath(iconPath);
+
+                        fondo = Color.rgb(63, 81, 181);
+                    }
+                }
+
+                if (drawer.isDrawerOpen(GravityCompat.START)) n=0;
+                else if(n == 0){
+                    n=1;
+                    ((LinearLayout)findViewById(R.id.fondoMenu)).setBackground(new ColorDrawable(fondo));
+                    ((ImageView)findViewById(R.id.iconoMenu)).setImageDrawable(icon);
+                }
+                super.onDrawerSlide(drawerView, slideOffset);
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -116,21 +145,24 @@ public class Registro extends AppCompatActivity {
         });
 
         usuario = (EditText)findViewById(R.id.reg_user);
+        email = (EditText)findViewById(R.id.reg_email);
         pass = (EditText)findViewById(R.id.reg_password);
         pass_conf = (EditText)findViewById(R.id.conf_regpassword);
 
         boton = (Button)findViewById(R.id.but_register_user);
         boton.setOnClickListener(new View.OnClickListener() {
-            String user, password, password_conf;
+            String user, correo, password, password_conf;
 
             @Override
             public void onClick(View v) {
                 int err = 0;
                 user = usuario.getText().toString();
+                correo = email.getText().toString();
                 password = pass.getText().toString();
                 password_conf = pass_conf.getText().toString();
 
                 usuario.setBackground(new ColorDrawable(0xFF455A64));
+                email.setBackground(new ColorDrawable(0xFF455A64));
                 pass.setBackground(new ColorDrawable(0xFF455A64));
                 pass_conf.setBackground(new ColorDrawable(0xFF455A64));
 
@@ -141,11 +173,12 @@ public class Registro extends AppCompatActivity {
                 else if(isNumeric(user)) err = 4;
                 else if(password.length() > 8) err = 5;
                 else if(!password.equals(password_conf)) err = 6;
+                else if(!correo.contains("@") || !correo.contains(".")) err = 7;
 
                 switch(err){
                     case 0: //No hay errores en los datos de entrada. Enviar petición
                         if(Internet.isConnected(Registro.this)) {
-                            String res = Internet.addUsuario(user, password_conf);
+                            String res = Internet.addUsuario(user, password_conf, correo);
                             if (res.substring(res.indexOf("msj-start") + 9, res.indexOf("msj-end")).equals("error")) {
                                 usuario.setBackground(new ColorDrawable(0xFFFF0000));
                                 Toast.makeText(getApplicationContext(),
@@ -156,6 +189,7 @@ public class Registro extends AppCompatActivity {
                                 if (imageUri != null) {
                                     String icon = guardarImagen(Registro.this, "user", "icon", ((BitmapDrawable) foto_gallery.getDrawable()).getBitmap());
                                     new Preferencias_Usuario("", "", "", "", Registro.this);
+                                    Preferencias_Usuario.updateCorreo(Registro.this, correo);
                                     Preferencias_Usuario.setIcon(Registro.this, icon);
                                 }
 
@@ -196,6 +230,11 @@ public class Registro extends AppCompatActivity {
                         pass_conf.setBackground(new ColorDrawable(0xFFFF0000));
                         Toast.makeText(getApplicationContext(),
                                 "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 7: //Las contraseñas no coinciden
+                        email.setBackground(new ColorDrawable(0xFFFF0000));
+                        Toast.makeText(getApplicationContext(),
+                                "Introduzca un correo válido.", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }

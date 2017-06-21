@@ -10,7 +10,39 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="onItemMasReservadosClick">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/precio_masres"
+            android:layout_alignBottom="@+id/rankingreserva">
+
+            <ImageView
+                android:id="@+id/valoracion_masres"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/valoracion" />
+
+            <TextView
+                android:id="@+id/valoracion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:text="9.5"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_alignBottom="@+id/valoracion_masres"
+                android:layout_alignStart="@+id/valoracion_masres" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/rankingreserva"
@@ -37,6 +69,7 @@
             android:layout_toRightOf="@+id/miniatura_juego_masres"
             android:ellipsize="end"
             android:maxLines="1"
+            android:paddingRight="50dp"
             android:text="Nombre juego"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/color_white"
@@ -49,6 +82,9 @@
             android:layout_alignLeft="@+id/nombre_juego_masres"
             android:layout_below="@+id/nombre_juego_masres"
             android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingRight="50dp"
             android:text="Plataforma"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/color_white" />
@@ -60,17 +96,12 @@
             android:layout_alignLeft="@+id/nombre_juego_masres"
             android:layout_below="@+id/plataforma_masres"
             android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingRight="50dp"
             android:text="Género"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/color_white" />
-
-        <ImageView
-            android:id="@+id/valoracion_masres"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/valoracion" />
 
         <TextView
             android:id="@+id/precio_masres"

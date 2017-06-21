@@ -1,6 +1,8 @@
 package com.example.ivan.olympusgames;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +36,9 @@ public class AdaptadorJuegoDetallado extends RecyclerView.Adapter<AdaptadorJuego
         public TextView descripcion;
         public TextView genero;
         public TextView precio;
+        public TextView val;
         public ImageView imagen;
+        public ImageView imagen_val;
         public RatingBar ratingBar;
         public ImageButton boton_fav;
         public ImageButton boton_carr;
@@ -46,7 +50,9 @@ public class AdaptadorJuegoDetallado extends RecyclerView.Adapter<AdaptadorJuego
             descripcion = (TextView) v.findViewById(R.id.descripcion_det_relleno);
             genero = (TextView) v.findViewById(R.id.genero_det_relleno);
             precio = (TextView) v.findViewById(R.id.precio_det);
+            val = (TextView) v.findViewById(R.id.valoracion);
             imagen = (ImageView) v.findViewById(R.id.miniatura_juego_det);
+            imagen_val = (ImageView) v.findViewById(R.id.valoracion_det);
             ratingBar = (RatingBar) v.findViewById(R.id.ratingBar);
             boton_fav = (ImageButton) v.findViewById(R.id.favoritos);
             boton_carr = (ImageButton) v.findViewById(R.id.action_carrito);
@@ -107,12 +113,13 @@ public class AdaptadorJuegoDetallado extends RecyclerView.Adapter<AdaptadorJuego
             }
         });
 
-        /*viewHolder.galeria.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AdaptadorJuegoDetallado.this, GaleriaImagenes.class));
-            }
-        });*/
+        float valoracion = Float.parseFloat(Datos_Juegos.getGame(null, itemActual.getId())[6].split("/////")[0]);
+
+        if(valoracion < 5) viewHolder.imagen_val.setImageResource(R.drawable.valoracion_baja);
+        else if(valoracion < 8) viewHolder.imagen_val.setImageResource(R.drawable.valoracion_media);
+        else viewHolder.imagen_val.setImageResource(R.drawable.valoracion_alta);
+
+        viewHolder.val.setText(""+valoracion);
 
     }
 }

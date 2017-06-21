@@ -14,55 +14,68 @@
     tools:context="com.example.ivan.olympusgames.Carrito"
     tools:showIn="@layout/app_bar_carrito">
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/reciclador5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="130dp"
-        android:scrollbars="vertical" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/sinproductoscarrito"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:gravity="center"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="NO TIENES NINGÚN JUEGO EN TU CARRITO ACTUALMENTE"
-        android:textColor="@color/color_white"
-        android:textSize="30sp" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/reciclador5">
-
-        <Button
-            android:id="@+id/botonPedidos"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="20dp"
-            android:background="#ffffa400"
-            android:onClick="onReservaClick"
-            android:text="Realizar Reserva"
-            android:textAlignment="center"
-            android:visibility="invisible" />
-
-        <ImageView
-            android:id="@+id/imageView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/botonPedidos"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="0.73"
-            android:src="@drawable/juegocarrito"
-            android:visibility="invisible" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    </RelativeLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reciclador5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="130dp"
+                android:scrollbars="vertical" />
+
+            <TextView
+                android:id="@+id/sinproductoscarrito"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="150dp"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="NO TIENES NINGÚN JUEGO EN TU CARRITO ACTUALMENTE"
+                android:textColor="@color/color_white"
+                android:textSize="30sp"
+                android:visibility="invisible" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/reciclador5">
+
+                <Button
+                    android:id="@+id/botonPedidos"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#ffffa400"
+                    android:onClick="onReservaClick"
+                    android:text="Realizar Reserva"
+                    android:textAlignment="center"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/botonPedidos"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="0.73"
+                    android:src="@drawable/juegocarrito"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

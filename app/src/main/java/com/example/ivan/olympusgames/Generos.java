@@ -1,6 +1,9 @@
 package com.example.ivan.olympusgames;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -11,9 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.example.ivan.olympusgames.SQLite.Preferencias_Usuario;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 
@@ -41,7 +49,34 @@ public class Generos extends AppCompatActivity {
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                float n = 0;
+                String iconPath = Preferencias_Usuario.getIcon(Generos.this);
+                Drawable icon = getResources().getDrawable(R.drawable.ares);
+                int fondo = Color.rgb(72,72,72);
+
+                if(iconPath != null) {
+                    if(!Preferencias_Usuario.getToken(Generos.this).equals("")) {
+                        if (iconPath.equals(""))
+                            icon = getResources().getDrawable(R.drawable.fotoperfil);
+                        else icon = Drawable.createFromPath(iconPath);
+
+                        fondo = Color.rgb(63, 81, 181);
+                    }
+                }
+
+                if (drawer.isDrawerOpen(GravityCompat.START)) n=0;
+                else if(n == 0){
+                    n=1;
+                    ((LinearLayout)findViewById(R.id.fondoMenu)).setBackground(new ColorDrawable(fondo));
+                    ((ImageView)findViewById(R.id.iconoMenu)).setImageDrawable(icon);
+                }
+                super.onDrawerSlide(drawerView, slideOffset);
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -92,6 +127,82 @@ public class Generos extends AppCompatActivity {
                 startActivity(new Intent(this, Carrito.class));
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onGeneroBusquedaClick(View v) {
+        String aux[] = getResources().getResourceName(v.getId()).split("/");
+        String opcion = aux[aux.length-1];
+        String genero = "";
+
+        switch(opcion){
+            case "opcion1":
+                genero = "Aventura";
+                break;
+            case "opcion2":
+                genero = "Puzzle";
+                break;
+            case "opcion3":
+                genero = "Accion";
+                break;
+            case "opcion4":
+                genero = "Fantasia";
+                break;
+            case "opcion5":
+                genero = "Arcade";
+                break;
+            case "opcion6":
+                genero = "Social";
+                break;
+            case "opcion7":
+                genero = "Habilidad";
+                break;
+            case "opcion8":
+                genero = "Estrategia";
+                break;
+            case "opcion9":
+                genero = "Turnos";
+                break;
+            case "opcion10":
+                genero = "Shooter";
+                break;
+            case "opcion11":
+                genero = "Deportivo";
+                break;
+            case "opcion12":
+                genero = "Mundo abierto";
+                break;
+            case "opcion13":
+                genero = "Rol";
+                break;
+            case "opcion14":
+                genero = "Simulador";
+                break;
+            case "opcion15":
+                genero = "Survival";
+                break;
+            case "opcion16":
+                genero = "Horror";
+                break;
+            case "opcion17":
+                genero = "Coches";
+                break;
+            case "opcion18":
+                genero = "Lucha";
+                break;
+            case "opcion19":
+                genero = "Plataformas";
+                break;
+        }
+
+        //Realizar búsqueda por palabra
+        FragmentoCategoria.Busqueda("", "", genero, Generos.this);
+        if(!Internet.isConnected(Generos.this)) {
+            Toast.makeText(Generos.this,
+                    "No hay conexión a internet. La búsqueda se realizará sobre la caché.", Toast.LENGTH_SHORT).show();
+        }
+        Intent intent = new Intent(Generos.this, MainActivity.class);
+        intent.putExtra("genero", true);
+        Generos.this.startActivity(intent);
     }
 
 }

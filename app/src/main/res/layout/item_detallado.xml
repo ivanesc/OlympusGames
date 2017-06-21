@@ -113,14 +113,34 @@
             android:textSize="18dp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/valoracion_det"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/valoracion" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/valoracion_det"
+            android:layout_marginTop="60dp">
+
+            <ImageView
+                android:id="@+id/valoracion_det"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="0dp"
+                android:src="@drawable/valoracion" />
+
+            <TextView
+                android:id="@+id/valoracion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="20dp"
+                android:text="9.5"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -135,9 +155,9 @@
             android:id="@+id/precio_det"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/valoracion_det"
-            android:layout_marginTop="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_marginTop="30dp"
             android:text="54 €"
             android:textColor="@color/color_white"
             android:textSize="25dp"

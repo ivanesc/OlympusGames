@@ -73,18 +73,19 @@
             android:textColor="@color/color_white"
             android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/enviarcomentario"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@+id/write_comentario"
-                android:layout_alignParentRight="true"
-                android:background="#FF415842"
-                android:text="Enviar"
-                android:textColor="@color/color_white"
-                android:textSize="12sp" />
+        <Button
+            android:id="@+id/enviarcomentario"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/write_comentario"
+            android:layout_margin="15dp"
+            android:layout_marginTop="5dp"
+            android:background="#FF415842"
+            android:onClick="onEnviarComentarioClick"
+            android:text="Enviar"
+            android:textColor="@color/color_white"
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

@@ -27,16 +27,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button00"
+                        android:id="@+id/opcion1"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onPlataformaBusquedaClick"
                         app:srcCompat="@drawable/pc" />
 
                     <TextView
-                        android:id="@+id/pc"
+                        android:id="@+id/plataforma_nombre"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button00"
+                        android:layout_below="@+id/opcion1"
                         android:background="@color/accentColor"
                         android:text="PC"
                         android:textAlignment="center"
@@ -52,16 +53,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button01"
+                        android:id="@+id/opcion2"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onPlataformaBusquedaClick"
                         app:srcCompat="@drawable/n3ds" />
 
                     <TextView
-                        android:id="@+id/n3ds"
+                        android:id="@+id/plataforma_nombre"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button01"
+                        android:layout_below="@+id/opcion2"
                         android:background="@color/accentColor"
                         android:text="N3DS"
                         android:textAlignment="center"
@@ -80,16 +82,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button10"
+                        android:id="@+id/opcion3"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onPlataformaBusquedaClick"
                         app:srcCompat="@drawable/xbox" />
 
                     <TextView
-                        android:id="@+id/xbox"
+                        android:id="@+id/plataforma_nombre"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button10"
+                        android:layout_below="@+id/opcion3"
                         android:background="@color/accentColor"
                         android:text="XboxOne"
                         android:textAlignment="center"
@@ -105,16 +108,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button11"
+                        android:id="@+id/opcion4"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onPlataformaBusquedaClick"
                         app:srcCompat="@drawable/wiiu" />
 
                     <TextView
-                        android:id="@+id/wiiu"
+                        android:id="@+id/plataforma_nombre"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button11"
+                        android:layout_below="@+id/opcion4"
                         android:background="@color/accentColor"
                         android:text="WiiU"
                         android:textAlignment="center"
@@ -133,16 +137,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-                        android:id="@+id/button30"
+                        android:id="@+id/opcion5"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onPlataformaBusquedaClick"
                         app:srcCompat="@drawable/ps4" />
 
                     <TextView
-                        android:id="@+id/PS4"
+                        android:id="@+id/plataforma_nombre"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button30"
+                        android:layout_below="@+id/opcion5"
                         android:background="@color/accentColor"
                         android:text="PS4"
                         android:textAlignment="center"
@@ -158,16 +163,17 @@
                     android:paddingLeft="40dp">
 
                     <ImageButton
-                        android:id="@+id/button31"
+                        android:id="@+id/opcion6"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:onClick="onPlataformaBusquedaClick"
                         app:srcCompat="@drawable/nswitch" />
 
                     <TextView
-                        android:id="@+id/nswitch"
+                        android:id="@+id/plataforma_nombre"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
-                        android:layout_below="@+id/button31"
+                        android:layout_below="@+id/opcion6"
                         android:background="@color/accentColor"
                         android:text="Switch"
                         android:textAlignment="center"
@@ -186,16 +192,17 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/button40"
+                    android:id="@+id/opcion7"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
+                    android:onClick="onPlataformaBusquedaClick"
                     app:srcCompat="@drawable/psvita" />
 
                 <TextView
-                    android:id="@+id/PSVita"
+                    android:id="@+id/plataforma_nombre"
                     android:layout_width="140dp"
                     android:layout_height="40dp"
-                    android:layout_below="@+id/button40"
+                    android:layout_below="@+id/opcion7"
                     android:background="@color/accentColor"
                     android:text="PSVita"
                     android:textAlignment="center"
