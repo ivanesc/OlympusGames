@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     try {
-                        Thread.sleep(6000);
+                        Thread.sleep(120000);
                     } catch (InterruptedException e) { }
                 }
             }

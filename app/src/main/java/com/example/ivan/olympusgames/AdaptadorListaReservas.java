@@ -76,11 +76,11 @@ public class AdaptadorListaReservas extends RecyclerView.Adapter<AdaptadorListaR
 
         if(itemActual.getEstado().equals("Recogido")) {
             viewHolder.estadoReserva.setTextColor(Color.GREEN);
-            new Notifications(null, 9000, "Reserva", "Gracias por reservar en olympus games.");
+            new Notifications(AppContext.getContext(), 9001, "Reserva", "Gracias por reservar en olympus games.");
         }
         if(itemActual.getEstado().equals("En tienda")){
             viewHolder.estadoReserva.setTextColor(Color.rgb(238, 165, 38));
-            new Notifications(null, 9000, "Reserva", "Ya está su reserva en la tienda.");
+            new Notifications(AppContext.getContext(), 9000, "Reserva", "Ya está su reserva en la tienda.");
         }
         if(itemActual.getEstado().equals("Pendiente")) viewHolder.estadoReserva.setTextColor(Color.RED);
     }

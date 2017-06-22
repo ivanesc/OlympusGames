@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLite_DB extends SQLiteOpenHelper {
 
     private static final String NOMBRE_BASE_DATOS = "olympusgames.db";
-    private static final int VERSION_ACTUAL = 26;
+    private static final int VERSION_ACTUAL = 28;
     private final Context contexto;
 
     public static class Tabla_Datos_Juegos {
