@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "195216378602",
+    "firebase_url": "https://car-insurance-ea4ac.firebaseio.com",
+    "project_id": "car-insurance-ea4ac",
+    "storage_bucket": "car-insurance-ea4ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195216378602:android:fb99ca65857f0d6b",
+        "android_client_info": {
+          "package_name": "com.example.ivan.olympusgames"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195216378602-6siqg57le9cb7bus1i5061lhacd78d4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw4Hhj3yFQIRpGjcJu_Xo7p4RHjyv_Dzg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

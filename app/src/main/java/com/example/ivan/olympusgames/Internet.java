@@ -85,13 +85,7 @@ public class Internet {
     public static String getNovedades(){
         String res = "";
         String[] params = {"",""};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetNovedades.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetNovedades.jsp", params);
 
         return res;
     }
@@ -99,13 +93,7 @@ public class Internet {
     public static String getOfertas(){
         String res = "";
         String[] params = {"",""};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetOfertas.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetOfertas.jsp", params);
 
         return res;
     }
@@ -113,13 +101,7 @@ public class Internet {
     public static String getBusquedas(String nombre, String plataforma, String genero){
         String res = "";
         String[] params = {"nombre", "" + nombre, "plataforma", "" + plataforma, "genero", "" + genero};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetBusqueda.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetBusqueda.jsp", params);
 
         return res;
     }
@@ -127,13 +109,7 @@ public class Internet {
     public static String getMasReservados(){
         String res = "";
         String[] params = {"",""};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetMasReservados.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetMasReservados.jsp", params);
 
         return res;
     }
@@ -141,13 +117,7 @@ public class Internet {
     public static String addUsuario(String nombre, String pass, String correo){
         String res = "";
         String[] params = {"nombre_usuario", "" + nombre, "pass", "" + pass, "correo", "" + correo};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/AddUsuario.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/AddUsuario.jsp", params);
 
         return res;
     }
@@ -155,13 +125,7 @@ public class Internet {
     public static String login(String nombre, String pass){
         String res = "";
         String[] params = {"nombre_usuario", "" + nombre, "pass", "" + pass};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/login.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/login.jsp", params);
 
         return res;
     }
@@ -169,13 +133,7 @@ public class Internet {
     public static String logout(String nombre){
         String res = "";
         String[] params = {"nombre_usuario", "" + nombre};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/logout.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/logout.jsp", params);
 
         return res;
     }
@@ -183,13 +141,7 @@ public class Internet {
     public static String updateUsuario(String nombre, String pass){
         String res = "";
         String[] params = {"nombre_usuario", "" + nombre, "pass", "" + pass};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/UpdateUsuario.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/UpdateUsuario.jsp", params);
 
         return res;
     }
@@ -197,19 +149,14 @@ public class Internet {
     public static String addReserva(String nombre_usuario, String num_juegos, String lista_juegos,
                                     String fecha, String tienda, String precio_total,
                                     String lista_plataformas, String estado, String identificacion,
-                                    String token){
+                                    String cantidad, String token){
         String res = "";
         String[] params = {"nombre_usuario", "" + nombre_usuario, "num_juegos", "" + num_juegos,
                 "lista_juegos", "" + lista_juegos, "fecha", "" + fecha, "tienda", "" + tienda,
                 "precio_total", "" + precio_total, "lista_plataformas","" + lista_plataformas,
-                "estado", "" + estado, "identificacion", "" + identificacion, "token", "" + token};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/AddReserva.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+                "estado", "" + estado, "identificacion", "" + identificacion, "cantidad", "" + cantidad,
+                "token", "" + token};
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/AddReserva.jsp", params);
 
         return res;
     }
@@ -220,13 +167,7 @@ public class Internet {
         String res = "";
         String[] params = {"nombre_usuario", "" + nombre_usuario, "identificacion", "" + identificacion,
                 "token", "" + token};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/DeleteReserva.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/DeleteReserva.jsp", params);
 
         return res;
     }
@@ -234,13 +175,7 @@ public class Internet {
     public static String stateReserva(String identificador, String token, String user){
         String res = "";
         String[] params = {"identificador", "" + identificador, "token", "" + token, "usuario", ""+user};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/StateReserva.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/StateReserva.jsp", params);
 
         return res;
     }
@@ -248,13 +183,7 @@ public class Internet {
     public static String changePass(String user){
         String res = "";
         String[] params = {"usuario", ""+user};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/ChangePass.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/ChangePass.jsp", params);
 
         return res;
     }
@@ -262,13 +191,7 @@ public class Internet {
     public static String getTiendas(){
         String res = "";
         String[] params = {};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetTiendas.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetTiendas.jsp", params);
 
         return res;
     }
@@ -276,13 +199,7 @@ public class Internet {
     public static String getTiendasBusqueda(String nombre){
         String res = "";
         String[] params = {"nombre", ""+nombre};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetTiendasBusqueda.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetTiendasBusqueda.jsp", params);
 
         return res;
     }
@@ -290,13 +207,7 @@ public class Internet {
     public static String getTiendasCercanas(String lat, String lon){
         String res = "";
         String[] params = {"lat", ""+lat, "lon", ""+lon};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetTiendasCercanas.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetTiendasCercanas.jsp", params);
 
         return res;
     }
@@ -306,13 +217,7 @@ public class Internet {
         String res = "";
         String[] params = {"id_juego", ""+id_juego, "nombre_usuario", ""+nombre_usuario, "comentario", ""+comentario
                 , "fecha", ""+fecha, "token", ""+token};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/AddComentario.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/AddComentario.jsp", params);
 
         return res;
     }
@@ -320,13 +225,15 @@ public class Internet {
     public static String getComentarios(String id_juego){
         String res = "";
         String[] params = {"id_juego", ""+id_juego};
-        try {
-            res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetComentarios.jsp", params);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetComentarios.jsp", params);
+
+        return res;
+    }
+
+    public static String getNotificaciones(String nombre_usuario){
+        String res = "";
+        String[] params = {"nombre_usuario", ""+nombre_usuario};
+        res = prmja_com.Get("http://"+ip_server+"/Olympus_WebServer/GetNotificaciones.jsp", params);
 
         return res;
     }

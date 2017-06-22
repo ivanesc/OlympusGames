@@ -1,7 +1,9 @@
 package com.example.ivan.olympusgames;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,10 +11,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -81,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
     boolean busqueda = false;
     boolean plat = false;
     boolean gen = false;
+
+    Thread notifi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,6 +197,38 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }, 0, DURATION);
+
+        /* Servicio notificaciones */
+        notifi = new Thread(new Runnable() {
+            public void run() {
+                Looper.prepare();
+                while(true) {
+                    String nombre_user = Preferencias_Usuario.getUser(MainActivity.this);
+                    if(Internet.isConnected(MainActivity.this) && !nombre_user.equals("")){
+                        String notificaciones = Internet.getNotificaciones(nombre_user);
+                        String notificacionesSplit[] = notificaciones.split("<br/>");
+                        for(int i=1; i<notificacionesSplit.length; i++){
+                            String notificacionesItem[] = notificacionesSplit[i].split("%/%");
+
+                            int id = Integer.parseInt(notificacionesItem[0]);
+                            String titulo = notificacionesItem[1];
+                            String descripcion = notificacionesItem[2];
+
+                            new Notifications(MainActivity.this, id, titulo, descripcion);
+                        }
+                    }
+                    try {
+                        Thread.sleep(6000);
+                    } catch (InterruptedException e) { }
+                }
+            }
+        });
+        notifi.start();
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        notifi.stop();
     }
 
     @Override

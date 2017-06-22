@@ -77,8 +77,8 @@ public class AdaptadorInteriorReserva extends RecyclerView.Adapter<AdaptadorInte
         viewHolder.nombreJuegoReserva.setText(itemActual.getNombre());
         viewHolder.plataformaReserva.setText(itemActual.getPlataforma());
         viewHolder.generoReserva.setText(itemActual.getGenero());
-        //viewHolder.cantidadReserva.setText(itemActual.getCantidad());
         viewHolder.precioReserva.setText(String.format("%.2f", itemActual.getPrecio()) + "€");
+        viewHolder.cantidadReserva.setText("x"+itemActual.getCantidad());
 
     }
 }

@@ -23,10 +23,11 @@ public class Reservas_Cache {
     String Lista_Plataformas;
     String Estado;
     String Identificador;
+    String Cantidad;
 
     public Reservas_Cache(int Num_Juegos, String Precio_Total, String Fecha, String Tienda,
                           String Lista_Juegos, String Lista_Plataformas, String Estado,
-                          String Identificador, Context contexto) {
+                          String Identificador, String Cantidad, Context contexto) {
         this.Num_Juegos = Num_Juegos;
         this.Precio_Total = Precio_Total;
         this.Fecha = Fecha;
@@ -35,6 +36,7 @@ public class Reservas_Cache {
         this.Lista_Plataformas = Lista_Plataformas;
         this.Estado = Estado;
         this.Identificador = Identificador;
+        this.Cantidad = Cantidad;
 
         //Compruebo si se ha llegado al límite
         if (getAll(contexto) == limite) {
@@ -59,6 +61,7 @@ public class Reservas_Cache {
         values.put(SQLite_DB.Tabla_Reservas.Lista_Plataformas, this.Lista_Plataformas);
         values.put(SQLite_DB.Tabla_Reservas.Estado, this.Estado);
         values.put(SQLite_DB.Tabla_Reservas.Identificador, this.Identificador);
+        values.put(SQLite_DB.Tabla_Reservas.Cantidad, this.Cantidad);
 
         db.insert(SQLite_DB.Tabla_Reservas.Nombre_Tabla, null, values);
         db.close();
@@ -179,6 +182,36 @@ public class Reservas_Cache {
             cont[5] = cursor.getString(5);
             cont[6] = cursor.getString(6);
             cont[7] = cursor.getString(7);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return cont;
+    }
+
+    //Get cantidad
+    public static String getCantidad(Context contexto, String identificador) {
+        String cont = "";
+
+        if (olympusgames_db == null) {
+            olympusgames_db = new SQLite_DB(contexto);
+        }
+        SQLiteDatabase db = olympusgames_db.getReadableDatabase();
+        Cursor cursor = db.query(
+                false // Distinct
+                , SQLite_DB.Tabla_Reservas.Nombre_Tabla // Tabla
+                , new String[]{SQLite_DB.Tabla_Reservas.Cantidad} // Columnas
+                , SQLite_DB.Tabla_Reservas.Identificador+"=?" // Cláusula where
+                , new String[]{""+identificador} // Vector de argumentos
+                , null // Cláusula group by.
+                , null // Cláusula having
+                , null // Cláusula order by.
+                , null // Cláusula limit
+        );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            cont = cursor.getString(0);
             cursor.moveToNext();
         }
         cursor.close();

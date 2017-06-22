@@ -16,15 +16,17 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Malek on 2/11/2016.
  */
 public class prmja_com {
-    public static String Get(String s ,String[] a) throws ExecutionException, InterruptedException {
-
+    public static String Get(String s ,String[] a) {
+        String res = "";
         String parameters = "";
 
         for (int i = 0; i < a.length; i++) {
@@ -35,7 +37,16 @@ public class prmja_com {
             }
             i++;
         }
-        return new DownloadWebpageTask().execute(s+"?"+parameters,"GET","").get();
+
+        try {
+            res = new DownloadWebpageTask().execute(s+"?"+parameters,"GET","").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return res;
     }
 
     public static String Post(String s ,String[] a) throws ExecutionException, InterruptedException {
@@ -125,7 +136,7 @@ public class prmja_com {
         private String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
             int n = 0;
             char[] buffer = new char[1024 * 4];
-            InputStreamReader reader = new InputStreamReader(stream, "UTF8");
+            InputStreamReader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
             StringWriter writer = new StringWriter();
             while (-1 != (n = reader.read(buffer))) writer.write(buffer, 0, n);
             return writer.toString();

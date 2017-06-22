@@ -25,12 +25,16 @@
 
     <string name="titulo_tab_novedades">Novedades</string>
     <string name="titulo_tab_ofertas">Ofertas</string>
-    <string name="titulo_tab_busquedas">Búsquedas</string>
+    <string name="titulo_tab_busquedas">Busquedas</string>
 
     <string name="empresa">¿Quiénes somos?</string>
+    <string name="empresa_descripcion">Cadena de tiendas Olympus Games</string>
     <string name="ubicacion">¿Dónde nos encontramos?</string>
+    <string name="ubicacion_descripcion">Tiendas repartidas por el territorio andaluz principalmente</string>
     <string name="ofrecemos">¿Qué ofrecemos a nuestros clientes?</string>
+    <string name="ofrecemos_descripcion">Amplia gama de juegos, ofertas novedosas y especial atención a las reservas que recibimos.</string>
     <string name="mejores">¿Por qué somos los mejores?</string>
+    <string name="mejores_descripcion">Nuestras ventas nos avalan frente a la competencia. Contamos con un equipo con gran experiencia en el mundo de los videojuegos. </string>
 
     <string name="title_activity_carrito">Carrito</string>
     <string name="title_activity_reservas">Reservas</string>
@@ -48,5 +52,74 @@
     <string name="title_activity_acercade">Acerca de</string>
     <string name="title_activity_ayuda">Ayuda</string>
 
+    <string name="boton_realizar_reserva">Realizar Reserva</string>
+    <string name="boton_cancelar_reserva">Cancelar reserva</string>
+    <string name="boton_enviar_comentario">Enviar</string>
+    <string name="boton_consulta_tiendas">Consulta tiendas más cercanas</string>
+    <string name="msj_reserva">JUEGOS DE TU RESERVA</string>
+    <string name="msj_comentarios">Comentarios:</string>
+    <string name="hint_comentarios">Escribe tu comentario...</string>
+    <string name="msj_deseados">*** Tus juegos favoritos ***</string>
 
+    <string name="login_title">ACCEDE YA A NUESTROS SERVICIOS</string>
+    <string name="login_user">Nombre de usuario</string>
+    <string name="login_user_hint">Escribe tu nombre de usuario</string>
+    <string name="login_pass">Contraseña</string>
+    <string name="login_pass_hint">Escribe tu contraseña</string>
+    <string name="login_boton_enviar">ENTRAR</string>
+    <string name="login_consejo">¿Aún no tienes cuenta en Olympus Games? Es requerida para hacer tus reservas.</string>
+    <string name="login_boton_registrar">REGISTRARSE</string>
+    <string name="login_boton_olvido">¿OLVIDASTE TU CONTRASEÑA?</string>
+
+    <string name="mapa_title">Localiza tu tienda más cercana:</string>
+    <string name="mapa_hint">Ingresa  ubicación...</string>
+
+    <string name="mod_old_pass">Contraseña anterior</string>
+    <string name="mod_old_pass_hint">Contraseña anterior...</string>
+    <string name="mod_new_pass">Nueva contraseña</string>
+    <string name="mod_new_pass_hint">Introduce tu contraseña...</string>
+    <string name="mod_conf_pass">Confirmar contraseña</string>
+    <string name="mod_conf_pass_hint">Confirma tu contraseña...</string>
+    <string name="mod_boton_guardar">GUARDAR</string>
+
+    <string name="olvido_title">¿OLVIDASTE TU CONTRASEÑA?</string>
+    <string name="olvido_descripcion">Ingresa tu nombre de usuario y te enviaremos tu contraseña a tu cuenta de correo.</string>
+    <string name="olvido_hint">Escribe tu nombre de usuario</string>
+    <string name="olvido_boton_enviar">ENVIAR</string>
+
+    <string name="registro_title">NUEVO USUARIO</string>
+    <string name="registro_user">Usuario</string>
+    <string name="registro_user_hint">Introduce tu nombre de usuario...</string>
+    <string name="registro_email">Email</string>
+    <string name="registro_email_hint">Introduce tu email...</string>
+    <string name="registro_pass">Contraseña</string>
+    <string name="registro_pass_hint">Introduce tu contraseña...</string>
+    <string name="registro_conf">Repetir contraseña</string>
+    <string name="registro_conf_hint">Confirma tu contraseña...</string>
+    <string name="registro_boton_registrar">Registrar</string>
+
+    <string name="menu_title">Olympus Games</string>
+    <string name="menu_msj">¡Reserva ya tus juegos en nuestras tiendas!</string>
+
+    <string name="genero1">Aventura</string>
+    <string name="genero2">Puzzle</string>
+    <string name="genero3">Acción</string>
+    <string name="genero4">Fantasía</string>
+    <string name="genero5">Arcade</string>
+    <string name="genero6">Social</string>
+    <string name="genero7">Habilidad</string>
+    <string name="genero8">Estrategia</string>
+    <string name="genero9">Turnos</string>
+    <string name="genero10">Shooter</string>
+    <string name="genero11">Deportivo</string>
+    <string name="genero12">M.abierto</string>
+    <string name="genero13">Rol</string>
+    <string name="genero14">Simulador</string>
+    <string name="genero15">Survival</string>
+    <string name="genero16">Horror</string>
+    <string name="genero17">Coches</string>
+    <string name="genero18">Lucha</string>
+    <string name="genero19">Plataformas</string>
+    <string name="no_message_text">No hay ninguna notificación todavía</string>
+    <string name="title_activity_notifications">Notificaciones</string>
 </resources>

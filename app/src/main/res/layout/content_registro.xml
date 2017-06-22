@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="NUEVO USUARIO"
+                android:text="@string/registro_title"
                 android:textColor="@color/color_black"
                 android:textSize="25sp" />
 
@@ -57,7 +57,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
-                android:text="Usuario"
+                android:text="@string/registro_user"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
-                android:hint="Introduce tu nombre de usuario..."
+                android:hint="@string/registro_user_hint"
                 android:padding="5dp"
                 android:text=""
                 android:textColor="@color/color_white"
@@ -80,7 +80,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
-                android:text="Email"
+                android:text="@string/registro_email"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -90,8 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
+                android:hint="@string/registro_email_hint"
                 android:inputType="textEmailAddress"
-                android:hint="Introduce tu email..."
                 android:padding="5dp"
                 android:text=""
                 android:textColor="@color/color_white"
@@ -104,7 +104,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
-                android:text="Contraseña"
+                android:text="@string/registro_pass"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
-                android:hint="Introduce tu contraseña..."
+                android:hint="@string/registro_pass_hint"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:text=""
@@ -128,7 +128,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
-                android:text="Repetir contraseña"
+                android:text="@string/registro_conf"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
-                android:hint="Confirma tu contraseña..."
+                android:hint="@string/registro_conf_hint"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:text=""
@@ -157,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:background="#FF415842"
-                    android:text="Registrar"
+                    android:text="@string/registro_boton_registrar"
                     android:textColor="@color/color_white"
                     android:textSize="17sp" />
 

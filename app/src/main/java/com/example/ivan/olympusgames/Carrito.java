@@ -246,6 +246,7 @@ public class Carrito extends AppCompatActivity
                         float precio_total = 0;
                         String Lista_Juegos = "";
                         String Lista_Plataformas = "";
+                        String cantidades = "";
                         for (int i = 0; i < num_juegos; i++) {
                             String datosCarrito[] = Carrito_Cache.getReservaAt(Carrito.this, i + 1);
                             int id_juego = Integer.parseInt(datosCarrito[0]);
@@ -256,18 +257,20 @@ public class Carrito extends AppCompatActivity
 
                             Lista_Juegos += id_juego;
                             Lista_Plataformas += posPlataforma;
+                            cantidades += cantidad;
                             if (i < num_juegos - 1) {
                                 Lista_Juegos += "/////";
                                 Lista_Plataformas += "/////";
+                                cantidades += "/////";
                             }
                         }
                         String nombre_usuario = Preferencias_Usuario.getUser(Carrito.this);
                         String token = Preferencias_Usuario.getToken(Carrito.this);
 
                         new Reservas_Cache(num_juegos, String.format("%.2f", precio_total), fecha, tienda, Lista_Juegos, Lista_Plataformas,
-                                Estado, Identificador, Carrito.this);
+                                Estado, Identificador, cantidades, Carrito.this);
                         Internet.addReserva(nombre_usuario, "" + num_juegos, Lista_Juegos, fecha, tienda,
-                                String.format("%.2f", precio_total), Lista_Plataformas, Estado, Identificador, token);
+                                String.format("%.2f", precio_total), Lista_Plataformas, Estado, Identificador, cantidades, token);
                         Carrito_Cache.clean(Carrito.this);
                         Toast.makeText(Carrito.this,
                                 "Reserva realizada con éxito.", Toast.LENGTH_SHORT).show();

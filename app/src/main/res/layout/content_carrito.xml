@@ -57,7 +57,7 @@
                     android:layout_marginTop="20dp"
                     android:background="#ffffa400"
                     android:onClick="onReservaClick"
-                    android:text="Realizar Reserva"
+                    android:text="@string/boton_realizar_reserva"
                     android:textAlignment="center"
                     android:visibility="visible" />
 

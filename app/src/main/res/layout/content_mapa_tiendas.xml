@@ -21,9 +21,9 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
         android:layout_marginTop="30dp"
-        android:text="Localiza tu tienda más cercana:"
-        android:textColor="@color/color_white"
+        android:text="@string/mapa_title"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/color_white"
         android:textSize="25dp"
         android:textStyle="bold" />
 
@@ -32,10 +32,10 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/localiza_texto_mapa"
-        android:hint="Ingresa  ubicación..."
+        android:hint="@string/mapa_hint"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/color_white"
-        android:textSize="16dp"/>
+        android:textSize="16dp" />
 
     <ImageButton
         android:id="@+id/gpsautomatico"

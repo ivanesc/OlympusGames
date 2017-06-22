@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLite_DB extends SQLiteOpenHelper {
 
     private static final String NOMBRE_BASE_DATOS = "olympusgames.db";
-    private static final int VERSION_ACTUAL = 25;
+    private static final int VERSION_ACTUAL = 26;
     private final Context contexto;
 
     public static class Tabla_Datos_Juegos {
@@ -76,6 +76,7 @@ public class SQLite_DB extends SQLiteOpenHelper {
         public static final String Lista_Plataformas = "lista_plataformas";
         public static final String Estado = "estado";
         public static final String Identificador = "identificador";
+        public static final String Cantidad = "cantidad";
     }
 
     public static class Tabla_Lista_Deseados {
@@ -172,11 +173,11 @@ public class SQLite_DB extends SQLiteOpenHelper {
                 Tabla_Comentarios.Usuario, Tabla_Comentarios.Comentario, Tabla_Comentarios.Fecha));
         //Crear tabla Reservas_Cache
         db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER," +
-                        "%s TEXT, %s DATE, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT);",
+                        "%s TEXT, %s DATE, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT);",
                 Tabla_Reservas.Nombre_Tabla, Tabla_Reservas.Id, Tabla_Reservas.Num_Juegos,
                 Tabla_Reservas.Precio_Total, Tabla_Reservas.Fecha, Tabla_Reservas.Tienda,
                 Tabla_Reservas.Lista_Juegos, Tabla_Reservas.Estado, Tabla_Reservas.Identificador,
-                Tabla_Reservas.Lista_Plataformas));
+                Tabla_Reservas.Lista_Plataformas, Tabla_Reservas.Cantidad));
         //Crear tabla Lista_Deseados
         db.execSQL(String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER);",
                 Tabla_Lista_Deseados.Nombre_Tabla, Tabla_Lista_Deseados.Id,

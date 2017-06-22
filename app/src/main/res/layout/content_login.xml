@@ -33,10 +33,10 @@
                 android:id="@+id/tv_label_title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:gravity="center"
-                android:text="ACCEDE YA A NUESTROS SERVICIOS"
+                android:text="@string/login_title"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -47,7 +47,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
-                android:text="Nombre de usuario"
+                android:text="@string/login_user"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -70,7 +70,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
-                android:text="Password"
+                android:text="@string/login_pass"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
-                android:hint="Escribe tu contraseña"
+                android:hint="@string/login_pass_hint"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:text=""
@@ -101,7 +101,7 @@
                     android:layout_margin="15dp"
                     android:layout_weight="2"
                     android:background="#FF415842"
-                    android:text="ENTRAR"
+                    android:text="@string/login_boton_enviar"
                     android:textColor="@color/color_white"
                     android:textSize="17sp" />
 
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="¿Aún no tienes cuenta en Olympus Games? Es requerida para hacer tus reservas."
+                android:text="@string/login_consejo"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -131,7 +131,7 @@
                     android:layout_margin="15dp"
                     android:layout_weight="2"
                     android:background="#FF415842"
-                    android:text="REGISTRARSE"
+                    android:text="@string/login_boton_registrar"
                     android:textColor="@color/color_white"
                     android:textSize="17sp" />
 
@@ -142,7 +142,7 @@
                     android:layout_margin="15dp"
                     android:layout_weight="2"
                     android:background="#FF415842"
-                    android:text="¿OLVIDASTE TU CONTRASEÑA?"
+                    android:text="@string/login_boton_olvido"
                     android:textColor="@color/color_white"
                     android:textSize="17sp" />
 

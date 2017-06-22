@@ -35,6 +35,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="¡Reserva ya tus juegos en nuestras tiendas!" />
+        android:text="@string/menu_msj" />
 
 </LinearLayout>

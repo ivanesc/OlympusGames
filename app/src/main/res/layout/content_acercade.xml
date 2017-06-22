@@ -51,7 +51,7 @@
                 android:paddingEnd="30.0dip"
                 android:paddingStart="15.0dip"
                 android:paddingTop="0.0dip"
-                android:text="Cadena de tiendas Olympus Games"
+                android:text="@string/empresa_descripcion"
                 android:textSize="14dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -96,7 +96,7 @@
                 android:paddingEnd="30.0dip"
                 android:paddingStart="15.0dip"
                 android:paddingTop="0.0dip"
-                android:text="Tiendas repartidas por el territorio andaluz principalmente"
+                android:text="@string/ubicacion_descripcion"
                 android:textSize="14dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -141,7 +141,7 @@
                 android:paddingEnd="30.0dip"
                 android:paddingStart="15.0dip"
                 android:paddingTop="0.0dip"
-                android:text="Amplia gama de juegos, ofertas novedosas y especial atención a las reservas que recibimos"
+                android:text="@string/ofrecemos_descripcion"
                 android:textSize="14dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -186,7 +186,7 @@
                 android:paddingEnd="30.0dip"
                 android:paddingStart="15.0dip"
                 android:paddingTop="0.0dip"
-                android:text="Nuestras ventas nos avalan frente a la competencia. Contamos con un equipo con gran experiencia en el mundo de los videojuegos. "
+                android:text="@string/mejores_descripcion"
                 android:textSize="14dp"
                 android:textStyle="bold" />
         </LinearLayout>

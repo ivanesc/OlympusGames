@@ -27,16 +27,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/reciclador6">
 
-    <Button
-        android:id="@+id/botonIrTiendas"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="20dp"
-        android:background="#ffffa400"
-        android:text="Consulta tiendas más cercanas"
-        android:textAlignment="center" />
+        <Button
+            android:id="@+id/botonIrTiendas"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="20dp"
+            android:background="#ffffa400"
+            android:text="@string/boton_consulta_tiendas"
+            android:textAlignment="center" />
 
     </RelativeLayout>
 

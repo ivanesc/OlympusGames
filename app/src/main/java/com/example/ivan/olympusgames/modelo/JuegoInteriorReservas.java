@@ -17,12 +17,13 @@ public class JuegoInteriorReservas {
     private String genero;
     private String cantidad;
 
-    public JuegoInteriorReservas(String nombre, String plataforma, String genero, double precio, String Drawable) {
+    public JuegoInteriorReservas(String nombre, String plataforma, String genero, double precio, String Drawable, String cantidad) {
         this.nombre = nombre;
         this.plataforma = plataforma;
         this.genero = genero;
         this.precio = precio;
         this.Drawable = Drawable;
+        this.cantidad = cantidad;
     }
 
     public static final List<JuegoInteriorReservas> JUEGOS = new ArrayList<>();

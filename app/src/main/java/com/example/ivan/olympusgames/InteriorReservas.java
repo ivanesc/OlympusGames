@@ -102,7 +102,8 @@ public class InteriorReservas extends AppCompatActivity
             String generos = datos_Juego[3].replace("/////",", ");
             float precio = Float.parseFloat(datos_Juego[5].split("/////")[posPlataforma]);
             String icon = datos_Juego[7];
-            JuegoInteriorReservas.JUEGOS.add(new JuegoInteriorReservas(nombre_juego, plataforma, generos, precio, icon));
+            String cantidad = Reservas_Cache.getCantidad(InteriorReservas.this, identificador).split("/////")[i];
+            JuegoInteriorReservas.JUEGOS.add(new JuegoInteriorReservas(nombre_juego, plataforma, generos, precio, icon, cantidad));
         }
 
         AdaptadorInteriorReserva adaptador = new AdaptadorInteriorReserva(this);

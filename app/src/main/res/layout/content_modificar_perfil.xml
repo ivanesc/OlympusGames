@@ -51,7 +51,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
-                android:text="Contraseña anterior"
+                android:text="@string/mod_old_pass"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
-                android:hint="Contraseña anterior..."
+                android:hint="@string/mod_old_pass_hint"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:text=""
@@ -75,7 +75,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
-                android:text="Nueva contraseña"
+                android:text="@string/mod_new_pass"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
-                android:hint="Introduce tu contraseña..."
+                android:hint="@string/mod_new_pass_hint"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:text=""
@@ -99,7 +99,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
-                android:text="Confirmar contraseña"
+                android:text="@string/mod_conf_pass"
                 android:textColor="@color/color_black"
                 android:textSize="20sp" />
 
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="@color/blue_grey"
-                android:hint="Confirma tu contraseña..."
+                android:hint="@string/mod_conf_pass_hint"
                 android:inputType="textPassword"
                 android:padding="5dp"
                 android:text=""
@@ -129,7 +129,7 @@
                     android:layout_margin="15dp"
                     android:layout_weight="2"
                     android:background="#FF415842"
-                    android:text="GUARDAR"
+                    android:text="@string/mod_boton_guardar"
                     android:textColor="@color/white"
                     android:textSize="17sp" />
             </LinearLayout>

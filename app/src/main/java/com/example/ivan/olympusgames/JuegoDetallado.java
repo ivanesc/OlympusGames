@@ -565,9 +565,9 @@ public class JuegoDetallado extends AppCompatActivity
                 String token = Preferencias_Usuario.getToken(JuegoDetallado.this);
 
                 new Reservas_Cache(1, String.format("%.2f", precio_total), fecha, tienda, Lista_Juegos, Lista_Plataformas,
-                        Estado, Identificador, JuegoDetallado.this);
+                        Estado, Identificador, ""+1, JuegoDetallado.this);
                 Internet.addReserva(nombre_usuario, "" + 1, Lista_Juegos, fecha, tienda,
-                        String.format("%.2f", precio_total), Lista_Plataformas, Estado, Identificador, token);
+                        String.format("%.2f", precio_total), Lista_Plataformas, Estado, Identificador, ""+1, token);
                 Toast.makeText(JuegoDetallado.this,
                         "Reserva realizada con éxito.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(JuegoDetallado.this, Reservas.class);

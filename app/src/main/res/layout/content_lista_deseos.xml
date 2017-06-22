@@ -18,10 +18,10 @@
         android:id="@+id/tv_label_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:gravity="center"
-        android:text="*** Tus juegos favoritos ***"
+        android:text="@string/msj_deseados"
         android:textColor="@color/color_white"
         android:textSize="20sp" />
 
